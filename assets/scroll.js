@@ -201,6 +201,7 @@
   gsap.from(".hl-card",{x:120,autoAlpha:0,duration:1,ease:"power3.out",stagger:.08,clearProps:"transform,opacity,visibility",scrollTrigger:{trigger:".hl-track",start:"top 80%",once:true}});
 
   // ── Simulador: entra el panel de resultado ──
+  gsap.utils.toArray(".case-row").forEach(r=>gsap.from(r,{y:40,opacity:0,duration:.9,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:r,start:"top 85%",once:true}}));
   gsap.from(".sim-out",{y:60,opacity:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:".sim-grid",start:"top 75%",once:true}});
 
   // ── Míralo de cerca: el teléfono sube y se endereza ──

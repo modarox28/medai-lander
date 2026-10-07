@@ -72,7 +72,7 @@ button{font-family:inherit}
 .nav-links a.btn{color:#04202a}
 .nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:var(--ink);cursor:pointer}
 .nav-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-@media(max-width:1080px){
+@media(max-width:1240px){
   .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gut) 18px;background:var(--navy);border-bottom:1px solid var(--line);display:none}
   .nav-links.open{display:flex}
@@ -284,6 +284,16 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 
 
 /* ── SOBRE MÍ ── */
+.case-list{border-top:1px solid var(--line)}
+.case-row{display:grid;grid-template-columns:72px minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);padding:clamp(28px,4vw,44px) 0;border-bottom:1px solid var(--line)}
+.case-n{font-family:"JetBrains Mono",monospace;color:var(--cyan);font-size:.95rem;padding-top:4px}
+.case-row h3{font-size:clamp(1.2rem,2vw,1.5rem);letter-spacing:-.02em;line-height:1.2}
+.case-k{display:block;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.case-row p{color:var(--soft)}
+.case-res p{color:var(--ink)}
+.case-more{margin-top:28px;color:var(--mute)}
+.case-more a{color:var(--cyan)}
+@media(max-width:900px){.case-row{grid-template-columns:minmax(0,1fr);gap:14px}.case-n{padding:0}}
 .about{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .about-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,88px);align-items:center}
 .about-card{position:relative;border-radius:var(--r-xl);padding:clamp(32px,5vw,56px) 28px;text-align:center;background:radial-gradient(90% 70% at 50% 0%,rgba(0,200,240,.18),transparent 70%),var(--navy);border:1px solid var(--line);overflow:hidden}
@@ -361,6 +371,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <a href="#vistazo">Take a closer look</a>
       <a href="#seguridad">Security</a>
       <a href="#tecnologia">Technology</a>
+      <a href="#caso">Case study</a>
       <a href="#sobre-mi">About me</a>
       <a class="nav-lang" href="../" hreflang="es" lang="es" aria-label="Versión en español">ES</a>
       <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1&amp;lang=en">Try the demo</a>
@@ -642,6 +653,24 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
 </section>
 
+<!-- CASO DE ESTUDIO -->
+<section class="case" id="caso" aria-labelledby="h-case">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-case">Case study. Five decisions that made it possible.</h2>
+      <p>A clinical AI app, secure and free to run, built by one person. Here is how each hard part was solved.</p>
+    </div>
+    <div class="case-list">
+      <div class="case-row"><div class="case-n">01</div><div><span class="case-k">Challenge</span><h3>Use AI without exposing the key or paying for servers</h3></div><div><span class="case-k">Decision</span><p>A free Cloudflare Worker acts as a proxy: it verifies each session's token signature, reads the user's role from the database and enforces a daily quota per user.</p></div><div class="case-res"><span class="case-k">Result</span><p>The DeepSeek key never reaches the browser, and pending or deleted accounts can't use the AI.</p></div></div>
+      <div class="case-row"><div class="case-n">02</div><div><span class="case-k">Challenge</span><h3>Protect health data without a custom backend</h3></div><div><span class="case-k">Decision</span><p>Role-based Firestore rules enforced on the server: patient, doctor, hospital admin and admin.</p></div><div class="case-res"><span class="case-k">Result</span><p>Even if someone tampers with the browser, they only see what their role allows, and nobody can promote themselves.</p></div></div>
+      <div class="case-row"><div class="case-n">03</div><div><span class="case-k">Challenge</span><h3>Reset a patient's PIN on the free plan</h3></div><div><span class="case-k">Decision</span><p>With no Cloud Functions, the same Worker signs a token with a service account and calls the Firebase admin API.</p></div><div class="case-res"><span class="case-k">Result</span><p>Staff reset a PIN in one tap and the patient must create a new one on sign-in. Everything is audited.</p></div></div>
+      <div class="case-row"><div class="case-n">04</div><div><span class="case-k">Challenge</span><h3>Type “rodri” and find “Rodríguez”</h3></div><div><span class="case-k">Decision</span><p>Firestore can't search partial text, so each record stores normalized keys: no accents, prefixes of name and ID number.</p></div><div class="case-res"><span class="case-k">Result</span><p>Instant search by name or ID, in any order, with or without separators.</p></div></div>
+      <div class="case-row"><div class="case-n">05</div><div><span class="case-k">Challenge</span><h3>Let anyone try it, and keep it from breaking</h3></div><div><span class="case-k">Decision</span><p>A demo mode with an in-memory simulated database, plus automated tests that run on GitHub on every change.</p></div><div class="case-res"><span class="case-k">Result</span><p>A free demo with no sign-up, 59 tests of the clinical calculations and 7 tests that use the app like a person would.</p></div></div>
+    </div>
+    <p class="case-more">Want the technical details? They are in the <a href="https://github.com/modarox28/triage-ia#lo-más-interesante-técnicamente">repository README</a>.</p>
+  </div>
+</section>
+
 <!-- SOBRE MÍ -->
 <section class="about" id="sobre-mi" aria-labelledby="h-about">
   <div class="wrap about-grid">
@@ -725,7 +754,7 @@ if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(
 <script src="../assets/vendor/gsap.min.js?v=3.15.0" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js?v=3.15.0" defer></script>
 <script src="../assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-<script src="../assets/scroll.js?v=6" defer></script>
+<script src="../assets/scroll.js?v=7" defer></script>
 <!-- Contador de visitas (GoatCounter, sin cookies). Para activarlo: crea tu cuenta en goatcounter.com,
      cambia TU-CODIGO por tu código y quita los signos de comentario de la línea siguiente. -->
 <!-- <script data-goatcounter="https://TU-CODIGO.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script> -->

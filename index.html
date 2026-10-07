@@ -72,7 +72,7 @@ button{font-family:inherit}
 .nav-links a.btn{color:#04202a}
 .nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:var(--ink);cursor:pointer}
 .nav-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-@media(max-width:1080px){
+@media(max-width:1240px){
   .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gut) 18px;background:var(--navy);border-bottom:1px solid var(--line);display:none}
   .nav-links.open{display:flex}
@@ -284,6 +284,16 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 
 
 /* ── SOBRE MÍ ── */
+.case-list{border-top:1px solid var(--line)}
+.case-row{display:grid;grid-template-columns:72px minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);padding:clamp(28px,4vw,44px) 0;border-bottom:1px solid var(--line)}
+.case-n{font-family:"JetBrains Mono",monospace;color:var(--cyan);font-size:.95rem;padding-top:4px}
+.case-row h3{font-size:clamp(1.2rem,2vw,1.5rem);letter-spacing:-.02em;line-height:1.2}
+.case-k{display:block;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.case-row p{color:var(--soft)}
+.case-res p{color:var(--ink)}
+.case-more{margin-top:28px;color:var(--mute)}
+.case-more a{color:var(--cyan)}
+@media(max-width:900px){.case-row{grid-template-columns:minmax(0,1fr);gap:14px}.case-n{padding:0}}
 .about{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .about-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,88px);align-items:center}
 .about-card{position:relative;border-radius:var(--r-xl);padding:clamp(32px,5vw,56px) 28px;text-align:center;background:radial-gradient(90% 70% at 50% 0%,rgba(0,200,240,.18),transparent 70%),var(--navy);border:1px solid var(--line);overflow:hidden}
@@ -361,6 +371,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <a href="#vistazo">Míralo de cerca</a>
       <a href="#seguridad">Seguridad</a>
       <a href="#tecnologia">Tecnología</a>
+      <a href="#caso">Caso</a>
       <a href="#sobre-mi">Sobre mí</a>
       <a class="nav-lang" href="en/" hreflang="en" lang="en" aria-label="English version">EN</a>
       <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
@@ -642,6 +653,24 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
 </section>
 
+<!-- CASO DE ESTUDIO -->
+<section class="case" id="caso" aria-labelledby="h-case">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-case">Caso de estudio. Cinco decisiones que la hicieron posible.</h2>
+      <p>Una app clínica con IA, segura y gratuita de mantener, hecha por una sola persona. Así se resolvió cada parte difícil.</p>
+    </div>
+    <div class="case-list">
+      <div class="case-row"><div class="case-n">01</div><div><span class="case-k">Reto</span><h3>Usar IA sin exponer la clave ni pagar servidores</h3></div><div><span class="case-k">Decisión</span><p>Un Cloudflare Worker gratuito hace de intermediario: verifica la firma del token de cada sesión, lee el rol en la base de datos y lleva un cupo diario por usuario.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>La clave de DeepSeek nunca llega al navegador y una cuenta pendiente o eliminada no puede usar la IA.</p></div></div>
+      <div class="case-row"><div class="case-n">02</div><div><span class="case-k">Reto</span><h3>Proteger datos de salud sin un backend propio</h3></div><div><span class="case-k">Decisión</span><p>Reglas de Firestore por rol que se cumplen en el servidor: paciente, médico, administrador de hospital y administrador.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Aunque alguien manipule el navegador, solo ve lo que su rol permite y nadie puede subirse de rol.</p></div></div>
+      <div class="case-row"><div class="case-n">03</div><div><span class="case-k">Reto</span><h3>Restablecer el PIN de un paciente en el plan gratis</h3></div><div><span class="case-k">Decisión</span><p>Sin Cloud Functions, el mismo Worker firma un token con una cuenta de servicio y llama a la API de administración de Firebase.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>El personal restablece el PIN en un toque y el paciente debe crear uno nuevo al entrar. Todo queda auditado.</p></div></div>
+      <div class="case-row"><div class="case-n">04</div><div><span class="case-k">Reto</span><h3>Buscar “rodri” y encontrar “Rodríguez”</h3></div><div><span class="case-k">Decisión</span><p>Firestore no busca texto parcial, así que cada historia guarda claves normalizadas: sin tildes, por prefijos de nombre y documento.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Búsqueda instantánea por nombre o cédula, en cualquier orden y con o sin puntos.</p></div></div>
+      <div class="case-row"><div class="case-n">05</div><div><span class="case-k">Reto</span><h3>Que cualquiera pueda probarla y que no se rompa</h3></div><div><span class="case-k">Decisión</span><p>Un modo demo con una base de datos simulada en memoria, y pruebas automáticas que corren en GitHub en cada cambio.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Demo sin registro ni costo, 59 pruebas de los cálculos clínicos y 7 pruebas que usan la app como una persona.</p></div></div>
+    </div>
+    <p class="case-more">¿Quieres el detalle técnico? Está en el <a href="https://github.com/modarox28/triage-ia#lo-más-interesante-técnicamente">README del repositorio</a>.</p>
+  </div>
+</section>
+
 <!-- SOBRE MÍ -->
 <section class="about" id="sobre-mi" aria-labelledby="h-about">
   <div class="wrap about-grid">
@@ -725,7 +754,7 @@ if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(
 <script src="assets/vendor/gsap.min.js?v=3.15.0" defer></script>
 <script src="assets/vendor/ScrollTrigger.min.js?v=3.15.0" defer></script>
 <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-<script src="assets/scroll.js?v=6" defer></script>
+<script src="assets/scroll.js?v=7" defer></script>
 <!-- Contador de visitas (GoatCounter, sin cookies). Para activarlo: crea tu cuenta en goatcounter.com,
      cambia TU-CODIGO por tu código y quita los signos de comentario de la línea siguiente. -->
 <!-- <script data-goatcounter="https://TU-CODIGO.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script> -->
