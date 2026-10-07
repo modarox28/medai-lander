@@ -15,3 +15,5 @@ Para actualizar las capturas, toma pantallazos del modo demo a 390×844 (celular
 - [GSAP + ScrollTrigger](https://gsap.com) (licencia estándar gratuita) mueve los elementos según el scroll: el hero, el teléfono fijo que cambia de pantalla en "Funciones", la frase que se ilumina palabra por palabra y los teléfonos de día y noche.
 - Ambas librerías están copiadas en `assets/vendor/`; la lógica está en `assets/scroll.js`.
 - Con "reducir movimiento" activado en el sistema, la página se muestra sin animaciones.
+
+Cada vez que cambies `assets/scroll.js`, sube el número de `?v=` en la etiqueta `<script>` de `index.html`; así los navegadores no usan la copia anterior guardada en caché (GitHub Pages la guarda 10 minutos).
