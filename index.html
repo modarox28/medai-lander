@@ -271,6 +271,25 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 .next p{margin-top:8px;color:var(--mute);font-size:.98rem}
 @media(max-width:900px){.next-list{grid-template-columns:minmax(0,1fr)}}
 
+
+/* ── SOBRE MÍ ── */
+.about{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,88px);align-items:center}
+.about-card{position:relative;border-radius:var(--r-xl);padding:clamp(32px,5vw,56px) 28px;text-align:center;background:radial-gradient(90% 70% at 50% 0%,rgba(0,200,240,.18),transparent 70%),var(--navy);border:1px solid var(--line);overflow:hidden}
+.about-av{width:132px;height:132px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:3.6rem;font-weight:700;color:#04202a;background:linear-gradient(160deg,#5ee3fb,var(--cyan));box-shadow:0 0 0 8px rgba(0,200,240,.08),0 20px 50px -10px rgba(0,200,240,.45)}
+.about-pulse{width:120px;height:60px;margin:18px auto 0;display:block;overflow:visible}
+.about-pulse polyline{fill:none;stroke:var(--cyan);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.about-name{margin-top:6px;font-size:1.6rem;font-weight:700;letter-spacing:-.02em}
+.about-role{margin-top:4px;color:var(--soft)}
+.about-place{margin-top:2px;color:var(--mute);font-size:.92rem}
+.about-lead{margin-top:18px;color:var(--soft);font-size:clamp(1.05rem,1.5vw,1.2rem);max-width:56ch}
+.about-h3{margin-top:30px;font-size:1.05rem;color:var(--ink)}
+.about-list{list-style:none;margin-top:12px;display:grid;gap:10px}
+.about-list li{position:relative;padding-left:28px;color:var(--soft)}
+.about-list li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:2px;background:var(--cyan);border-radius:2px}
+.about .chips{margin-top:12px}
+@media(max-width:900px){.about-grid{grid-template-columns:minmax(0,1fr)}.about-card{max-width:420px;margin:0 auto;width:100%}}
+
 /* ── CIERRE ── */
 .cta{text-align:center}
 .cta h2{max-width:18ch;margin:0 auto}
@@ -327,6 +346,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <a href="#vistazo">Míralo de cerca</a>
       <a href="#seguridad">Seguridad</a>
       <a href="#tecnologia">Tecnología</a>
+      <a href="#sobre-mi">Sobre mí</a>
       <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
     </nav>
   </div>
@@ -586,11 +606,40 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
 </section>
 
+<!-- SOBRE MÍ -->
+<section class="about" id="sobre-mi" aria-labelledby="h-about">
+  <div class="wrap about-grid">
+    <div class="about-card" aria-hidden="true">
+      <div class="about-av">M</div>
+      <svg class="about-pulse" viewBox="0 0 100 100"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
+      <div class="about-name">Moisés</div>
+      <div class="about-role">Estudiante de Ingeniería de Sistemas</div>
+      <div class="about-place">Universidad Autónoma del Caribe · Colombia</div>
+    </div>
+    <div>
+      <h2 id="h-about">Quién está detrás.</h2>
+      <p class="about-lead">Soy Moisés, estudiante de Ingeniería de Sistemas en la Universidad Autónoma del Caribe. Construí MedIA Suite de principio a fin: el diseño, la app, la seguridad del servidor y las pruebas automáticas. Busco mi primera oportunidad como desarrollador junior.</p>
+      <h3 class="about-h3">Lo que aprendí construyéndola</h3>
+      <ul class="about-list">
+        <li>Proteger datos de salud con reglas por rol que se cumplen en el servidor.</li>
+        <li>Usar una IA sin exponer la clave, con un servidor intermedio que verifica cada sesión.</li>
+        <li>Que una app se vea bien en iPhone, Android y computador, incluidos los fallos propios de cada uno.</li>
+      </ul>
+      <h3 class="about-h3">Con qué trabajo</h3>
+      <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML y CSS</span><span class="chip">Firebase</span><span class="chip">Cloudflare Workers</span><span class="chip">Git y GitHub Actions</span><span class="chip">Java y Android</span><span class="chip">MySQL</span><span class="chip">Python</span></div>
+      <div class="hero-cta" style="justify-content:flex-start;margin-top:30px">
+        <a class="btn btn-pri" href="https://github.com/modarox28">Ver mi GitHub</a>
+        <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=Hola%20Mois%C3%A9s">Escribirme</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CIERRE -->
 <section class="cta" aria-labelledby="h-cta">
   <div class="wrap">
-    <h2 id="h-cta">¿Trabajas en urgencias o buscas a quien la construyó?</h2>
-    <p>Entra a la demo como administrador con pacientes de prueba, o escríbeme para conversar sobre el proyecto.</p>
+    <h2 id="h-cta">¿Trabajas en urgencias? Pruébala.</h2>
+    <p>Entra a la demo como administrador con pacientes de prueba. Una guía corta te muestra lo principal en menos de un minuto.</p>
     <div class="hero-cta">
       <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
       <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=MedIA%20Suite">Escribirme</a>
