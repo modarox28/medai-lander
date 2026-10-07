@@ -25,45 +25,48 @@
 
 :root{
   --navy:#0b1120;--navy-2:#111a2e;--navy-3:#18233b;--line:#1e2d45;
-  --ink:#e8eef8;--mute:#8b9ec0;
+  --ink:#e8eef8;--soft:#b9c6dc;--mute:#8b9ec0;
   --cyan:#00c8f0;--red:#ff3a5c;--amber:#ffb830;--green:#00e07a;
-  --r-lg:28px;--r-md:18px;--r-sm:12px;
+  --r-xl:36px;--r-lg:28px;--r-md:18px;--r-sm:12px;
   --wrap:1180px;--gut:clamp(20px,5vw,48px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
 body{background:var(--navy);color:var(--ink);font:400 1.0625rem/1.6 "Familjen Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
+button{font-family:inherit}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
 .skip{position:absolute;left:-999px;top:8px;background:var(--cyan);color:var(--navy);padding:8px 14px;border-radius:8px;font-weight:700;z-index:200}
 .skip:focus{left:8px}
 
-/* ── Marca ── */
+/* Marca */
 .brand{display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:1.2rem;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
 .brand svg{width:1.3em;height:1.3em;overflow:visible}
 .brand polyline{fill:none;stroke:var(--cyan);stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
 .brand i{font-style:normal;color:var(--cyan)}
 .brand s{text-decoration:none;color:var(--mute);font-weight:500}
 
-/* ── Botones ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-family:inherit;font-weight:700;font-size:1rem;line-height:1;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .15s,background .2s,border-color .2s}
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font-family:inherit;font-weight:700;font-size:1rem;line-height:1;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .15s,background .2s,border-color .2s}
 .btn:active{transform:scale(.97)}
 .btn-pri{background:var(--cyan);color:#04202a}
 .btn-pri:hover{background:#2ed6f7}
 .btn-sec{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.02)}
 .btn-sec:hover{border-color:var(--mute)}
 .btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.link{color:var(--cyan);text-decoration:none;font-weight:600}
+.link:hover{text-decoration:underline}
 
-/* ── Navegación ── */
+/* Navegación */
 .nav{position:sticky;top:0;z-index:50;background:rgba(11,17,32,.72);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s}
 .nav.scrolled{border-color:var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
 .nav-links{display:flex;align-items:center;gap:28px}
 .nav-links a{text-decoration:none;color:var(--mute);font-size:.95rem;font-weight:500}
 .nav-links a:hover{color:var(--ink)}
-.nav .btn{min-height:42px;padding:0 18px;font-size:.92rem}
+.nav .btn{min-height:40px;padding:0 18px;font-size:.92rem}
 .nav-links a.btn{color:#04202a}
 .nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:var(--ink);cursor:pointer}
 .nav-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
@@ -75,74 +78,116 @@ a{color:inherit}
   .nav-links .btn{margin-top:14px;min-height:50px}
 }
 
-/* ── Hero ── */
-.hero{position:relative;padding:clamp(48px,8vw,96px) 0 clamp(56px,8vw,104px);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:1}
-.ecg{position:absolute;left:0;right:0;top:50%;height:220px;transform:translateY(-50%);z-index:0;pointer-events:none;opacity:.5}
-.ecg path{fill:none;stroke:var(--cyan);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:2600;stroke-dashoffset:2600;animation:trazo 2.6s .2s cubic-bezier(.5,0,.2,1) forwards}
-.ecg .glow{stroke-width:8;opacity:.18;filter:blur(6px)}
-@keyframes trazo{to{stroke-dashoffset:0}}
-.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.03em;font-weight:700;max-width:13ch}
-.hero-lead{margin-top:22px;font-size:clamp(1.05rem,1.6vw,1.22rem);color:#b9c6dc;max-width:46ch}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.hero-note{margin-top:14px;font-size:.9rem;color:var(--mute)}
-.hero-shot{justify-self:center;position:relative;transform-origin:50% 0}
-.hero .wrap{perspective:1400px}
-.phone{width:min(330px,78vw);border-radius:46px;padding:10px;background:linear-gradient(160deg,#2a3754,#121a2c 40%,#0c1222);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -20px rgba(0,0,0,.7),0 0 120px -30px rgba(0,200,240,.35)}
+/* Tipografía de secciones */
+section{padding:clamp(72px,10vw,140px) 0}
+h2{font-size:clamp(2.2rem,5.4vw,4.2rem);line-height:1.04;letter-spacing:-.035em;font-weight:700}
+h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
+.sec-head{max-width:720px;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head p{margin-top:18px;color:var(--soft);font-size:clamp(1.05rem,1.5vw,1.25rem)}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+/* Teléfono */
+.phone{width:min(330px,78vw);border-radius:46px;padding:10px;background:linear-gradient(160deg,#2a3754,#121a2c 40%,#0c1222);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -20px rgba(0,0,0,.7)}
 .phone img{border-radius:37px;aspect-ratio:390/844;width:100%;object-fit:cover;object-position:top}
 .phone.sm{width:min(270px,70vw);border-radius:40px;padding:8px}
 .phone.sm img{border-radius:33px}
 
-/* ── Secciones ── */
-section{padding:clamp(64px,9vw,120px) 0}
-.sec-head{max-width:640px;margin-bottom:clamp(32px,5vw,56px)}
-h2{font-size:clamp(1.9rem,4vw,3rem);line-height:1.08;letter-spacing:-.035em;font-weight:700}
-.sec-head p{margin-top:16px;color:#b9c6dc;font-size:1.1rem}
-h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
+/* ── HERO ── */
+.hero{padding:clamp(56px,9vw,110px) 0 0;text-align:center;overflow:hidden;perspective:1600px}
+.hero-copy{max-width:900px;margin:0 auto}
+.hero h1{font-size:clamp(3rem,10vw,7.6rem);line-height:.96;letter-spacing:-.05em;font-weight:700}
+.hero h1 .pulse{display:inline-block;width:.9em;height:.6em;vertical-align:.08em;overflow:visible}
+.hero h1 .pulse polyline{fill:none;stroke:var(--cyan);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:200;stroke-dashoffset:200;animation:trazo 1.4s .3s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes trazo{to{stroke-dashoffset:0}}
+.hero-lead{margin:26px auto 0;font-size:clamp(1.1rem,1.8vw,1.35rem);color:var(--soft);max-width:44ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;justify-content:center}
+.hero-note{margin-top:14px;font-size:.92rem;color:var(--mute)}
+.hero-device{position:relative;max-width:1060px;margin:clamp(56px,7vw,88px) auto 0;padding:0 var(--gut);transform-origin:50% 100%}
+.laptop{position:relative;margin:0 6% 0 0}
+.laptop-screen{border-radius:18px 18px 0 0;padding:12px 12px 0;background:linear-gradient(180deg,#24314d,#141d31);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 -30px 120px -40px rgba(0,200,240,.35)}
+.laptop-screen img{border-radius:8px 8px 0 0;width:100%}
+.laptop-base{height:16px;margin:0 -4%;border-radius:0 0 14px 14px;background:linear-gradient(180deg,#2a3754,#0e1526)}
+.hero-phone{position:absolute;right:var(--gut);bottom:-4%;width:24%;min-width:150px;border-radius:30px;padding:7px}
+.hero-phone img{border-radius:24px}
+.hero-fade{height:120px;margin-top:-120px;position:relative;background:linear-gradient(180deg,transparent,var(--navy))}
 
-/* Prioridad por colores */
-.prio{border-top:1px solid var(--line)}
-.prio-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,6vw,80px);align-items:center}
-.bands{display:flex;flex-direction:column;gap:14px}
-.band{display:grid;grid-template-columns:6px minmax(0,1fr) auto;gap:20px;align-items:center;padding:22px 24px 22px 0;background:var(--navy-2);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
-.band::before{content:"";align-self:stretch;background:var(--c)}
-.band h3{color:var(--c)}
-.band p{color:var(--mute);font-size:.98rem;margin-top:4px}
-.band .t{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1.5rem;color:var(--ink);text-align:right;line-height:1}
-.band .t small{display:block;font-family:"Familjen Grotesk",sans-serif;font-weight:500;font-size:.78rem;color:var(--mute);margin-top:6px}
-.prio-note{margin-top:18px;color:var(--mute);font-size:.95rem;max-width:56ch}
+/* ── LO MÁS DESTACADO (carrusel) ── */
+.hl{padding-bottom:clamp(56px,7vw,96px)}
+.hl-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(var(--gut),calc((100vw - var(--wrap))/2 + var(--gut)));padding:0 max(var(--gut),calc((100vw - var(--wrap))/2 + var(--gut)));scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.hl-track::-webkit-scrollbar{display:none}
+.hl-card{position:relative;flex:0 0 min(84vw,880px);height:min(74vh,660px);min-height:520px;scroll-snap-align:start;border-radius:var(--r-xl);overflow:hidden;background:radial-gradient(120% 80% at 50% 110%,color-mix(in srgb,var(--tone) 32%,transparent),transparent 60%),var(--navy-2);border:1px solid var(--line)}
+.hl-cap{position:relative;z-index:1;padding:clamp(28px,4vw,44px);max-width:34ch;font-size:clamp(1.15rem,1.9vw,1.5rem);line-height:1.3;color:var(--soft);font-weight:500}
+.hl-cap b{color:var(--ink);font-weight:700}
+.hl-img{position:absolute;left:50%;bottom:0;transform:translate(-50%,30%);width:min(300px,58%)}
+.hl-card.wide .hl-img{width:86%;transform:translate(-50%,18%)}
+.hl-card.wide .hl-img img{border-radius:14px;border:1px solid var(--line);box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
+.hl-ctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:28px}
+.hl-dots{display:flex;gap:10px;padding:14px 20px;border-radius:999px;background:rgba(255,255,255,.06)}
+.hl-dot{position:relative;width:8px;height:8px;border-radius:4px;border:0;background:#3a4a68;cursor:pointer;overflow:hidden;transition:width .4s cubic-bezier(.3,1.2,.5,1)}
+.hl-dot.on{width:44px}
+.hl-dot.on i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.hl-dot.on.run i{animation:barra 5s linear forwards}
+.hl-dot.on.paused i{animation-play-state:paused}
+.hl-dot.on.static i{transform:none}
+@keyframes barra{to{transform:scaleX(1)}}
+.hl-play{width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.06);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.hl-play svg{width:18px;height:18px;fill:currentColor}
 
-/* Funciones: filas alternadas con capturas reales */
-.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:center;padding:clamp(40px,6vw,72px) 0;border-top:1px solid var(--line)}
-.feat:first-of-type{border-top:none;padding-top:0}
-.feat.rev .feat-txt{order:2}
-.feat-txt p{margin-top:14px;color:#b9c6dc;max-width:48ch}
-.feat-txt ul{list-style:none;margin-top:20px;display:grid;gap:10px}
-.feat-txt li{position:relative;padding-left:28px;color:var(--ink)}
-.feat-txt li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:2px;background:var(--cyan);border-radius:2px}
-.feat-img{justify-self:center}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.chip{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--navy-2);font-size:.92rem;color:var(--ink)}
-.desk{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
-.ia-note{margin-top:20px;padding:16px 18px;border-radius:var(--r-sm);background:rgba(0,200,240,.06);border:1px solid rgba(0,200,240,.25);color:#cfe9f2;font-size:.96rem}
+/* ── SIMULADOR DE SIGNOS VITALES ── */
+.sim{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sim-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:stretch}
+.sim-presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.sim-presets button{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--navy);color:var(--ink);font-weight:600;font-size:.92rem;cursor:pointer;transition:border-color .2s,background .2s}
+.sim-presets button:hover,.sim-presets button[aria-pressed=true]{border-color:var(--cyan);background:rgba(0,200,240,.08)}
+.vit{padding:16px 0;border-top:1px solid var(--line)}
+.vit:first-of-type{border-top:0}
+.vit-top{display:flex;align-items:baseline;gap:10px}
+.vit-top label{flex:1;font-weight:600}
+.vit-top output{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1.25rem;min-width:4.5ch;text-align:right}
+.vit-top small{color:var(--mute);font-size:.85rem;min-width:3.4em}
+.vit-st{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:999px;min-width:6.6em;text-align:center}
+.vit-st[data-s=normal]{color:var(--green);background:rgba(0,224,122,.12)}
+.vit-st[data-s=warning]{color:var(--amber);background:rgba(255,184,48,.14)}
+.vit-st[data-s=critical]{color:var(--red);background:rgba(255,58,92,.14)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin-top:6px;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--cyan) var(--p,50%),#26344f var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:#26344f}
+input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--cyan)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-9px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.sim-out{--c:var(--green);position:relative;border-radius:var(--r-lg);padding:clamp(28px,4vw,44px);background:radial-gradient(90% 70% at 50% 0%,color-mix(in srgb,var(--c) 26%,transparent),transparent 70%),var(--navy);border:1px solid color-mix(in srgb,var(--c) 45%,var(--line));display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:420px;transition:border-color .5s,background .5s;overflow:hidden}
+.sim-out[data-l=AMARILLO]{--c:var(--amber)}
+.sim-out[data-l=ROJO]{--c:var(--red)}
+.sim-lbl{font-size:.95rem;color:var(--mute);font-weight:600}
+.sim-lvl{font-size:clamp(3.4rem,8vw,6rem);line-height:.95;letter-spacing:-.045em;font-weight:700;color:var(--c);transition:color .4s}
+.sim-what{font-size:1.3rem;font-weight:700;margin-top:6px}
+.sim-time{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1.05rem;color:var(--ink);margin-top:10px}
+.sim-why{color:var(--soft);font-size:.98rem;min-height:3.2em}
+.sim-ecg{height:70px;width:100%;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.sim-ecg svg{height:100%;width:200%;animation:latido var(--beat,1.2s) linear infinite}
+.sim-ecg path{fill:none;stroke:var(--c);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;transition:stroke .4s}
+@keyframes latido{to{transform:translateX(-50%)}}
+.sim-note{margin-top:20px;color:var(--mute);font-size:.92rem;max-width:62ch}
 
-
-/* Funciones: relato con teléfono fijo */
+/* ── RELATO DE FUNCIONES (teléfono fijo) ── */
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px)}
 .step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;max-width:46ch;opacity:.35;transition:opacity .5s}
 .step.on{opacity:1}
-.step p{margin-top:14px;color:#b9c6dc}
+.step p{margin-top:14px;color:var(--soft)}
 .step ul{list-style:none;margin-top:20px;display:grid;gap:10px}
 .step li{position:relative;padding-left:28px}
 .step li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:2px;background:var(--cyan);border-radius:2px}
 .step-img{display:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--navy-2);font-size:.92rem;color:var(--ink)}
+.ia-note{margin-top:20px;padding:16px 18px;border-radius:var(--r-sm);background:rgba(0,200,240,.06);border:1px solid rgba(0,200,240,.25);color:#cfe9f2;font-size:.96rem}
 .story-stage{position:sticky;top:calc(50vh - 330px);height:660px;display:flex;align-items:center;justify-content:center;gap:22px;align-self:start}
 .story-stage .phone{position:relative;width:300px}
 .story-stage .phone img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);opacity:0;transform:scale(1.03);transition:opacity .55s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .story-stage .phone img.on{opacity:1;transform:none}
 .story-stage .phone::before{content:"";display:block;aspect-ratio:390/844}
 .story-dots{display:flex;flex-direction:column;gap:10px}
-.story-dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:height .4s cubic-bezier(.3,1.4,.5,1),background .3s}
+.story-dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:height .4s cubic-bezier(.3,1.4,.5,1),width .4s cubic-bezier(.3,1.4,.5,1),background .3s}
 .story-dots i.on{height:26px;background:var(--cyan)}
 @media(max-width:900px){
   .story{grid-template-columns:minmax(0,1fr)}
@@ -150,15 +195,11 @@ h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
   .step{min-height:0;opacity:1;padding:36px 0;border-top:1px solid var(--line);max-width:none}
   .step:first-child{border-top:none;padding-top:0}
   .step-img{display:block;margin:0 auto 28px}
-}
-/* Celular: el relato también queda fijo; el teléfono arriba y el texto de cada paso abajo */
-@media(max-width:900px){
   .story.pin-m{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;height:calc(100svh - 68px);padding:6px 0 10px}
   .story.pin-m .story-stage{display:flex;position:static;height:auto;flex-direction:column;align-items:center;gap:14px;order:-1;width:100%}
   .story.pin-m .story-stage .phone{width:min(25svh,230px);border-radius:32px;padding:7px}
   .story.pin-m .story-stage .phone img{inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);border-radius:26px}
   .story.pin-m .story-dots{flex-direction:row}
-  .story.pin-m .story-dots i{width:6px;height:6px;transition:width .4s cubic-bezier(.3,1.4,.5,1),background .3s}
   .story.pin-m .story-dots i.on{width:26px;height:6px}
   .story.pin-m .story-steps{position:relative;width:100%;flex:0 0 auto;height:min(34svh,300px)}
   .story.pin-m .step{position:absolute;left:0;right:0;top:0;min-height:0;margin:0 auto;padding:0;border:0;max-width:42ch;text-align:center;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .5s cubic-bezier(.2,.8,.2,1);pointer-events:none}
@@ -170,21 +211,44 @@ h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
 @media(max-width:900px) and (max-height:720px){.story.pin-m .story-stage .phone{width:min(21svh,200px)}.story.pin-m .ia-note{display:none}}
 @media(max-height:720px) and (min-width:901px){.story-stage{top:calc(50vh - 260px);height:520px}.story-stage .phone{width:240px}}
 
-/* Frase que se ilumina palabra por palabra */
-.quote{padding:clamp(80px,14vw,180px) 0}
-.quote-txt{font-size:clamp(1.9rem,4.6vw,3.6rem);line-height:1.12;letter-spacing:-.03em;font-weight:700;max-width:22ch}
-.quote-txt .w{opacity:.18;transition:opacity .15s}
+/* ── MÍRALO DE CERCA ── */
+.view{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+.view-phone{position:relative;margin:0 auto;width:min(320px,74vw)}
+.view-phone::before{content:"";display:block;aspect-ratio:390/844}
+.view-phone img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);transition:opacity .45s}
+.view-phone img.out{opacity:0}
+.view-ctrl{display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:36px}
+.seg{position:relative;display:inline-flex;padding:4px;border-radius:999px;background:var(--navy);border:1px solid var(--line)}
+.seg button{position:relative;z-index:1;min-height:42px;padding:0 18px;border:0;border-radius:999px;background:none;color:var(--mute);font-weight:600;font-size:.95rem;cursor:pointer;transition:color .2s}
+.seg button[aria-pressed=true]{color:var(--ink)}
+.seg-pill{position:absolute;top:4px;bottom:4px;left:0;border-radius:999px;background:var(--navy-3);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .45s cubic-bezier(.3,1.3,.5,1),width .45s cubic-bezier(.3,1.3,.5,1)}
+.swatches{display:flex;gap:22px;align-items:flex-start}
+.sw{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;color:var(--mute);font-size:.9rem;font-weight:600;cursor:pointer}
+.sw span{width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.18);transition:box-shadow .25s}
+.sw[aria-pressed=true]{color:var(--ink)}
+.sw[aria-pressed=true] span{box-shadow:0 0 0 2px var(--navy-2),0 0 0 4px var(--ink)}
 
-/* Para el turno: tema claro/oscuro */
-.duo{display:flex;gap:18px;justify-content:center;align-items:flex-start}
-.duo .phone:last-child{margin-top:48px}
+/* ── FRASE ── */
+.quote{padding:clamp(88px,14vw,190px) 0}
+.quote-txt{font-size:clamp(2rem,4.8vw,3.8rem);line-height:1.1;letter-spacing:-.03em;font-weight:700;max-width:22ch}
+.quote-txt .w{opacity:.16}
 
-/* Seguridad */
-.sec-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
-.sec-item{padding:26px 0;border-top:1px solid var(--line)}
-.sec-item p{margin-top:8px;color:var(--mute)}
+/* ── NÚMEROS ── */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.num b{display:block;font-size:clamp(3.2rem,7vw,5.6rem);line-height:1;letter-spacing:-.04em;font-weight:700;background:linear-gradient(180deg,#fff,#7fe4f8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.num b small{font-size:.4em;letter-spacing:0;margin-left:.08em}
+.num p{margin-top:12px;color:var(--soft);max-width:22ch}
+@media(max-width:900px){.nums{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:44px}}
 
-/* Cómo está hecho */
+/* ── SEGURIDAD ── */
+.sec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.sec-card{padding:clamp(24px,3vw,36px);border-radius:var(--r-lg);background:var(--navy-2);border:1px solid var(--line)}
+.sec-card .ic{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(0,200,240,.1);color:var(--cyan);margin-bottom:18px}
+.sec-card .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sec-card p{margin-top:8px;color:var(--mute)}
+@media(max-width:760px){.sec-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* ── CÓMO ESTÁ HECHO ── */
 .build{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .build-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,80px);align-items:start}
 .arch{background:var(--navy);border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(20px,3vw,32px)}
@@ -194,17 +258,18 @@ h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
 .stats{display:flex;flex-wrap:wrap;gap:28px 40px;margin-top:28px}
 .stat b{display:block;font-family:"JetBrains Mono",monospace;font-size:2rem;line-height:1;color:var(--cyan)}
 .stat span{color:var(--mute);font-size:.92rem}
+@media(max-width:900px){.build-grid{grid-template-columns:minmax(0,1fr)}}
 
-/* Próximamente */
+/* ── PRÓXIMAMENTE ── */
 .next-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.next{padding:24px;border:1px dashed #2b3d5c;border-radius:var(--r-md)}
+.next{padding:26px;border:1px dashed #2b3d5c;border-radius:var(--r-lg)}
 .next p{margin-top:8px;color:var(--mute);font-size:.98rem}
+@media(max-width:900px){.next-list{grid-template-columns:minmax(0,1fr)}}
 
-/* Cierre */
+/* ── CIERRE ── */
 .cta{text-align:center}
 .cta h2{max-width:18ch;margin:0 auto}
-.cta p{max-width:52ch;margin:16px auto 0;color:#b9c6dc}
-.cta .hero-cta{justify-content:center}
+.cta p{max-width:52ch;margin:18px auto 0;color:var(--soft)}
 footer{border-top:1px solid var(--line);padding:36px 0 calc(36px + env(safe-area-inset-bottom))}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-start}
 .foot-note{color:var(--mute);font-size:.9rem;max-width:60ch}
@@ -212,34 +277,36 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 .foot-links a{color:var(--mute);text-decoration:none;font-size:.95rem}
 .foot-links a:hover{color:var(--ink)}
 
-/* ── Responsive ── */
 @media(max-width:900px){
-  .hero .wrap,.prio-grid,.feat,.build-grid{grid-template-columns:minmax(0,1fr)}
-  .feat.rev .feat-txt{order:0}
-  .prio-grid .phone{justify-self:center}
-  .sec-list{grid-template-columns:minmax(0,1fr)}
-  .next-list{grid-template-columns:minmax(0,1fr)}
-  .hero h1{max-width:none}
-  .ecg{top:28%}
+  .sim-grid{grid-template-columns:minmax(0,1fr)}
+  .sim-out{min-height:340px}
+  .hl-card{min-height:480px;height:68vh}
 }
 @media(max-width:520px){
-  .band{grid-template-columns:6px minmax(0,1fr);padding-right:18px}
-  .band .t{grid-column:2;text-align:left}
-  .band .t small{display:inline;margin-left:6px}
-  .duo .phone.sm{width:46vw;border-radius:30px;padding:6px}
-  .duo .phone.sm img{border-radius:25px}
-  .duo .phone:last-child{margin-top:32px}
   .hero-cta .btn{flex:1 1 100%}
+  .hero-phone{width:34%;min-width:0;bottom:-10%;border-radius:18px;padding:4px}
+  .hero-phone img{border-radius:14px}
+  .laptop{margin-right:12%}
+  .laptop-screen{border-radius:10px 10px 0 0;padding:6px 6px 0}
+  .laptop-base{height:9px}
+  .hl-img{width:62%}
+  .seg button{padding:0 12px;font-size:.88rem}
+}
+@media(max-width:620px){
+  .laptop{display:none}
+  .hero-phone{position:relative;right:auto;bottom:auto;width:min(300px,74vw);margin:0 auto;border-radius:44px;padding:9px}
+  .hero-phone img{border-radius:36px}
+  .hero-device{margin-top:48px}
 }
 @media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .ecg path{animation:none;stroke-dashoffset:0}
+  .hero h1 .pulse polyline{animation:none;stroke-dashoffset:0}
+  .sim-ecg svg{animation:none}
+  .hl-dot.on.run i{animation:none;transform:none}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
-
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#" aria-label="MedIA Suite, inicio">
@@ -250,58 +317,109 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="nav-links" id="navLinks" aria-label="Secciones">
+      <a href="#destacado">Destacado</a>
       <a href="#prioridad">Prioridad</a>
       <a href="#funciones">Funciones</a>
       <a href="#seguridad">Seguridad</a>
-      <a href="#tecnologia">Cómo está hecho</a>
+      <a href="#tecnologia">Tecnología</a>
       <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
     </nav>
   </div>
 </header>
 
 <main id="contenido">
-<!-- HERO -->
+<!-- HERO: título grande y el equipo que sube al hacer scroll -->
 <section class="hero" aria-labelledby="h-hero">
-  <svg class="ecg" viewBox="0 0 1600 220" preserveAspectRatio="none" aria-hidden="true">
-    <path class="glow" d="M0 120H760l20-6 14 6h40l18-74 26 128 22-96 14 42h34l16-8 14 8H1600"/>
-    <path d="M0 120H760l20-6 14 6h40l18-74 26 128 22-96 14 42h34l16-8 14 8H1600"/>
-  </svg>
-  <div class="wrap">
-    <div>
-      <h1 id="h-hero">Triage de urgencias que se entiende de un vistazo.</h1>
-      <p class="hero-lead">MedIA Suite ayuda al personal de urgencias a clasificar a cada paciente por prioridad, ordenar la sala de espera y consultar su historia clínica. Un asistente de IA sugiere y explica; la decisión siempre es del profesional.</p>
-      <div class="hero-cta">
-        <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Probar la demo
-        </a>
-        <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6.2 0C6.6 2.8 5.6 3.1 5.6 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>Ver el código
-        </a>
-      </div>
-      <p class="hero-note">La demo no pide registro y usa pacientes ficticios.</p>
+  <div class="wrap hero-copy">
+    <h1 id="h-hero">Urgencias,<br>en orden<svg class="pulse" viewBox="0 0 100 60" aria-hidden="true"><polyline points="2,40 22,40 32,8 46,52 60,8 70,40 98,40"/></svg></h1>
+    <p class="hero-lead">Clasifica a cada paciente por prioridad, ordena la sala de espera y consulta su historia clínica. Con un asistente de IA que explica cada sugerencia.</p>
+    <div class="hero-cta">
+      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Probar la demo</a>
+      <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6.2 0C6.6 2.8 5.6 3.1 5.6 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>Ver el código</a>
     </div>
-    <div class="hero-shot">
-      <div class="phone"><img src="assets/img/m-dash.webp" width="780" height="1688" alt="Pantalla de inicio de MedIA Suite: un paciente crítico en espera, conteo de urgentes y estables del día y botón para iniciar un nuevo triage" fetchpriority="high"></div>
+    <p class="hero-note">La demo no pide registro y usa pacientes ficticios.</p>
+  </div>
+  <div class="hero-device" id="heroDevice">
+    <div class="laptop">
+      <div class="laptop-screen"><img src="assets/img/d-dash.webp" width="1800" height="1125" alt="MedIA Suite en computador: pacientes críticos en espera, cifras del día, actividad reciente y gráfico por prioridad" fetchpriority="high"></div>
+      <div class="laptop-base"></div>
     </div>
+    <div class="phone hero-phone"><img src="assets/img/m-dash.webp" width="780" height="1688" alt="MedIA Suite en celular: pantalla de inicio"></div>
+  </div>
+  <div class="hero-fade" aria-hidden="true"></div>
+</section>
+
+<!-- LO MÁS DESTACADO -->
+<section class="hl" id="destacado" aria-labelledby="h-hl">
+  <div class="wrap"><div class="sec-head"><h2 id="h-hl">Lo más destacado.</h2></div></div>
+  <div class="hl-track" id="hlTrack" role="region" aria-roledescription="carrusel" aria-label="Lo más destacado de MedIA Suite" tabindex="0">
+    <article class="hl-card" style="--tone:var(--red)" aria-label="1 de 5">
+      <p class="hl-cap"><b>Prioridad por colores.</b> Rojo, amarillo o verde, con el tiempo máximo que cada paciente puede esperar.</p>
+      <div class="hl-img phone sm"><img src="assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Cola de espera ordenada por prioridad"></div>
+    </article>
+    <article class="hl-card" style="--tone:var(--cyan)" aria-label="2 de 5">
+      <p class="hl-cap"><b>Un asistente de IA que explica.</b> Sugiere la prioridad y las primeras acciones, y muestra por qué.</p>
+      <div class="hl-img phone sm"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de triage con la justificación de la IA"></div>
+    </article>
+    <article class="hl-card" style="--tone:#a855f7" aria-label="3 de 5">
+      <p class="hl-cap"><b>La historia de cada paciente.</b> Búscala por nombre o documento, aunque escribas sin tildes.</p>
+      <div class="hl-img phone sm"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador"></div>
+    </article>
+    <article class="hl-card" style="--tone:var(--green)" aria-label="4 de 5">
+      <p class="hl-cap"><b>Siete scores clínicos.</b> HEART, qSOFA, NEWS2 y más, con sus criterios publicados.</p>
+      <div class="hl-img phone sm"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART"></div>
+    </article>
+    <article class="hl-card wide" style="--tone:var(--amber)" aria-label="5 de 5">
+      <p class="hl-cap"><b>El turno en cifras.</b> Pacientes por prioridad, motivo y tipo, con reporte en PDF.</p>
+      <div class="hl-img"><img src="assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Panel de estadísticas en computador"></div>
+    </article>
+  </div>
+  <div class="hl-ctrl">
+    <div class="hl-dots" role="tablist" aria-label="Elegir tarjeta">
+      <button class="hl-dot on" role="tab" aria-label="Prioridad por colores" aria-selected="true"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Asistente de IA" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Historia clínica" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Scores clínicos" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Estadísticas" aria-selected="false"><i></i></button>
+    </div>
+    <button class="hl-play" id="hlPlay" aria-label="Pausar"><svg viewBox="0 0 24 24"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
   </div>
 </section>
 
-<!-- PRIORIDAD -->
-<section class="prio" id="prioridad" aria-labelledby="h-prio">
-  <div class="wrap prio-grid">
-    <div>
-      <div class="sec-head">
-        <h2 id="h-prio">Tres colores. Cada paciente sabe cuánto puede esperar.</h2>
-        <p>Con los signos vitales, el motivo de consulta y el tipo de paciente, la app propone una prioridad y el tiempo máximo de espera. La cola avisa cuando alguien supera su tiempo.</p>
-      </div>
-      <div class="bands">
-        <div class="band" style="--c:var(--red)"><div><h3>Rojo · atención inmediata</h3><p>Riesgo vital: dolor torácico con hipotensión, dificultad respiratoria grave.</p></div><div class="t">15<small>minutos</small></div></div>
-        <div class="band" style="--c:var(--amber)"><div><h3>Amarillo · urgente</h3><p>Necesita valoración pronto, sin riesgo inmediato.</p></div><div class="t">30<small>minutos</small></div></div>
-        <div class="band" style="--c:var(--green)"><div><h3>Verde · puede esperar</h3><p>Paciente estable, atención en orden de llegada.</p></div><div class="t">120<small>minutos</small></div></div>
-      </div>
-      <p class="prio-note">Los tiempos objetivo son configurables. La clasificación sigue criterios tipo ESI y Manchester y el médico puede corregirla en cualquier momento.</p>
+<!-- SIMULADOR: mismos umbrales que usa la app para cada signo vital -->
+<section class="sim" id="prioridad" aria-labelledby="h-sim">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-sim">Mueve los signos vitales. Mira cómo cambia la prioridad.</h2>
+      <p>La app revisa cada signo vital contra sus límites y marca al paciente según el valor más preocupante. Pruébalo.</p>
     </div>
-    <div class="phone sm"><img src="assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Cola de espera ordenada por prioridad, con tiempo restante y alerta de paciente vencido"></div>
+    <div class="sim-grid">
+      <div>
+        <div class="sim-presets" role="group" aria-label="Casos de ejemplo">
+          <button type="button" data-p="80,122,98,36.8,16" aria-pressed="true">Paciente estable</button>
+          <button type="button" data-p="104,132,93,38.9,24" aria-pressed="false">Fiebre con taquicardia</button>
+          <button type="button" data-p="118,84,89,36.6,28" aria-pressed="false">Dolor torácico</button>
+        </div>
+        <div id="sim">
+          <div class="vit"><div class="vit-top"><label for="v-fc">Frecuencia cardiaca</label><output id="o-fc">80</output><small>lpm</small><span class="vit-st" id="s-fc" data-s="normal">Normal</span></div><input type="range" id="v-fc" min="30" max="180" step="1" value="80"></div>
+          <div class="vit"><div class="vit-top"><label for="v-pa">Presión sistólica</label><output id="o-pa">122</output><small>mmHg</small><span class="vit-st" id="s-pa" data-s="normal">Normal</span></div><input type="range" id="v-pa" min="60" max="220" step="1" value="122"></div>
+          <div class="vit"><div class="vit-top"><label for="v-sat">Saturación de oxígeno</label><output id="o-sat">98</output><small>%</small><span class="vit-st" id="s-sat" data-s="normal">Normal</span></div><input type="range" id="v-sat" min="75" max="100" step="1" value="98"></div>
+          <div class="vit"><div class="vit-top"><label for="v-t">Temperatura</label><output id="o-t">36.8</output><small>°C</small><span class="vit-st" id="s-t" data-s="normal">Normal</span></div><input type="range" id="v-t" min="34" max="42" step="0.1" value="36.8"></div>
+          <div class="vit"><div class="vit-top"><label for="v-fr">Frecuencia respiratoria</label><output id="o-fr">16</output><small>rpm</small><span class="vit-st" id="s-fr" data-s="normal">Normal</span></div><input type="range" id="v-fr" min="5" max="40" step="1" value="16"></div>
+        </div>
+      </div>
+      <div class="sim-out" id="simOut" data-l="VERDE" aria-live="polite">
+        <div>
+          <div class="sim-lbl">Prioridad sugerida</div>
+          <div class="sim-lvl" id="simLvl">Verde</div>
+          <div class="sim-what" id="simWhat">Puede esperar</div>
+          <div class="sim-time" id="simTime">Atención en máximo 120 min</div>
+        </div>
+        <div class="sim-ecg" aria-hidden="true"><svg viewBox="0 0 400 70" preserveAspectRatio="none"><path d="M0 40H40l6-4 6 4h12l6-26 8 46 7-34 5 14h14l6-4 6 4H200l6-4 6 4h12l6-26 8 46 7-34 5 14h14l6-4 6 4H400"/></svg></div>
+        <p class="sim-why" id="simWhy">Todos los signos vitales están en rango normal.</p>
+      </div>
+    </div>
+    <p class="sim-note">Ejemplo ilustrativo con los mismos límites que usa la app para marcar cada signo vital. La clasificación real también tiene en cuenta el motivo de consulta, el dolor, el tipo de paciente y, siempre, el criterio del profesional.</p>
   </div>
 </section>
 
@@ -353,37 +471,55 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
 </section>
 
-<!-- PARA EL TURNO -->
-<section class="build" aria-labelledby="h-turno">
-  <div class="wrap build-grid">
-    <div>
-      <h2 id="h-turno">De día o de noche, en el celular o en el computador.</h2>
-      <p class="sec-head" style="margin:16px 0 0;color:#b9c6dc;font-size:1.1rem">Se instala como app en iPhone, Android y escritorio, sin pasar por una tienda. El tema oscuro descansa la vista en el turno de noche y el modo automático sigue al teléfono.</p>
-      <ul class="feat-txt" style="list-style:none;margin-top:24px;display:grid;gap:10px">
-        <li>Seis idiomas y terminología por país</li>
-        <li>Texto ampliable para mejor lectura</li>
-        <li>Se adapta a cada pantalla, también en horizontal</li>
-      </ul>
+<!-- MÍRALO DE CERCA -->
+<section class="view" id="vistazo" aria-labelledby="h-view">
+  <div class="wrap">
+    <div class="sec-head center"><h2 id="h-view">Míralo de cerca.</h2><p>De día o de noche, la misma app. Elige una pantalla y un tema.</p></div>
+    <div class="view-phone phone" id="viewPhone">
+      <img id="viewA" src="assets/img/m-dash.webp" width="780" height="1688" alt="Pantalla de inicio en modo oscuro">
+      <img id="viewB" class="out" src="assets/img/m-dash.webp" width="780" height="1688" alt="" aria-hidden="true">
     </div>
-    <div class="duo">
-      <div class="phone sm"><img src="assets/img/m-dash.webp" width="780" height="1688" loading="lazy" alt="Inicio en modo oscuro"></div>
-      <div class="phone sm"><img src="assets/img/m-dash-light.webp" width="780" height="1688" loading="lazy" alt="Inicio en modo claro"></div>
+    <div class="view-ctrl">
+      <div class="seg" id="viewSeg" role="group" aria-label="Pantalla">
+        <span class="seg-pill" aria-hidden="true"></span>
+        <button type="button" data-v="dash" aria-pressed="true">Inicio</button>
+        <button type="button" data-v="cola" aria-pressed="false">Cola</button>
+        <button type="button" data-v="hc" aria-pressed="false">Pacientes</button>
+        <button type="button" data-v="scores" aria-pressed="false">Scores</button>
+      </div>
+      <div class="swatches" role="group" aria-label="Tema">
+        <button type="button" class="sw" data-t="dark" aria-pressed="true"><span style="background:#0b1120"></span>Oscuro</button>
+        <button type="button" class="sw" data-t="light" aria-pressed="false"><span style="background:#f0f4f8"></span>Claro</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<section aria-labelledby="h-nums">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-nums">Pensada para el turno real.</h2></div>
+    <div class="nums">
+      <div class="num"><b data-n="15">15<small>min</small></b><p>tiempo máximo para atender a un paciente rojo, con aviso si se supera</p></div>
+      <div class="num"><b data-n="7">7</b><p>scores clínicos con los criterios de su publicación original</p></div>
+      <div class="num"><b data-n="59">59</b><p>pruebas automáticas que se ejecutan en cada cambio del código</p></div>
+      <div class="num"><b data-n="6">6</b><p>idiomas, con terminología adaptada a cada país</p></div>
     </div>
   </div>
 </section>
 
 <!-- SEGURIDAD -->
-<section id="seguridad" aria-labelledby="h-seg">
+<section id="seguridad" aria-labelledby="h-seg" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
       <h2 id="h-seg">Los datos de salud se tratan como lo que son.</h2>
       <p>Cada persona ve solo lo que su rol le permite, y las reglas viven en el servidor, no en el navegador.</p>
     </div>
-    <div class="sec-list">
-      <div class="sec-item"><h3>Acceso por roles</h3><p>Médico, administrador de hospital, administrador y paciente. Las cuentas nuevas del personal quedan en revisión hasta que un administrador las aprueba.</p></div>
-      <div class="sec-item"><h3>La clave de la IA nunca llega al navegador</h3><p>Un servidor intermedio verifica la sesión de cada consulta, revisa el rol y aplica un límite diario por usuario.</p></div>
-      <div class="sec-item"><h3>Autorización según la Ley 1581</h3><p>El registro pide autorización explícita para tratar datos de salud y la política de tratamiento está siempre a un toque.</p></div>
-      <div class="sec-item"><h3>Trazabilidad</h3><p>Inicios de sesión, triages, restablecimientos de PIN y cambios de cuentas quedan en un registro de auditoría.</p></div>
+    <div class="sec-grid">
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2M16 15l2 2 4-4"/></svg></div><h3>Acceso por roles</h3><p>Médico, administrador de hospital, administrador y paciente. Las cuentas nuevas del personal quedan en revisión hasta que un administrador las aprueba.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>La clave de la IA nunca llega al navegador</h3><p>Un servidor intermedio verifica la sesión de cada consulta, revisa el rol y aplica un límite diario por usuario.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Autorización según la Ley 1581</h3><p>El registro pide autorización explícita para tratar datos de salud y la política de tratamiento está siempre a un toque.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Trazabilidad</h3><p>Inicios de sesión, triages, restablecimientos de PIN y cambios de cuentas quedan en un registro de auditoría.</p></div>
     </div>
   </div>
 </section>
