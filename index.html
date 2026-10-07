@@ -1,1555 +1,445 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MedAI - Sistema de Triage de Emergencias con Inteligencia Artificial. Clasificación ESI en menos de 180 segundos.">
-<meta name="theme-color" content="#000000">
-<title>MedAI | Triage de Emergencias con IA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MedIA Suite — Triage de urgencias con apoyo de IA</title>
+<meta name="description" content="App web para clasificar pacientes en urgencias por prioridad, llevar la cola en tiempo real y la historia clínica, con un asistente de IA como apoyo. Pruébala sin registro.">
+<meta name="theme-color" content="#0b1120">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
+<meta property="og:type" content="website">
+<meta property="og:title" content="MedIA Suite — Triage de urgencias con apoyo de IA">
+<meta property="og:description" content="Clasificación por colores, cola en tiempo real, historia clínica y scores clínicos. Pruébala sin registro.">
+<meta property="og:image" content="https://modarox28.github.io/medai-lander/assets/img/og.png">
+<meta property="og:url" content="https://modarox28.github.io/medai-lander/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/familjen-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:"Familjen Grotesk";font-weight:400;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Familjen Grotesk";font-weight:500;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Familjen Grotesk";font-weight:700;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-weight:700;font-display:swap;src:url(assets/fonts/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
+
+:root{
+  --navy:#0b1120;--navy-2:#111a2e;--navy-3:#18233b;--line:#1e2d45;
+  --ink:#e8eef8;--mute:#8b9ec0;
+  --cyan:#00c8f0;--red:#ff3a5c;--amber:#ffb830;--green:#00e07a;
+  --r-lg:28px;--r-md:18px;--r-sm:12px;
+  --wrap:1180px;--gut:clamp(20px,5vw,48px);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:"Hanken Grotesk",sans-serif;
-  background:#000;color:#dce4e4;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--navy);color:var(--ink);font:400 1.0625rem/1.6 "Familjen Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--cyan);color:var(--navy);padding:8px 14px;border-radius:8px;font-weight:700;z-index:200}
+.skip:focus{left:8px}
+
+/* ── Marca ── */
+.brand{display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:1.2rem;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.brand svg{width:1.3em;height:1.3em;overflow:visible}
+.brand polyline{fill:none;stroke:var(--cyan);stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
+.brand i{font-style:normal;color:var(--cyan)}
+.brand s{text-decoration:none;color:var(--mute);font-weight:500}
+
+/* ── Botones ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-family:inherit;font-weight:700;font-size:1rem;line-height:1;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .15s,background .2s,border-color .2s}
+.btn:active{transform:scale(.97)}
+.btn-pri{background:var(--cyan);color:#04202a}
+.btn-pri:hover{background:#2ed6f7}
+.btn-sec{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.02)}
+.btn-sec:hover{border-color:var(--mute)}
+.btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── Navegación ── */
+.nav{position:sticky;top:0;z-index:50;background:rgba(11,17,32,.72);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{text-decoration:none;color:var(--mute);font-size:.95rem;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{min-height:42px;padding:0 18px;font-size:.92rem}
+.nav-links a.btn{color:#04202a}
+.nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:var(--ink);cursor:pointer}
+.nav-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media(max-width:860px){
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gut) 18px;background:var(--navy);border-bottom:1px solid var(--line);display:none}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 0;border-bottom:1px solid var(--line);font-size:1.05rem}
+  .nav-links .btn{margin-top:14px;min-height:50px}
 }
 
-/* ── LOADER ──────────────────────────────── */
-#loader{
-  position:fixed;inset:0;background:#000;
-  z-index:9999;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:0;
-  transition:opacity .7s ease, visibility .7s ease;
-}
-#loader.done{opacity:0;visibility:hidden;pointer-events:none}
-.loader-logo{
-  font-size:28px;font-weight:800;letter-spacing:-.03em;
-  background:linear-gradient(135deg,#00dbe7,#74f5ff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-bottom:20px;
-}
-.loader-sub{
-  font-family:"JetBrains Mono",monospace;
-  font-size:11px;letter-spacing:.12em;
-  color:#849495;text-transform:uppercase;
-  margin-bottom:28px;
-}
-.loader-track{
-  width:140px;height:1.5px;
-  background:rgba(255,255,255,.1);
-  border-radius:1px;overflow:hidden;
-}
-.loader-fill{
-  height:100%;width:0;
-  background:linear-gradient(90deg,#00dbe7,#74f5ff);
-  border-radius:1px;
-  animation:lfill 1.4s cubic-bezier(.4,0,.2,1) forwards;
-}
-@keyframes lfill{to{width:100%}}
+/* ── Hero ── */
+.hero{position:relative;padding:clamp(48px,8vw,96px) 0 clamp(56px,8vw,104px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:1}
+.ecg{position:absolute;left:0;right:0;top:50%;height:220px;transform:translateY(-50%);z-index:0;pointer-events:none;opacity:.5}
+.ecg path{fill:none;stroke:var(--cyan);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:2600;stroke-dashoffset:2600;animation:trazo 2.6s .2s cubic-bezier(.5,0,.2,1) forwards}
+.ecg .glow{stroke-width:8;opacity:.18;filter:blur(6px)}
+@keyframes trazo{to{stroke-dashoffset:0}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.03em;font-weight:700;max-width:13ch}
+.hero-lead{margin-top:22px;font-size:clamp(1.05rem,1.6vw,1.22rem);color:#b9c6dc;max-width:46ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-note{margin-top:14px;font-size:.9rem;color:var(--mute)}
+.hero-shot{justify-self:center;position:relative}
+.phone{width:min(330px,78vw);border-radius:46px;padding:10px;background:linear-gradient(160deg,#2a3754,#121a2c 40%,#0c1222);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -20px rgba(0,0,0,.7),0 0 120px -30px rgba(0,200,240,.35)}
+.phone img{border-radius:37px;aspect-ratio:390/844;width:100%;object-fit:cover;object-position:top}
+.phone.sm{width:min(270px,70vw);border-radius:40px;padding:8px}
+.phone.sm img{border-radius:33px}
 
-/* ── NAV ─────────────────────────────────── */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:18px 5vw;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:padding .4s ease,background .4s ease,border-color .4s ease;
-  border-bottom:1px solid transparent;
-}
-#nav.compact{
-  padding:12px 5vw;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-color:rgba(255,255,255,.06);
-}
-.nav-logo{font-size:20px;font-weight:800;letter-spacing:-.03em;color:#dce4e4;text-decoration:none}
-.nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{
-  font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:#849495;text-decoration:none;
-  transition:color .25s ease;
-}
-.nav-links a:hover{color:#dce4e4}
-.nav-cta{
-  font-size:13px;font-weight:700;
-  background:linear-gradient(135deg,#00dbe7,#006a71);
-  color:#002022;padding:9px 22px;border-radius:100px;
-  text-decoration:none;
-  transition:transform .3s ease,box-shadow .3s ease,filter .3s ease;
-  display:inline-block;
-}
-.nav-cta:hover{transform:translateY(-1px);filter:brightness(1.1);box-shadow:0 8px 24px rgba(0,219,231,.35)}
-.menu-btn{
-  display:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:8px;padding:8px;cursor:pointer;color:#dce4e4;
-}
-@media(max-width:768px){
-  .nav-links{display:none}
-  .nav-cta-desktop{display:none}
-  .menu-btn{display:flex;align-items:center;justify-content:center}
-}
-/* Mobile drawer */
-#mobile-drawer{
-  position:fixed;top:0;right:0;bottom:0;width:80vw;max-width:320px;
-  background:#080f10;border-left:1px solid rgba(255,255,255,.07);
-  z-index:200;padding:80px 32px 40px;
-  transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;gap:8px;
-}
-#mobile-drawer.open{transform:translateX(0)}
-#drawer-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:199;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
-#drawer-overlay.show{opacity:1;pointer-events:all}
-.drawer-link{
-  display:block;padding:14px 0;font-size:18px;font-weight:700;color:#b9cacb;
-  text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);
-  transition:color .2s;
-}
-.drawer-link:hover{color:#dce4e4}
+/* ── Secciones ── */
+section{padding:clamp(64px,9vw,120px) 0}
+.sec-head{max-width:640px;margin-bottom:clamp(32px,5vw,56px)}
+h2{font-size:clamp(1.9rem,4vw,3rem);line-height:1.08;letter-spacing:-.035em;font-weight:700}
+.sec-head p{margin-top:16px;color:#b9c6dc;font-size:1.1rem}
+h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
 
-/* ── CANVAS ──────────────────────────────── */
-#canvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:.25;
-}
+/* Prioridad por colores */
+.prio{border-top:1px solid var(--line)}
+.prio-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,6vw,80px);align-items:center}
+.bands{display:flex;flex-direction:column;gap:14px}
+.band{display:grid;grid-template-columns:6px minmax(0,1fr) auto;gap:20px;align-items:center;padding:22px 24px 22px 0;background:var(--navy-2);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.band::before{content:"";align-self:stretch;background:var(--c)}
+.band h3{color:var(--c)}
+.band p{color:var(--mute);font-size:.98rem;margin-top:4px}
+.band .t{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1.5rem;color:var(--ink);text-align:right;line-height:1}
+.band .t small{display:block;font-family:"Familjen Grotesk",sans-serif;font-weight:500;font-size:.78rem;color:var(--mute);margin-top:6px}
+.prio-note{margin-top:18px;color:var(--mute);font-size:.95rem;max-width:56ch}
 
-/* ── SCROLL REVEAL SYSTEM ────────────────── */
-/* All animated elements start hidden */
-[data-reveal]{
-  opacity:0;
-  will-change:opacity,transform;
-}
-[data-reveal="up"]{transform:translate3d(0,50px,0)}
-[data-reveal="down"]{transform:translate3d(0,-30px,0)}
-[data-reveal="left"]{transform:translate3d(60px,0,0)}
-[data-reveal="right"]{transform:translate3d(-60px,0,0)}
-[data-reveal="scale"]{transform:scale3d(.88,.88,1)}
-[data-reveal="blur"]{transform:translate3d(0,20px,0);filter:blur(8px)}
-[data-reveal].visible{
-  opacity:1;
-  transform:translate3d(0,0,0) scale3d(1,1,1);
-  filter:none;
-  transition:
-    opacity .9s cubic-bezier(.16,1,.3,1),
-    transform .9s cubic-bezier(.16,1,.3,1),
-    filter .9s cubic-bezier(.16,1,.3,1);
-}
-/* Stagger delays */
-[data-delay="1"].visible{transition-delay:.1s}
-[data-delay="2"].visible{transition-delay:.2s}
-[data-delay="3"].visible{transition-delay:.3s}
-[data-delay="4"].visible{transition-delay:.4s}
-[data-delay="5"].visible{transition-delay:.5s}
-[data-delay="6"].visible{transition-delay:.6s}
+/* Funciones: filas alternadas con capturas reales */
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:center;padding:clamp(40px,6vw,72px) 0;border-top:1px solid var(--line)}
+.feat:first-of-type{border-top:none;padding-top:0}
+.feat.rev .feat-txt{order:2}
+.feat-txt p{margin-top:14px;color:#b9c6dc;max-width:48ch}
+.feat-txt ul{list-style:none;margin-top:20px;display:grid;gap:10px}
+.feat-txt li{position:relative;padding-left:28px;color:var(--ink)}
+.feat-txt li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:2px;background:var(--cyan);border-radius:2px}
+.feat-img{justify-self:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--navy-2);font-size:.92rem;color:var(--ink)}
+.desk{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+.ia-note{margin-top:20px;padding:16px 18px;border-radius:var(--r-sm);background:rgba(0,200,240,.06);border:1px solid rgba(0,200,240,.25);color:#cfe9f2;font-size:.96rem}
 
-/* ── HERO ────────────────────────────────── */
-.hero{
-  position:relative;min-height:100svh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:100px 5vw 60px;text-align:center;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(0,219,231,.07) 0%,transparent 70%);
-}
-.hero-pill{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 16px;border-radius:100px;
-  border:1px solid rgba(0,219,231,.2);
-  background:rgba(0,219,231,.05);
-  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:#00dbe7;margin-bottom:32px;
-}
-.hero-title{
-  font-size:clamp(44px,8vw,88px);
-  font-weight:800;letter-spacing:-.03em;
-  line-height:1.04;
-  color:#dce4e4;
-  margin-bottom:28px;
-}
-.hero-title .accent{
-  background:linear-gradient(135deg,#00dbe7 0%,#74f5ff 50%,#006a71 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-sub{
-  font-size:clamp(16px,2vw,20px);
-  color:#b9cacb;line-height:1.6;
-  max-width:620px;margin:0 auto 48px;font-weight:400;
-}
-.hero-btns{
-  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
-  margin-bottom:72px;
-}
-.btn-fill{
-  background:linear-gradient(135deg,#00dbe7,#006a71);
-  color:#002022;font-weight:800;font-size:15px;
-  padding:14px 32px;border-radius:100px;text-decoration:none;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease,filter .35s ease;
-  display:inline-flex;align-items:center;gap:8px;
-}
-.btn-fill:hover{transform:translate3d(0,-3px,0);box-shadow:0 16px 40px rgba(0,219,231,.35);filter:brightness(1.08)}
-.btn-outline{
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.04);
-  color:#dce4e4;font-weight:700;font-size:15px;
-  padding:14px 32px;border-radius:100px;text-decoration:none;
-  transition:background .3s,border-color .3s,transform .3s cubic-bezier(.34,1.56,.64,1);
-  display:inline-flex;align-items:center;gap:8px;
-}
-.btn-outline:hover{background:rgba(255,255,255,.09);border-color:rgba(0,219,231,.35);transform:translate3d(0,-2px,0)}
+/* Para el turno: tema claro/oscuro */
+.duo{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.duo .phone:last-child{margin-top:48px}
 
-/* Stats bar */
-.stats-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;
-  max-width:700px;width:100%;margin:0 auto;
-}
-@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-.stat-cell{
-  background:#000;padding:24px 16px;text-align:center;
-  transition:background .3s;
-}
-.stat-cell:hover{background:#080f10}
-.stat-num{
-  font-size:clamp(28px,4vw,36px);font-weight:800;letter-spacing:-.02em;
-  color:#dce4e4;line-height:1;margin-bottom:6px;
-  font-variant-numeric:tabular-nums;
-}
-.stat-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#849495}
+/* Seguridad */
+.sec-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
+.sec-item{padding:26px 0;border-top:1px solid var(--line)}
+.sec-item p{margin-top:8px;color:var(--mute)}
 
-/* Scroll indicator */
-.scroll-hint{
-  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-}
-.scroll-line{
-  width:1px;height:48px;
-  background:linear-gradient(to bottom,rgba(0,219,231,.5),transparent);
-  animation:pulse-down 2s ease-in-out infinite;
-}
-@keyframes pulse-down{0%,100%{opacity:.3;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
-.scroll-txt{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#849495;font-weight:700}
+/* Cómo está hecho */
+.build{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.build-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,80px);align-items:start}
+.arch{background:var(--navy);border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(20px,3vw,32px)}
+.arch svg{width:100%;height:auto}
+.arch text{font-family:"Familjen Grotesk",sans-serif;fill:var(--ink)}
+.arch .sub{fill:var(--mute)}
+.stats{display:flex;flex-wrap:wrap;gap:28px 40px;margin-top:28px}
+.stat b{display:block;font-family:"JetBrains Mono",monospace;font-size:2rem;line-height:1;color:var(--cyan)}
+.stat span{color:var(--mute);font-size:.92rem}
 
-/* ── SECTION LABELS ──────────────────────── */
-.section-eyebrow{
-  font-family:"JetBrains Mono",monospace;
-  font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
-  color:#00dbe7;margin-bottom:16px;display:block;
-}
-.section-title{
-  font-size:clamp(36px,5vw,60px);font-weight:800;
-  letter-spacing:-.03em;line-height:1.06;
-  color:#dce4e4;
-}
-.section-body{
-  font-size:clamp(16px,1.8vw,18px);
-  color:#b9cacb;line-height:1.65;font-weight:400;
-}
-.neon-divider{
-  height:1px;
-  background:linear-gradient(90deg,transparent,rgba(0,219,231,.3),transparent);
-  border:none;margin:0;
-}
+/* Próximamente */
+.next-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.next{padding:24px;border:1px dashed #2b3d5c;border-radius:var(--r-md)}
+.next p{margin-top:8px;color:var(--mute);font-size:.98rem}
 
-/* ── TRIAGE SECTION ──────────────────────── */
-.triage-section{background:#080f10;padding:120px 5vw}
-.triage-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:60px}
-@media(max-width:900px){.triage-grid{grid-template-columns:1fr}}
+/* Cierre */
+.cta{text-align:center}
+.cta h2{max-width:18ch;margin:0 auto}
+.cta p{max-width:52ch;margin:16px auto 0;color:#b9c6dc}
+.cta .hero-cta{justify-content:center}
+footer{border-top:1px solid var(--line);padding:36px 0 calc(36px + env(safe-area-inset-bottom))}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-start}
+.foot-note{color:var(--mute);font-size:.9rem;max-width:60ch}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links a{color:var(--mute);text-decoration:none;font-size:.95rem}
+.foot-links a:hover{color:var(--ink)}
 
-.triage-card{
-  position:relative;overflow:hidden;
-  background:#0d1515;border-radius:16px;
-  border:1px solid rgba(255,255,255,.05);
-  padding:28px 24px;
-  transition:transform .5s cubic-bezier(.34,1.2,.64,1),
-             box-shadow .5s ease,
-             border-color .5s ease;
-  cursor:default;
-}
-.triage-card:hover{
-  transform:translate3d(0,-8px,0) scale3d(1.02,1.02,1);
-  border-color:rgba(255,255,255,.12);
-}
-.triage-top-bar{height:3px;border-radius:2px;width:100%;margin-bottom:24px}
-.triage-level{
-  font-family:"JetBrains Mono",monospace;
-  font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
-  margin-bottom:8px;
-}
-.triage-name{font-size:20px;font-weight:700;letter-spacing:-.01em;color:#dce4e4;margin-bottom:6px}
-.triage-desc{font-size:13px;color:#b9cacb;line-height:1.6;margin-bottom:16px}
-.triage-time{
-  font-family:"JetBrains Mono",monospace;
-  font-size:12px;font-weight:500;
-  padding:5px 12px;border-radius:6px;
-  background:rgba(255,255,255,.05);
-  display:inline-block;
-}
-/* Mobile triage row */
-.triage-row{
-  display:none;
-  background:#0d1515;border-radius:12px;
-  border:1px solid rgba(255,255,255,.05);
-  padding:16px 20px;
-  align-items:center;gap:16px;
-  transition:transform .3s ease;
-  border-left-width:3px;
-}
-.triage-row:active{transform:scale(.98)}
+/* ── Responsive ── */
 @media(max-width:900px){
-  .triage-grid{display:none}
-  .triage-rows{display:flex;flex-direction:column;gap:10px;margin-top:40px}
-  .triage-row{display:flex}
+  .hero .wrap,.prio-grid,.feat,.build-grid{grid-template-columns:minmax(0,1fr)}
+  .feat.rev .feat-txt{order:0}
+  .prio-grid .phone{justify-self:center}
+  .sec-list{grid-template-columns:minmax(0,1fr)}
+  .next-list{grid-template-columns:minmax(0,1fr)}
+  .hero h1{max-width:none}
+  .ecg{top:28%}
 }
-
-/* ── STICKY CAPABILITIES ─────────────────── */
-.sticky-wrap{position:relative;height:400vh}
-.sticky-inner{
-  position:sticky;top:0;height:100vh;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  background:#000;
+@media(max-width:520px){
+  .band{grid-template-columns:6px minmax(0,1fr);padding-right:18px}
+  .band .t{grid-column:2;text-align:left}
+  .band .t small{display:inline;margin-left:6px}
+  .duo .phone.sm{width:46vw;border-radius:30px;padding:6px}
+  .duo .phone.sm img{border-radius:25px}
+  .duo .phone:last-child{margin-top:32px}
+  .hero-cta .btn{flex:1 1 100%}
 }
-.cap-stage{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:center;
-  max-width:1200px;width:100%;padding:0 5vw;
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ecg path{animation:none;stroke-dashoffset:0}
 }
-@media(max-width:768px){
-  .cap-stage{grid-template-columns:1fr;gap:48px;text-align:center}
-  .cap-visual{order:-1}
-}
-.cap-item{
-  position:absolute;top:0;left:0;right:0;bottom:0;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:opacity .6s ease;
-  padding:0 5vw;
-}
-.cap-item.active{opacity:1;pointer-events:all}
-/* Capability text side */
-.cap-eyebrow{
-  font-family:"JetBrains Mono",monospace;
-  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:#00dbe7;margin-bottom:14px;
-}
-.cap-title{
-  font-size:clamp(32px,4vw,52px);font-weight:800;
-  letter-spacing:-.03em;line-height:1.08;
-  color:#dce4e4;margin-bottom:20px;
-}
-.cap-body{font-size:17px;color:#b9cacb;line-height:1.65;max-width:480px}
-@media(max-width:768px){.cap-body{max-width:100%}}
-/* Capability visual side */
-.cap-visual-box{
-  background:#080f10;border:1px solid rgba(255,255,255,.07);
-  border-radius:24px;padding:36px;
-  position:relative;overflow:hidden;
-}
-.cap-icon-ring{
-  width:88px;height:88px;border-radius:50%;
-  background:rgba(0,219,231,.08);
-  border:1px solid rgba(0,219,231,.2);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 28px;position:relative;
-}
-.cap-icon-ring::before{
-  content:"";position:absolute;inset:-8px;border-radius:50%;
-  border:1px solid rgba(0,219,231,.08);
-  animation:ring-pulse 3s ease-in-out infinite;
-}
-@keyframes ring-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.12);opacity:1}}
-.cap-metric{
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(255,255,255,.04);border-radius:10px;
-  padding:12px 16px;margin-bottom:8px;
-  border:1px solid rgba(255,255,255,.05);
-}
-.cap-metric-label{font-size:12px;color:#849495;font-weight:600}
-.cap-metric-val{
-  font-family:"JetBrains Mono",monospace;
-  font-size:14px;font-weight:500;color:#00dbe7;
-}
-/* Progress dots */
-.cap-dots{
-  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
-  display:flex;gap:8px;z-index:10;
-}
-.cap-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(255,255,255,.2);
-  transition:background .3s,transform .3s;
-  cursor:pointer;
-}
-.cap-dot.active{background:#00dbe7;transform:scale(1.4)}
-
-/* ── WORKFLOW ────────────────────────────── */
-.workflow-section{background:#080f10;padding:120px 5vw}
-/* Desktop horizontal */
-.workflow-track{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:2px;background:rgba(255,255,255,.06);
-  border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.06);
-  margin-top:60px;
-}
-@media(max-width:900px){.workflow-track{display:none}}
-.workflow-step{
-  background:#000;padding:40px 32px;
-  transition:background .3s;position:relative;
-}
-.workflow-step:hover{background:#080f10}
-.step-num{
-  font-family:"JetBrains Mono",monospace;
-  font-size:11px;font-weight:500;letter-spacing:.1em;
-  color:#00dbe7;margin-bottom:20px;
-}
-.step-icon-wrap{
-  width:56px;height:56px;border-radius:14px;
-  background:rgba(0,219,231,.08);border:1px solid rgba(0,219,231,.15);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:20px;
-  transition:background .3s,transform .4s cubic-bezier(.34,1.56,.64,1);
-}
-.workflow-step:hover .step-icon-wrap{background:rgba(0,219,231,.15);transform:translate3d(0,-4px,0)}
-.step-name{font-size:20px;font-weight:700;color:#dce4e4;margin-bottom:10px}
-.step-desc{font-size:14px;color:#849495;line-height:1.6}
-/* Mobile vertical */
-.workflow-vertical{display:none;position:relative;padding-left:28px}
-@media(max-width:900px){.workflow-vertical{display:block;margin-top:48px}}
-.workflow-line{
-  position:absolute;left:0;top:0;bottom:0;
-  width:1px;background:linear-gradient(to bottom,#00dbe7,rgba(0,219,231,0));
-}
-.v-step{margin-bottom:44px;position:relative}
-.v-dot{
-  position:absolute;left:-32px;top:6px;
-  width:9px;height:9px;border-radius:50%;background:#00dbe7;
-  box-shadow:0 0 12px rgba(0,219,231,.6);
-}
-.v-step-num{font-family:"JetBrains Mono",monospace;font-size:10px;color:#00dbe7;letter-spacing:.1em;margin-bottom:6px}
-.v-step-name{font-size:18px;font-weight:700;color:#dce4e4;margin-bottom:6px}
-.v-step-desc{font-size:14px;color:#849495;line-height:1.6}
-
-/* ── PRODUCT CARDS (APPLE EXPAND) ────────── */
-.products-section{background:#000;padding:120px 5vw}
-.products-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:16px;margin-top:60px;
-}
-@media(max-width:900px){.products-grid{grid-template-columns:1fr}}
-.prod-card{
-  background:#0d1515;border-radius:24px;
-  border:1px solid rgba(255,255,255,.06);
-  overflow:hidden;cursor:pointer;
-  transition:border-color .4s ease,box-shadow .4s ease;
-  position:relative;
-}
-.prod-card.featured{
-  border-color:rgba(0,219,231,.2);
-  box-shadow:0 0 40px rgba(0,219,231,.06),inset 0 0 40px rgba(0,219,231,.02);
-}
-.prod-card:hover{border-color:rgba(255,255,255,.12)}
-.prod-card-header{padding:36px 32px 28px;position:relative}
-.prod-badge{
-  font-family:"JetBrains Mono",monospace;
-  font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
-  color:#00dbe7;margin-bottom:14px;display:block;
-}
-.prod-icon{
-  width:60px;height:60px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:20px;
-  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
-}
-.prod-card:hover .prod-icon{transform:translate3d(0,-4px,0) rotate(3deg)}
-.prod-icon.fill{background:linear-gradient(135deg,#00dbe7,#006a71)}
-.prod-icon.ghost{background:rgba(0,219,231,.08);border:1px solid rgba(0,219,231,.15)}
-.prod-name{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#dce4e4;margin-bottom:10px}
-.prod-tagline{font-size:14px;color:#849495;line-height:1.6;margin-bottom:0}
-
-/* Expandable detail */
-.prod-expand{
-  max-height:0;overflow:hidden;
-  transition:max-height .65s cubic-bezier(.4,0,.2,1), opacity .45s ease;
-  opacity:0;
-}
-.prod-expand.open{max-height:520px;opacity:1}
-.prod-detail{
-  padding:0 32px 32px;
-  border-top:1px solid rgba(255,255,255,.05);
-  padding-top:24px;
-}
-.prod-feature{
-  display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;
-}
-.prod-feature-icon{
-  width:32px;height:32px;border-radius:8px;
-  background:rgba(0,219,231,.08);border:1px solid rgba(0,219,231,.1);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  margin-top:2px;
-}
-.prod-feature-text h5{font-size:14px;font-weight:700;color:#dce4e4;margin-bottom:2px}
-.prod-feature-text p{font-size:12px;color:#849495;line-height:1.5}
-
-/* Expand trigger button */
-.prod-expand-btn{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 32px;
-  font-size:13px;font-weight:700;color:#00dbe7;
-  border-top:1px solid rgba(255,255,255,.05);
-  cursor:pointer;
-  background:none;border-left:none;border-right:none;border-bottom:none;
-  width:100%;text-align:left;
-  transition:background .25s, color .25s;
-  /* Pulsing hint to invite interaction */
-  position:relative;
-  overflow:hidden;
-}
-.prod-expand-btn::after{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(0,219,231,.06),transparent);
-  transform:translateX(-100%);
-  animation:shimmer-hint 3s ease-in-out infinite;
-}
-@keyframes shimmer-hint{
-  0%{transform:translateX(-100%)}
-  40%,100%{transform:translateX(100%)}
-}
-.prod-expand-btn:hover{background:rgba(0,219,231,.05);color:#74f5ff}
-.prod-expand-btn:hover::after{animation:none}
-
-.expand-arrow{
-  transition:transform .4s cubic-bezier(.4,0,.2,1);
-  display:flex;pointer-events:none;
-}
-.expand-arrow.open{transform:rotate(180deg)}
-
-/* Focus/dim effect: when one card is open, others dim slightly */
-.products-grid.has-open .prod-card:not(.is-open){
-  opacity:.55;
-  transform:scale3d(.97,.97,1);
-  filter:brightness(.8);
-}
-.prod-card{
-  transition:
-    border-color .4s ease,
-    box-shadow .4s ease,
-    opacity .45s ease,
-    transform .45s cubic-bezier(.4,0,.2,1),
-    filter .45s ease;
-}
-.prod-card.is-open{
-  border-color:rgba(0,219,231,.3) !important;
-  box-shadow:0 0 60px rgba(0,219,231,.1), 0 20px 60px rgba(0,0,0,.5);
-  transform:scale3d(1,1,1) !important;
-  opacity:1 !important;
-  filter:none !important;
-}
-
-/* ── COMPLIANCE ──────────────────────────── */
-.compliance-section{background:#080f10;padding:120px 5vw}
-.cert-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:16px;margin-top:60px;
-}
-@media(max-width:900px){.cert-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.cert-grid{grid-template-columns:1fr}}
-.cert-card{
-  background:#000;border:1px solid rgba(255,255,255,.06);
-  border-radius:20px;padding:32px 24px;text-align:center;
-  transition:border-color .3s,transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
-}
-.cert-card:hover{
-  border-color:rgba(0,219,231,.2);
-  transform:translate3d(0,-6px,0);
-  box-shadow:0 20px 40px rgba(0,0,0,.4),0 0 30px rgba(0,219,231,.08);
-}
-.cert-icon{
-  width:56px;height:56px;border-radius:14px;
-  background:rgba(0,219,231,.08);border:1px solid rgba(0,219,231,.15);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
-  transition:background .3s;
-}
-.cert-card:hover .cert-icon{background:rgba(0,219,231,.15)}
-.cert-name{font-size:18px;font-weight:800;color:#dce4e4;margin-bottom:6px}
-.cert-desc{font-size:12px;color:#849495;line-height:1.5}
-
-/* ── CTA ─────────────────────────────────── */
-.cta-section{
-  position:relative;padding:140px 5vw;text-align:center;
-  background:#000;overflow:hidden;
-}
-.cta-orb{
-  position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;
-}
-.cta-title{
-  font-size:clamp(42px,7vw,80px);font-weight:800;
-  letter-spacing:-.03em;line-height:1.05;
-  color:#dce4e4;margin-bottom:24px;
-}
-.cta-sub{font-size:18px;color:#b9cacb;max-width:540px;margin:0 auto 48px;line-height:1.65}
-.compliance-badges{
-  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:40px;
-}
-.cb{
-  font-family:"JetBrains Mono",monospace;
-  font-size:11px;font-weight:500;letter-spacing:.06em;
-  color:#849495;
-  padding:7px 16px;border-radius:8px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
-  transition:color .3s,border-color .3s,background .3s;
-}
-.cb:hover{color:#dce4e4;border-color:rgba(0,219,231,.25);background:rgba(0,219,231,.05)}
-
-/* ── FOOTER ──────────────────────────────── */
-footer{
-  background:#080f10;
-  border-top:1px solid rgba(255,255,255,.05);
-  padding:80px 5vw 48px;
-}
-.footer-grid{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:48px;margin-bottom:64px;
-}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
-.footer-brand{font-size:20px;font-weight:800;letter-spacing:-.02em;color:#dce4e4;margin-bottom:14px}
-.footer-tagline{font-size:14px;color:#849495;line-height:1.6;max-width:260px;margin-bottom:24px}
-.footer-socials{display:flex;gap:10px}
-.footer-social{
-  width:36px;height:36px;border-radius:10px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  display:flex;align-items:center;justify-content:center;
-  color:#849495;text-decoration:none;
-  transition:background .25s,color .25s,border-color .25s;
-}
-.footer-social:hover{background:rgba(0,219,231,.1);border-color:rgba(0,219,231,.2);color:#00dbe7}
-.footer-col-title{
-  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:#00dbe7;margin-bottom:20px;
-}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:12px}
-.footer-links a{font-size:14px;color:#849495;text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:#dce4e4}
-.footer-bottom{
-  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;
-  padding-top:32px;border-top:1px solid rgba(255,255,255,.05);
-}
-.footer-copy{font-size:12px;color:#849495;font-family:"JetBrains Mono",monospace}
-.footer-legal{display:flex;gap:24px}
-.footer-legal a{font-size:12px;color:#849495;text-decoration:none;transition:color .2s}
-.footer-legal a:hover{color:#dce4e4}
-
-/* ── MISC UTILITIES ──────────────────────── */
-.max-center{max-width:1200px;margin:0 auto}
-.text-teal{color:#00dbe7}
-.gradient-text{
-  background:linear-gradient(135deg,#00dbe7,#74f5ff 50%,#006a71);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.material-symbols-outlined{font-family:"Material Symbols Outlined";font-size:24px;vertical-align:middle}
-
-/* Pulse animation for live dot */
-@keyframes live-pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.live-dot{animation:live-pulse 2s ease-in-out infinite}
-
-/* Subtle scan line on visual boxes */
-.scan-box{position:relative;overflow:hidden}
-.scan-box::after{
-  content:"";position:absolute;left:0;right:0;height:80px;
-  background:linear-gradient(to bottom,transparent,rgba(0,219,231,.04),transparent);
-  animation:scan-move 3.5s linear infinite;pointer-events:none;
-}
-@keyframes scan-move{0%{top:-80px}100%{top:100%}}
 </style>
 </head>
 <body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
 
-<!-- ══ LOADER ═══════════════════════════════════════════ -->
-<div id="loader">
-  <div class="loader-logo">MedAI</div>
-  <div class="loader-sub">Iniciando núcleo de IA clínica</div>
-  <div class="loader-track"><div class="loader-fill"></div></div>
-</div>
-
-<!-- ══ CANVAS ════════════════════════════════════════════ -->
-<canvas id="canvas"></canvas>
-
-<!-- ══ NAV ══════════════════════════════════════════════ -->
-<nav id="nav">
-  <a href="#" class="nav-logo">MedAI</a>
-  <div class="nav-links">
-    <a href="#triage">Clasificación</a>
-    <a href="#capacidades">Capacidades</a>
-    <a href="#flujo">Flujo Clínico</a>
-    <a href="#versiones">Versiones</a>
-    <a href="#cumplimiento">Cumplimiento</a>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="MedIA Suite, inicio">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
+      <span>Med<i>IA</i> <s>Suite</s></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav-links" id="navLinks" aria-label="Secciones">
+      <a href="#prioridad">Prioridad</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#seguridad">Seguridad</a>
+      <a href="#tecnologia">Cómo está hecho</a>
+      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
+    </nav>
   </div>
-  <a href="#cta" class="nav-cta nav-cta-desktop">Solicitar Demo</a>
-  <button class="menu-btn" id="menu-btn" aria-label="Menú">
-    <span class="material-symbols-outlined" style="font-size:20px" id="menu-icon">menu</span>
-  </button>
-</nav>
+</header>
 
-<!-- Mobile drawer -->
-<div id="drawer-overlay"></div>
-<div id="mobile-drawer">
-  <a href="#triage" class="drawer-link">Clasificación</a>
-  <a href="#capacidades" class="drawer-link">Capacidades</a>
-  <a href="#flujo" class="drawer-link">Flujo Clínico</a>
-  <a href="#versiones" class="drawer-link">Versiones</a>
-  <a href="#cumplimiento" class="drawer-link">Cumplimiento</a>
-  <a href="#cta" class="drawer-link" style="color:#00dbe7;border:none;margin-top:16px">→ Solicitar Demo</a>
-</div>
-
-<!-- ══ HERO ══════════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div style="position:relative;z-index:2;width:100%">
-    <div class="hero-pill" data-reveal="up">
-      <span class="live-dot" style="width:7px;height:7px;border-radius:50%;background:#00dbe7;display:inline-block"></span>
-      Transformando el triaje hospitalario
+<main id="contenido">
+<!-- HERO -->
+<section class="hero" aria-labelledby="h-hero">
+  <svg class="ecg" viewBox="0 0 1600 220" preserveAspectRatio="none" aria-hidden="true">
+    <path class="glow" d="M0 120H760l20-6 14 6h40l18-74 26 128 22-96 14 42h34l16-8 14 8H1600"/>
+    <path d="M0 120H760l20-6 14 6h40l18-74 26 128 22-96 14 42h34l16-8 14 8H1600"/>
+  </svg>
+  <div class="wrap">
+    <div>
+      <h1 id="h-hero">Triage de urgencias que se entiende de un vistazo.</h1>
+      <p class="hero-lead">MedIA Suite ayuda al personal de urgencias a clasificar a cada paciente por prioridad, ordenar la sala de espera y consultar su historia clínica. Un asistente de IA sugiere y explica; la decisión siempre es del profesional.</p>
+      <div class="hero-cta">
+        <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Probar la demo
+        </a>
+        <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6.2 0C6.6 2.8 5.6 3.1 5.6 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>Ver el código
+        </a>
+      </div>
+      <p class="hero-note">La demo no pide registro y usa pacientes ficticios.</p>
     </div>
-    <h1 class="hero-title" data-reveal="up" data-delay="1">
-      Inteligencia clínica<br>
-      <span class="accent">para salvar vidas.</span>
-    </h1>
-    <p class="hero-sub" data-reveal="up" data-delay="2">
-      El sistema de triage con IA número uno para salas de urgencias.
-      Clasificación ESI&nbsp;1–5 en menos de 180&nbsp;segundos, sin conexión a internet.
-    </p>
-    <div class="hero-btns" data-reveal="up" data-delay="3">
-      <a href="#cta" class="btn-fill">
-        <span class="material-symbols-outlined" style="font-size:18px">calendar_month</span>
-        Solicitar Demo
-      </a>
-      <a href="#capacidades" class="btn-outline">
-        <span class="material-symbols-outlined" style="font-size:18px">play_circle</span>
-        Ver cómo funciona
-      </a>
-    </div>
-    <!-- Stats -->
-    <div class="stats-grid" data-reveal="up" data-delay="4">
-      <div class="stat-cell">
-        <div class="stat-num"><span class="counter" data-target="250">0</span>+</div>
-        <div class="stat-label">Hospitales</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num"><span class="counter" data-target="97">0</span>%</div>
-        <div class="stat-label">Precisión IA</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">&lt;<span class="counter" data-target="180">0</span>s</div>
-        <div class="stat-label">Por decisión</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num"><span class="counter" data-target="24">0</span>/7</div>
-        <div class="stat-label">Disponibilidad</div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <span class="scroll-txt">Explorar</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<hr class="neon-divider">
-
-<!-- ══ TRIAGE ════════════════════════════════════════════ -->
-<section class="triage-section" id="triage">
-  <div class="max-center">
-    <span class="section-eyebrow" data-reveal="up">Sistema de clasificación ESI</span>
-    <h2 class="section-title" data-reveal="up" data-delay="1">
-      Cinco niveles.<br><span class="gradient-text">Una decisión crítica.</span>
-    </h2>
-    <p class="section-body" style="max-width:560px;margin-top:20px" data-reveal="up" data-delay="2">
-      La IA analiza signos vitales, historial y síntomas en tiempo real para asignar el nivel de urgencia correcto desde el primer segundo.
-    </p>
-
-    <!-- Desktop cards -->
-    <div class="triage-grid">
-      <div class="triage-card" data-reveal="scale" data-delay="1" style="--glow:rgba(225,29,72,.12)">
-        <div class="triage-top-bar" style="background:#E11D48;box-shadow:0 0 14px rgba(225,29,72,.5)"></div>
-        <div class="triage-level" style="color:#E11D48">ESI-1 · Inmediato</div>
-        <div class="triage-name">Paro Cardíaco</div>
-        <div class="triage-desc">Riesgo vital. Intervención instantánea. No hay margen de espera.</div>
-        <div class="triage-time" style="color:#E11D48;background:rgba(225,29,72,.08)">⟨ 2 min</div>
-      </div>
-      <div class="triage-card" data-reveal="scale" data-delay="2">
-        <div class="triage-top-bar" style="background:#F97316;box-shadow:0 0 14px rgba(249,115,22,.5)"></div>
-        <div class="triage-level" style="color:#F97316">ESI-2 · Urgente</div>
-        <div class="triage-name">Dificultad Respiratoria</div>
-        <div class="triage-desc">Condición inminentemente mortal que requiere atención prioritaria.</div>
-        <div class="triage-time" style="color:#F97316;background:rgba(249,115,22,.08)">⟨ 10 min</div>
-      </div>
-      <div class="triage-card" data-reveal="scale" data-delay="3">
-        <div class="triage-top-bar" style="background:#FACC15;box-shadow:0 0 14px rgba(250,204,21,.4)"></div>
-        <div class="triage-level" style="color:#FACC15">ESI-3 · Serio</div>
-        <div class="triage-name">Dolor Severo</div>
-        <div class="triage-desc">Condición potencialmente mortal. Evaluación médica urgente.</div>
-        <div class="triage-time" style="color:#FACC15;background:rgba(250,204,21,.08)">⟨ 30 min</div>
-      </div>
-      <div class="triage-card" data-reveal="scale" data-delay="4">
-        <div class="triage-top-bar" style="background:#10B981;box-shadow:0 0 14px rgba(16,185,129,.4)"></div>
-        <div class="triage-level" style="color:#10B981">ESI-4 · Moderado</div>
-        <div class="triage-name">Traumatismo Leve</div>
-        <div class="triage-desc">Estable pero requiere evaluación. Sin riesgo vital inmediato.</div>
-        <div class="triage-time" style="color:#10B981;background:rgba(16,185,129,.08)">⟨ 60 min</div>
-      </div>
-      <div class="triage-card" data-reveal="scale" data-delay="5">
-        <div class="triage-top-bar" style="background:#64748B"></div>
-        <div class="triage-level" style="color:#64748B">ESI-5 · No Urgente</div>
-        <div class="triage-name">Consulta Rutinaria</div>
-        <div class="triage-desc">Condición estable y no crítica. Atención estándar programada.</div>
-        <div class="triage-time" style="color:#64748B;background:rgba(100,116,139,.08)">⟨ 120 min</div>
-      </div>
-    </div>
-
-    <!-- Mobile rows -->
-    <div class="triage-rows">
-      <div class="triage-row" style="border-left-color:#E11D48" data-reveal="right">
-        <div style="min-width:52px;text-align:center">
-          <span class="material-symbols-outlined" style="color:#E11D48;font-size:28px" data-fill="1">emergency</span>
-          <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#E11D48;margin-top:2px">ESI-1</div>
-        </div>
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#dce4e4">Inmediato — Paro Cardíaco</div>
-          <div style="font-size:12px;color:#849495;margin-top:2px">Intervención en menos de 2 minutos</div>
-        </div>
-      </div>
-      <div class="triage-row" style="border-left-color:#F97316" data-reveal="right" data-delay="1">
-        <div style="min-width:52px;text-align:center">
-          <span class="material-symbols-outlined" style="color:#F97316;font-size:28px">warning</span>
-          <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#F97316;margin-top:2px">ESI-2</div>
-        </div>
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#dce4e4">Urgente — Dificultad Respiratoria</div>
-          <div style="font-size:12px;color:#849495;margin-top:2px">Atención en menos de 10 minutos</div>
-        </div>
-      </div>
-      <div class="triage-row" style="border-left-color:#FACC15" data-reveal="right" data-delay="2">
-        <div style="min-width:52px;text-align:center">
-          <span class="material-symbols-outlined" style="color:#FACC15;font-size:28px">priority_high</span>
-          <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#FACC15;margin-top:2px">ESI-3</div>
-        </div>
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#dce4e4">Serio — Dolor Severo / Fracturas</div>
-          <div style="font-size:12px;color:#849495;margin-top:2px">Atención en menos de 30 minutos</div>
-        </div>
-      </div>
-      <div class="triage-row" style="border-left-color:#10B981" data-reveal="right" data-delay="3">
-        <div style="min-width:52px;text-align:center">
-          <span class="material-symbols-outlined" style="color:#10B981;font-size:28px">check_circle</span>
-          <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#10B981;margin-top:2px">ESI-4</div>
-        </div>
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#dce4e4">Moderado — Traumatismo Leve</div>
-          <div style="font-size:12px;color:#849495;margin-top:2px">Atención en menos de 60 minutos</div>
-        </div>
-      </div>
-      <div class="triage-row" style="border-left-color:#64748B" data-reveal="right" data-delay="4">
-        <div style="min-width:52px;text-align:center">
-          <span class="material-symbols-outlined" style="color:#64748B;font-size:28px">info</span>
-          <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#64748B;margin-top:2px">ESI-5</div>
-        </div>
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#dce4e4">No Urgente — Consulta Rutinaria</div>
-          <div style="font-size:12px;color:#849495;margin-top:2px">Atención en menos de 120 minutos</div>
-        </div>
-      </div>
+    <div class="hero-shot">
+      <div class="phone"><img src="assets/img/m-dash.webp" width="780" height="1688" alt="Pantalla de inicio de MedIA Suite: un paciente crítico en espera, conteo de urgentes y estables del día y botón para iniciar un nuevo triage" fetchpriority="high"></div>
     </div>
   </div>
 </section>
 
-<hr class="neon-divider">
+<!-- PRIORIDAD -->
+<section class="prio" id="prioridad" aria-labelledby="h-prio">
+  <div class="wrap prio-grid">
+    <div>
+      <div class="sec-head">
+        <h2 id="h-prio">Tres colores. Cada paciente sabe cuánto puede esperar.</h2>
+        <p>Con los signos vitales, el motivo de consulta y el tipo de paciente, la app propone una prioridad y el tiempo máximo de espera. La cola avisa cuando alguien supera su tiempo.</p>
+      </div>
+      <div class="bands">
+        <div class="band" style="--c:var(--red)"><div><h3>Rojo · atención inmediata</h3><p>Riesgo vital: dolor torácico con hipotensión, dificultad respiratoria grave.</p></div><div class="t">15<small>minutos</small></div></div>
+        <div class="band" style="--c:var(--amber)"><div><h3>Amarillo · urgente</h3><p>Necesita valoración pronto, sin riesgo inmediato.</p></div><div class="t">30<small>minutos</small></div></div>
+        <div class="band" style="--c:var(--green)"><div><h3>Verde · puede esperar</h3><p>Paciente estable, atención en orden de llegada.</p></div><div class="t">120<small>minutos</small></div></div>
+      </div>
+      <p class="prio-note">Los tiempos objetivo son configurables. La clasificación sigue criterios tipo ESI y Manchester y el médico puede corregirla en cualquier momento.</p>
+    </div>
+    <div class="phone sm"><img src="assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Cola de espera ordenada por prioridad, con tiempo restante y alerta de paciente vencido"></div>
+  </div>
+</section>
 
-<!-- ══ STICKY CAPABILITIES ═══════════════════════════════ -->
-<section id="capacidades">
-  <div class="sticky-wrap" id="sticky-wrap">
-    <div class="sticky-inner" id="sticky-inner">
-      <!-- Item 1 -->
-      <div class="cap-item active" id="cap-0">
-        <div class="cap-stage">
-          <div>
-            <div class="cap-eyebrow">01 — Velocidad</div>
-            <div class="cap-title">Decisiones<br>en menos<br>de 180 segundos.</div>
-            <div class="cap-body" style="margin-top:20px">Nuestros modelos de IA procesan signos vitales, síntomas y antecedentes de forma local y simultánea. Sin espera de nube, sin latencia, sin compromisos.</div>
-          </div>
-          <div class="cap-visual">
-            <div class="cap-visual-box scan-box">
-              <div class="cap-icon-ring">
-                <span class="material-symbols-outlined text-teal" style="font-size:36px">bolt</span>
-              </div>
-              <div style="text-align:center;margin-bottom:24px">
-                <div style="font-size:52px;font-weight:800;letter-spacing:-.04em;color:#00dbe7;line-height:1">178s</div>
-                <div style="font-size:12px;color:#849495;margin-top:4px;letter-spacing:.06em;text-transform:uppercase;font-weight:600">Tiempo promedio de clasificación</div>
-              </div>
-              <div class="cap-metric"><span class="cap-metric-label">Precisión</span><span class="cap-metric-val">97.3%</span></div>
-              <div class="cap-metric"><span class="cap-metric-label">Latencia del modelo</span><span class="cap-metric-val">&lt; 0.8s</span></div>
-              <div class="cap-metric"><span class="cap-metric-label">Procesamiento</span><span class="cap-metric-val">Local / Offline</span></div>
-            </div>
-          </div>
+<!-- FUNCIONES -->
+<section id="funciones" aria-labelledby="h-func">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-func">Lo que necesita un turno de urgencias, en una sola app.</h2>
+    </div>
+
+    <article class="feat">
+      <div class="feat-txt">
+        <h3>Historia clínica a mano</h3>
+        <p>Antecedentes, alergias y medicación de cada paciente, con búsqueda por nombre o documento aunque escribas sin tildes o solo una parte.</p>
+        <ul>
+          <li>Exporta la historia o el triage a PDF</li>
+          <li>El paciente consulta la suya con su documento y un PIN</li>
+          <li>Si olvida el PIN, el personal lo restablece en persona</li>
+        </ul>
+      </div>
+      <div class="feat-img"><div class="phone sm"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador, edad, documento, antecedentes y alergias destacadas"></div></div>
+    </article>
+
+    <article class="feat rev">
+      <div class="feat-txt">
+        <h3>Scores clínicos listos para usar</h3>
+        <p>Las escalas que se usan a diario, con los criterios publicados de cada una y el puntaje calculado mientras marcas.</p>
+        <div class="chips">
+          <span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Índice de shock</span>
         </div>
       </div>
-      <!-- Item 2 -->
-      <div class="cap-item" id="cap-1">
-        <div class="cap-stage">
-          <div>
-            <div class="cap-eyebrow">02 — Entrevista inteligente</div>
-            <div class="cap-title">Historia clínica<br>que aprende<br>del paciente.</div>
-            <div class="cap-body" style="margin-top:20px">El sistema adapta cada pregunta en función de las respuestas anteriores. Como un médico experimentado: hace exactamente lo que importa y nada más.</div>
-          </div>
-          <div class="cap-visual">
-            <div class="cap-visual-box">
-              <div class="cap-icon-ring">
-                <span class="material-symbols-outlined text-teal" style="font-size:36px">clinical_notes</span>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:10px">
-                <div style="background:rgba(0,219,231,.06);border:1px solid rgba(0,219,231,.12);border-radius:12px;padding:14px 16px">
-                  <div style="font-size:11px;color:#00dbe7;font-weight:700;letter-spacing:.06em;margin-bottom:6px">PREGUNTA ADAPTATIVA</div>
-                  <div style="font-size:14px;color:#dce4e4">¿Tiene dificultad para respirar al reposo o solo al esfuerzo?</div>
-                </div>
-                <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:14px 16px;border:1px solid rgba(255,255,255,.06)">
-                  <div style="font-size:11px;color:#849495;font-weight:700;letter-spacing:.06em;margin-bottom:6px">HISTORIAL DETECTADO</div>
-                  <div style="font-size:13px;color:#b9cacb">Asma crónica · Última crisis: 3 meses</div>
-                </div>
-                <div class="cap-metric"><span class="cap-metric-label">Preguntas promedio</span><span class="cap-metric-val">8 de 42</span></div>
-                <div class="cap-metric"><span class="cap-metric-label">Cobertura diagnóstica</span><span class="cap-metric-val">94%</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="feat-img"><div class="phone sm"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART con sus criterios para marcar y el puntaje"></div></div>
+    </article>
+
+    <article class="feat">
+      <div class="feat-txt">
+        <h3>Un asistente de IA que explica</h3>
+        <p>Sugiere la prioridad y las acciones iniciales, revisa interacciones entre medicamentos y redacta el resumen del turno. Cada sugerencia muestra su razonamiento.</p>
+        <p class="ia-note">La IA es un apoyo. La app lo recuerda en cada resultado y no reemplaza el criterio del profesional de salud.</p>
       </div>
-      <!-- Item 3 -->
-      <div class="cap-item" id="cap-2">
-        <div class="cap-stage">
-          <div>
-            <div class="cap-eyebrow">03 — Conectividad</div>
-            <div class="cap-title">Tus sensores.<br>Sincronizados<br>al instante.</div>
-            <div class="cap-body" style="margin-top:20px">Presión arterial, SpO₂, ECG, temperatura. Todos los parámetros vitales llegan al núcleo de IA de forma inalámbrica mediante BLE en tiempo real.</div>
-          </div>
-          <div class="cap-visual">
-            <div class="cap-visual-box scan-box">
-              <div class="cap-icon-ring">
-                <span class="material-symbols-outlined text-teal" style="font-size:36px">sensors</span>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-                <div class="cap-metric" style="flex-direction:column;align-items:flex-start;gap:4px"><span class="cap-metric-label">FC</span><span class="cap-metric-val" style="font-size:20px">92 <span style="font-size:11px;color:#849495">bpm</span></span></div>
-                <div class="cap-metric" style="flex-direction:column;align-items:flex-start;gap:4px"><span class="cap-metric-label">SpO₂</span><span class="cap-metric-val" style="font-size:20px">96 <span style="font-size:11px;color:#849495">%</span></span></div>
-                <div class="cap-metric" style="flex-direction:column;align-items:flex-start;gap:4px"><span class="cap-metric-label">P. Arterial</span><span class="cap-metric-val" style="font-size:16px">128/84</span></div>
-                <div class="cap-metric" style="flex-direction:column;align-items:flex-start;gap:4px"><span class="cap-metric-label">Temperatura</span><span class="cap-metric-val" style="font-size:20px">37.8°</span></div>
-              </div>
-              <div style="margin-top:12px;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px">
-                <span class="material-symbols-outlined" style="color:#F97316;font-size:20px">warning</span>
-                <div>
-                  <div style="font-size:11px;font-weight:700;color:#F97316;letter-spacing:.06em">ESI-2 URGENTE</div>
-                  <div style="font-size:11px;color:#849495;margin-top:1px">Atención requerida en &lt; 10 min</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="feat-img"><div class="phone sm"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de un triage rojo por dolor torácico con la justificación de la IA y cuatro acciones prioritarias"></div></div>
+    </article>
+
+    <article class="feat rev">
+      <div class="feat-txt">
+        <h3>Estadísticas del servicio</h3>
+        <p>Cuántos pacientes llegaron hoy, en 7 o en 30 días, por prioridad, motivo y tipo de paciente. El reporte se descarga en PDF para la reunión de turno.</p>
+        <ul>
+          <li>Incidentes con múltiples víctimas (START)</li>
+          <li>Avisos prehospitalarios de llegada</li>
+          <li>Registro de auditoría de cada acción</li>
+        </ul>
       </div>
-      <!-- Item 4 -->
-      <div class="cap-item" id="cap-3">
-        <div class="cap-stage">
-          <div>
-            <div class="cap-eyebrow">04 — Resiliencia</div>
-            <div class="cap-title">Funciona<br>sin internet.<br>Siempre.</div>
-            <div class="cap-body" style="margin-top:20px">Los modelos de aprendizaje automático están integrados en el dispositivo. Apagones, zonas sin red, desastres: MedAI opera sin interrupciones cuando más se necesita.</div>
-          </div>
-          <div class="cap-visual">
-            <div class="cap-visual-box">
-              <div class="cap-icon-ring">
-                <span class="material-symbols-outlined text-teal" style="font-size:36px">cloud_off</span>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:10px">
-                <div class="cap-metric"><span class="cap-metric-label">Modo activo</span><span class="cap-metric-val" style="color:#10B981">Offline ✓</span></div>
-                <div class="cap-metric"><span class="cap-metric-label">Datos en espera</span><span class="cap-metric-val">247 registros</span></div>
-                <div class="cap-metric"><span class="cap-metric-label">Sync pendiente</span><span class="cap-metric-val">Al reconectar</span></div>
-                <div class="cap-metric"><span class="cap-metric-label">Disponibilidad</span><span class="cap-metric-val">99.97%</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Dots -->
-      <div class="cap-dots" id="cap-dots">
-        <div class="cap-dot active" data-idx="0"></div>
-        <div class="cap-dot" data-idx="1"></div>
-        <div class="cap-dot" data-idx="2"></div>
-        <div class="cap-dot" data-idx="3"></div>
-      </div>
+      <div class="feat-img"><img class="desk" src="assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Vista de escritorio con resumen del día, actividad reciente y gráfico de pacientes por prioridad"></div>
+    </article>
+  </div>
+</section>
+
+<!-- PARA EL TURNO -->
+<section class="build" aria-labelledby="h-turno">
+  <div class="wrap build-grid">
+    <div>
+      <h2 id="h-turno">De día o de noche, en el celular o en el computador.</h2>
+      <p class="sec-head" style="margin:16px 0 0;color:#b9c6dc;font-size:1.1rem">Se instala como app en iPhone, Android y escritorio, sin pasar por una tienda. El tema oscuro descansa la vista en el turno de noche y el modo automático sigue al teléfono.</p>
+      <ul class="feat-txt" style="list-style:none;margin-top:24px;display:grid;gap:10px">
+        <li>Seis idiomas y terminología por país</li>
+        <li>Texto ampliable para mejor lectura</li>
+        <li>Se adapta a cada pantalla, también en horizontal</li>
+      </ul>
+    </div>
+    <div class="duo">
+      <div class="phone sm"><img src="assets/img/m-dash.webp" width="780" height="1688" loading="lazy" alt="Inicio en modo oscuro"></div>
+      <div class="phone sm"><img src="assets/img/m-dash-light.webp" width="780" height="1688" loading="lazy" alt="Inicio en modo claro"></div>
     </div>
   </div>
 </section>
 
-<hr class="neon-divider">
-
-<!-- ══ WORKFLOW ══════════════════════════════════════════ -->
-<section class="workflow-section" id="flujo">
-  <div class="max-center">
-    <span class="section-eyebrow" data-reveal="up">Proceso clínico</span>
-    <h2 class="section-title" data-reveal="up" data-delay="1">
-      Cuatro pasos.<br><span class="gradient-text">Cero fricciones.</span>
-    </h2>
-
-    <!-- Desktop -->
-    <div class="workflow-track">
-      <div class="workflow-step" data-reveal="up" data-delay="1">
-        <div class="step-num">01 — INGRESO</div>
-        <div class="step-icon-wrap">
-          <span class="material-symbols-outlined text-teal">person_search</span>
-        </div>
-        <div class="step-name">Identificación</div>
-        <div class="step-desc">Registro biométrico o manual. Vinculación instantánea con historial clínico del paciente.</div>
-      </div>
-      <div class="workflow-step" data-reveal="up" data-delay="2">
-        <div class="step-num">02 — SIGNOS VITALES</div>
-        <div class="step-icon-wrap">
-          <span class="material-symbols-outlined text-teal">monitor_heart</span>
-        </div>
-        <div class="step-name">Captura Automatizada</div>
-        <div class="step-desc">Los sensores BLE envían todos los parámetros al núcleo de IA en menos de 10 segundos.</div>
-      </div>
-      <div class="workflow-step" data-reveal="up" data-delay="3">
-        <div class="step-num">03 — ANÁLISIS IA</div>
-        <div class="step-icon-wrap">
-          <span class="material-symbols-outlined text-teal">psychology</span>
-        </div>
-        <div class="step-name">Recomendación ESI</div>
-        <div class="step-desc">El modelo asigna nivel ESI 1–5 con razonamiento clínico transparente y auditables.</div>
-      </div>
-      <div class="workflow-step" data-reveal="up" data-delay="4">
-        <div class="step-num">04 — DOCUMENTACIÓN</div>
-        <div class="step-icon-wrap">
-          <span class="material-symbols-outlined text-teal">file_export</span>
-        </div>
-        <div class="step-name">Sincronización HL7/FHIR</div>
-        <div class="step-desc">Toda la sesión se exporta automáticamente al sistema central del hospital.</div>
-      </div>
+<!-- SEGURIDAD -->
+<section id="seguridad" aria-labelledby="h-seg">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-seg">Los datos de salud se tratan como lo que son.</h2>
+      <p>Cada persona ve solo lo que su rol le permite, y las reglas viven en el servidor, no en el navegador.</p>
     </div>
-
-    <!-- Mobile -->
-    <div class="workflow-vertical">
-      <div class="workflow-line"></div>
-      <div class="v-step" data-reveal="right">
-        <div class="v-dot"></div>
-        <div class="v-step-num">01 — INGRESO</div>
-        <div class="v-step-name">Identificación del Paciente</div>
-        <div class="v-step-desc">Registro biométrico o manual con vinculación al historial médico.</div>
-      </div>
-      <div class="v-step" data-reveal="right" data-delay="1">
-        <div class="v-dot"></div>
-        <div class="v-step-num">02 — SIGNOS VITALES</div>
-        <div class="v-step-name">Captura BLE Automatizada</div>
-        <div class="v-step-desc">Sensores inalámbricos envían datos en tiempo real al núcleo de IA.</div>
-      </div>
-      <div class="v-step" data-reveal="right" data-delay="2">
-        <div class="v-dot"></div>
-        <div class="v-step-num">03 — ANÁLISIS IA</div>
-        <div class="v-step-name">Recomendación de Nivel ESI</div>
-        <div class="v-step-desc">Clasificación basada en protocolos clínicos internacionales validados.</div>
-      </div>
-      <div class="v-step" data-reveal="right" data-delay="3">
-        <div class="v-dot"></div>
-        <div class="v-step-num">04 — DOCUMENTACIÓN</div>
-        <div class="v-step-name">Sincronización HL7/FHIR</div>
-        <div class="v-step-desc">Exportación automática al sistema hospitalario central.</div>
-      </div>
+    <div class="sec-list">
+      <div class="sec-item"><h3>Acceso por roles</h3><p>Médico, administrador de hospital, administrador y paciente. Las cuentas nuevas del personal quedan en revisión hasta que un administrador las aprueba.</p></div>
+      <div class="sec-item"><h3>La clave de la IA nunca llega al navegador</h3><p>Un servidor intermedio verifica la sesión de cada consulta, revisa el rol y aplica un límite diario por usuario.</p></div>
+      <div class="sec-item"><h3>Autorización según la Ley 1581</h3><p>El registro pide autorización explícita para tratar datos de salud y la política de tratamiento está siempre a un toque.</p></div>
+      <div class="sec-item"><h3>Trazabilidad</h3><p>Inicios de sesión, triages, restablecimientos de PIN y cambios de cuentas quedan en un registro de auditoría.</p></div>
     </div>
   </div>
 </section>
 
-<hr class="neon-divider">
-
-<!-- ══ PRODUCT CARDS ═════════════════════════════════════ -->
-<section class="products-section" id="versiones">
-  <div class="max-center">
-    <span class="section-eyebrow" data-reveal="up">Plataforma MedAI</span>
-    <h2 class="section-title" data-reveal="up" data-delay="1">
-      Tres versiones.<br><span class="gradient-text">Una plataforma.</span>
-    </h2>
-    <p class="section-body" style="max-width:500px;margin-top:20px" data-reveal="up" data-delay="2">
-      Cada versión está diseñada para un contexto clínico específico. Toca cada tarjeta para descubrir sus capacidades.
-    </p>
-
-    <div class="products-grid" style="margin-top:56px">
-
-      <!-- Card 1: HYBRID-AI -->
-      <div class="prod-card featured" data-reveal="up" data-delay="1">
-        <div class="prod-card-header">
-          <div class="prod-badge">Edición Insignia</div>
-          <div class="prod-icon fill">
-            <span class="material-symbols-outlined" style="color:#002022;font-size:28px">psychology</span>
-          </div>
-          <div class="prod-name">MedAI® HYBRID-AI</div>
-          <div class="prod-tagline">Máxima precisión clínica. Inteligencia local y en la nube trabajando en conjunto para decisiones sin compromiso.</div>
-        </div>
-        <div class="prod-expand-btn">
-          <span>Ver especificaciones</span>
-          <span class="expand-arrow material-symbols-outlined" style="font-size:18px">keyboard_arrow_down</span>
-        </div>
-        <div class="prod-expand">
-          <div class="prod-detail">
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">bolt</span></div>
-              <div class="prod-feature-text">
-                <h5>Motor dual: Local + Nube</h5>
-                <p>Inferencia local para decisiones críticas. Modelos en nube para análisis de patrones complejos.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">sensors</span></div>
-              <div class="prod-feature-text">
-                <h5>Compatibilidad total de sensores</h5>
-                <p>PA, SpO₂, ECG 12 derivaciones, temperatura, glucosa. Todos por BLE simultaneamente.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">verified</span></div>
-              <div class="prod-feature-text">
-                <h5>Certificado HIPAA + ISO 13485</h5>
-                <p>Listo para entornos regulados en EE.UU., Europa y Latinoamérica.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">cloud_off</span></div>
-              <div class="prod-feature-text">
-                <h5>Modo offline total</h5>
-                <p>Opera sin internet indefinidamente. Sincroniza al reconectarse sin pérdida de datos.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+<!-- CÓMO ESTÁ HECHO -->
+<section class="build" id="tecnologia" aria-labelledby="h-tec">
+  <div class="wrap build-grid">
+    <div>
+      <h2 id="h-tec">Cómo está hecho</h2>
+      <p style="margin-top:16px;color:#b9c6dc;font-size:1.1rem">Una app web progresiva sin frameworks ni paso de compilación, pensada para funcionar en el plan gratuito de cada servicio.</p>
+      <div class="chips">
+        <span class="chip">HTML, CSS y JavaScript</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Cloudflare Workers + KV</span><span class="chip">DeepSeek</span><span class="chip">jsPDF</span><span class="chip">Chart.js</span><span class="chip">GitHub Actions</span>
       </div>
-
-      <!-- Card 2: FLOW -->
-      <div class="prod-card" data-reveal="up" data-delay="2">
-        <div class="prod-card-header">
-          <div class="prod-badge">Edición Empresarial</div>
-          <div class="prod-icon ghost">
-            <span class="material-symbols-outlined text-teal" style="font-size:28px">moving</span>
-          </div>
-          <div class="prod-name">MedAI® FLOW</div>
-          <div class="prod-tagline">Diseñado para urgencias de alto volumen. Múltiples estaciones, un sistema centralizado y en tiempo real.</div>
-        </div>
-        <div class="prod-expand-btn">
-          <span>Ver especificaciones</span>
-          <span class="expand-arrow material-symbols-outlined" style="font-size:18px">keyboard_arrow_down</span>
-        </div>
-        <div class="prod-expand">
-          <div class="prod-detail">
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">hub</span></div>
-              <div class="prod-feature-text">
-                <h5>Red multi-estación</h5>
-                <p>Hasta 32 puestos de triage en red local con sincronización en tiempo real entre todos.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">dashboard</span></div>
-              <div class="prod-feature-text">
-                <h5>Panel de control centralizado</h5>
-                <p>Supervisión en vivo de todos los pacientes, flujos y métricas del servicio de urgencias.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">integration_instructions</span></div>
-              <div class="prod-feature-text">
-                <h5>Integración HIS/LIS nativa</h5>
-                <p>Conecta con sistemas hospitalarios existentes: SAP, Oracle Health, Epic y más.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">bar_chart</span></div>
-              <div class="prod-feature-text">
-                <h5>Reportes y analítica avanzada</h5>
-                <p>Informes de cumplimiento, tiempos de espera, distribución ESI y tendencias clínicas.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="stats">
+        <div class="stat"><b>59</b><span>pruebas automáticas en cada cambio</span></div>
+        <div class="stat"><b>7</b><span>scores validados contra su fuente</span></div>
+        <div class="stat"><b>4</b><span>roles con reglas en el servidor</span></div>
       </div>
-
-      <!-- Card 3: TRAINING -->
-      <div class="prod-card" data-reveal="up" data-delay="3">
-        <div class="prod-card-header">
-          <div class="prod-badge">Edición Educativa</div>
-          <div class="prod-icon ghost">
-            <span class="material-symbols-outlined text-teal" style="font-size:28px">school</span>
-          </div>
-          <div class="prod-name">MedAI® TRAINING</div>
-          <div class="prod-tagline">Simulación clínica de alto realismo para capacitar enfermeros y personal de urgencias sin riesgo real.</div>
-        </div>
-        <div class="prod-expand-btn">
-          <span>Ver especificaciones</span>
-          <span class="expand-arrow material-symbols-outlined" style="font-size:18px">keyboard_arrow_down</span>
-        </div>
-        <div class="prod-expand">
-          <div class="prod-detail">
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">cases</span></div>
-              <div class="prod-feature-text">
-                <h5>Biblioteca de 500+ casos</h5>
-                <p>Casos clínicos reales anonimizados, desde casos simples hasta politraumatismos complejos.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">assessment</span></div>
-              <div class="prod-feature-text">
-                <h5>Evaluación automática con retroalimentación</h5>
-                <p>El sistema analiza decisiones en tiempo real y ofrece retroalimentación clínica inmediata.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">workspace_premium</span></div>
-              <div class="prod-feature-text">
-                <h5>Certificación MedAI™</h5>
-                <p>Programa de certificación reconocido para acreditar competencias en triage asistido por IA.</p>
-              </div>
-            </div>
-            <div class="prod-feature">
-              <div class="prod-feature-icon"><span class="material-symbols-outlined text-teal" style="font-size:16px">groups</span></div>
-              <div class="prod-feature-text">
-                <h5>Gestión de equipos</h5>
-                <p>Seguimiento del progreso individual y grupal para coordinadores de enfermería.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="hero-cta" style="margin-top:28px">
+        <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia">Leer el código en GitHub</a>
       </div>
+    </div>
+    <figure class="arch">
+      <svg viewBox="0 0 560 330" role="img" aria-labelledby="arch-t arch-d">
+        <title id="arch-t">Arquitectura de MedIA Suite</title>
+        <desc id="arch-d">La app en el navegador se conecta a Firebase para sesiones y datos, y a un Cloudflare Worker que verifica la sesión antes de consultar la IA de DeepSeek.</desc>
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b9ec0"/></marker></defs>
+        <rect x="10" y="125" width="150" height="80" rx="16" fill="#111a2e" stroke="#00c8f0"/>
+        <text x="85" y="160" text-anchor="middle" font-size="17" font-weight="700">App (PWA)</text>
+        <text x="85" y="183" text-anchor="middle" font-size="13" class="sub">celular · tablet · PC</text>
+        <rect x="290" y="20" width="260" height="90" rx="16" fill="#111a2e" stroke="#1e2d45"/>
+        <text x="420" y="58" text-anchor="middle" font-size="17" font-weight="700">Firebase</text>
+        <text x="420" y="81" text-anchor="middle" font-size="13" class="sub">sesiones, datos y reglas por rol</text>
+        <rect x="290" y="150" width="260" height="90" rx="16" fill="#111a2e" stroke="#1e2d45"/>
+        <text x="420" y="188" text-anchor="middle" font-size="17" font-weight="700">Cloudflare Worker</text>
+        <text x="420" y="211" text-anchor="middle" font-size="13" class="sub">verifica sesión, rol y cupo</text>
+        <rect x="350" y="268" width="140" height="50" rx="14" fill="#111a2e" stroke="#1e2d45"/>
+        <text x="420" y="299" text-anchor="middle" font-size="15" font-weight="700">IA (DeepSeek)</text>
+        <path d="M160 150 C220 120 230 70 288 66" fill="none" stroke="#8b9ec0" stroke-width="1.6" marker-end="url(#ah)"/>
+        <path d="M160 180 C220 190 240 195 288 195" fill="none" stroke="#8b9ec0" stroke-width="1.6" marker-end="url(#ah)"/>
+        <path d="M420 240 V266" fill="none" stroke="#8b9ec0" stroke-width="1.6" marker-end="url(#ah)"/>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<!-- PRÓXIMAMENTE -->
+<section aria-labelledby="h-next">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-next">En qué estoy trabajando</h2>
+      <p>MedIA Suite es un proyecto en desarrollo. Esto todavía no está en la app.</p>
+    </div>
+    <div class="next-list">
+      <div class="next"><h3>Signos vitales automáticos</h3><p>Leer presión, saturación y temperatura desde monitores por Bluetooth, sin digitarlos.</p></div>
+      <div class="next"><h3>Integración con la historia del hospital</h3><p>Enviar el triage al sistema de la institución con estándares HL7 y FHIR.</p></div>
+      <div class="next"><h3>Validación clínica</h3><p>Probar la clasificación junto a profesionales de urgencias y medir su concordancia.</p></div>
     </div>
   </div>
 </section>
 
-<hr class="neon-divider">
-
-<!-- ══ COMPLIANCE ═══════════════════════════════════════ -->
-<section class="compliance-section" id="cumplimiento">
-  <div class="max-center" style="text-align:center">
-    <span class="section-eyebrow" data-reveal="up">Estándares globales</span>
-    <h2 class="section-title" data-reveal="up" data-delay="1">
-      Certificado para<br><span class="gradient-text">entornos críticos.</span>
-    </h2>
-    <p class="section-body" style="max-width:520px;margin:20px auto 0" data-reveal="up" data-delay="2">
-      MedAI cumple con los más altos estándares internacionales de seguridad de datos médicos y dispositivos clínicos regulados.
-    </p>
-    <div class="cert-grid">
-      <div class="cert-card" data-reveal="scale" data-delay="1">
-        <div class="cert-icon"><span class="material-symbols-outlined text-teal">verified</span></div>
-        <div class="cert-name">ISO 27001</div>
-        <div class="cert-desc">Sistema de gestión de seguridad de la información certificado internacionalmente.</div>
-      </div>
-      <div class="cert-card" data-reveal="scale" data-delay="2">
-        <div class="cert-icon"><span class="material-symbols-outlined text-teal">medical_services</span></div>
-        <div class="cert-name">ISO 13485</div>
-        <div class="cert-desc">Requisitos para sistemas de gestión de calidad en dispositivos médicos.</div>
-      </div>
-      <div class="cert-card" data-reveal="scale" data-delay="3">
-        <div class="cert-icon"><span class="material-symbols-outlined text-teal">lock</span></div>
-        <div class="cert-name">HIPAA</div>
-        <div class="cert-desc">Portabilidad y privacidad de información de salud en los Estados Unidos.</div>
-      </div>
-      <div class="cert-card" data-reveal="scale" data-delay="4">
-        <div class="cert-icon"><span class="material-symbols-outlined text-teal">shield</span></div>
-        <div class="cert-name">GDPR</div>
-        <div class="cert-desc">Reglamento general de protección de datos de la Unión Europea.</div>
-      </div>
+<!-- CIERRE -->
+<section class="cta" aria-labelledby="h-cta">
+  <div class="wrap">
+    <h2 id="h-cta">¿Trabajas en urgencias o buscas a quien la construyó?</h2>
+    <p>Entra a la demo como administrador con pacientes de prueba, o escríbeme para conversar sobre el proyecto.</p>
+    <div class="hero-cta">
+      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
+      <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=MedIA%20Suite">Escribirme</a>
     </div>
   </div>
 </section>
+</main>
 
-<hr class="neon-divider">
-
-<!-- ══ CTA ══════════════════════════════════════════════ -->
-<section class="cta-section" id="cta">
-  <div class="cta-orb" style="width:700px;height:700px;background:rgba(0,219,231,.06);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
-  <div style="position:relative;z-index:2">
-    <span class="section-eyebrow" data-reveal="up" style="display:block;text-align:center">Únase a la red</span>
-    <h2 class="cta-title" data-reveal="up" data-delay="1">
-      El futuro del triage<br><span class="gradient-text">comienza hoy.</span>
-    </h2>
-    <p class="cta-sub" data-reveal="up" data-delay="2">
-      MedAI es más que un software. Es una plataforma, una herramienta y un aliado para los profesionales en la primera línea de atención.
-    </p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap" data-reveal="up" data-delay="3">
-      <a href="mailto:demo@medai.com" class="btn-fill">
-        <span class="material-symbols-outlined" style="font-size:18px">calendar_month</span>
-        Agendar demostración
-      </a>
-      <a href="mailto:ventas@medai.com" class="btn-outline">
-        Contactar equipo de ventas
-      </a>
-    </div>
-    <div class="compliance-badges" data-reveal="up" data-delay="4">
-      <span class="cb">✓ HIPAA</span>
-      <span class="cb">✓ GDPR</span>
-      <span class="cb">✓ ISO 27001</span>
-      <span class="cb">✓ ISO 13485</span>
-      <span class="cb">✓ HL7 / FHIR</span>
-      <span class="cb">✓ Sin conexión</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ════════════════════════════════════════════ -->
 <footer>
-  <div class="max-center">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">MedAI</div>
-        <div class="footer-tagline">El sistema de triage basado en IA número uno para dispositivos médicos. Precisión en cada decisión clínica.</div>
-        <div class="footer-socials">
-          <a href="#" class="footer-social" aria-label="Red social">
-            <span class="material-symbols-outlined" style="font-size:16px">share</span>
-          </a>
-          <a href="#" class="footer-social" aria-label="Web">
-            <span class="material-symbols-outlined" style="font-size:16px">public</span>
-          </a>
-          <a href="#" class="footer-social" aria-label="Equipo">
-            <span class="material-symbols-outlined" style="font-size:16px">groups</span>
-          </a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Versiones</div>
-        <ul class="footer-links">
-          <li><a href="#versiones">MedAI® HYBRID-AI</a></li>
-          <li><a href="#versiones">MedAI® FLOW</a></li>
-          <li><a href="#versiones">MedAI® TRAINING</a></li>
-          <li><a href="#versiones">Academia MedAI™</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Cumplimiento</div>
-        <ul class="footer-links">
-          <li><a href="#cumplimiento">Seguridad ISO 27001</a></li>
-          <li><a href="#cumplimiento">Médico ISO 13485</a></li>
-          <li><a href="#cumplimiento">Cumplimiento HIPAA</a></li>
-          <li><a href="#cumplimiento">Estándares GDPR</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Empresa</div>
-        <ul class="footer-links">
-          <li><a href="#">Investigación</a></li>
-          <li><a href="#">Noticias</a></li>
-          <li><a href="#">Contacto</a></li>
-          <li><a href="#">Soporte</a></li>
-        </ul>
-      </div>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#" aria-label="MedIA Suite, volver arriba">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
+        <span>Med<i>IA</i> <s>Suite</s></span>
+      </a>
+      <p class="foot-note" style="margin-top:12px">Proyecto académico en desarrollo, hecho en Colombia por Moisés (modarox28). Es una herramienta de apoyo a la decisión clínica y no un dispositivo médico certificado.</p>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2025 MedAI Medical Systems. Precisión en Triage.</div>
-      <div class="footer-legal">
-        <a href="#">Privacidad</a>
-        <a href="#">Términos</a>
-        <a href="#">Soporte</a>
-      </div>
+    <div class="foot-links">
+      <a href="https://media-suite-6f432.web.app/">Abrir la app</a>
+      <a href="https://media-suite-6f432.web.app/privacidad.html">Política de datos</a>
+      <a href="https://github.com/modarox28/triage-ia">GitHub</a>
     </div>
   </div>
 </footer>
 
-<!-- ══ SCRIPTS ════════════════════════════════════════════ -->
 <script>
-// ── LOADER ────────────────────────────────────────────────
-(function(){
-  function hide(){ document.getElementById('loader').classList.add('done') }
-  setTimeout(hide, 1600);
-  window.addEventListener('load', function(){ setTimeout(hide, 1200) });
-})();
-
-// ── PARTICLES ─────────────────────────────────────────────
-(function(){
-  const c = document.getElementById('canvas'), ctx = c.getContext('2d');
-  let W, H, pts = [];
-  function resize(){ W = c.width = innerWidth; H = c.height = innerHeight }
-  resize(); addEventListener('resize', resize, {passive:true});
-  const N = innerWidth < 768 ? 35 : 70;
-  const COLS = ['#00dbe7','#74f5ff','#006a71'];
-  for(let i=0;i<N;i++) pts.push({
-    x:Math.random()*W, y:Math.random()*H,
-    vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25,
-    r:Math.random()*1.2+.4, a:Math.random()*.4+.1,
-    col:COLS[0|Math.random()*3]
-  });
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    for(let i=0;i<N;i++){
-      for(let j=i+1;j<N;j++){
-        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d<110){ ctx.beginPath(); ctx.strokeStyle=`rgba(0,219,231,${.06*(1-d/110)})`; ctx.lineWidth=.5; ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke() }
-      }
-      const p=pts[i];
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.globalAlpha=p.a; ctx.fillStyle=p.col; ctx.fill(); ctx.globalAlpha=1;
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
-    }
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
-
-// ── NAV ───────────────────────────────────────────────────
-(function(){
-  const nav = document.getElementById('nav');
-  addEventListener('scroll', function(){
-    nav.classList.toggle('compact', scrollY > 60);
-  }, {passive:true});
-  // Mobile drawer
-  const btn = document.getElementById('menu-btn');
-  const icon = document.getElementById('menu-icon');
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('drawer-overlay');
-  function open(){ drawer.classList.add('open'); overlay.classList.add('show'); icon.textContent='close' }
-  function close(){ drawer.classList.remove('open'); overlay.classList.remove('show'); icon.textContent='menu' }
-  btn.addEventListener('click', function(){ drawer.classList.contains('open')?close():open() });
-  overlay.addEventListener('click', close);
-  document.querySelectorAll('.drawer-link').forEach(a=>a.addEventListener('click',close));
-})();
-
-// ── SCROLL REVEAL ─────────────────────────────────────────
-(function(){
-  const els = document.querySelectorAll('[data-reveal]');
-  const io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target) }
-    });
-  }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
-  els.forEach(function(el){ io.observe(el) });
-})();
-
-// ── COUNTERS ──────────────────────────────────────────────
-(function(){
-  function animate(el){
-    const target = +el.dataset.target;
-    const dur = 1800, start = performance.now();
-    function tick(now){
-      const p = Math.min((now-start)/dur,1);
-      const ease = 1-Math.pow(1-p,4);
-      el.textContent = Math.floor(ease*target).toLocaleString('es');
-      if(p<1) requestAnimationFrame(tick);
-      else el.textContent = target.toLocaleString('es');
-    }
-    requestAnimationFrame(tick);
-  }
-  const io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ animate(e.target); io.unobserve(e.target) }
-    });
-  }, {threshold:.5});
-  document.querySelectorAll('.counter').forEach(function(el){ io.observe(el) });
-})();
-
-// ── STICKY CAPABILITIES ───────────────────────────────────
-(function(){
-  const wrap = document.getElementById('sticky-wrap');
-  if(!wrap) return;
-  const inner = document.getElementById('sticky-inner');
-  const items = document.querySelectorAll('.cap-item');
-  const dots = document.querySelectorAll('.cap-dot');
-  let current = 0;
-  const N = items.length;
-
-  function setActive(idx){
-    if(idx === current) return;
-    items[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = idx;
-    items[current].classList.add('active');
-    dots[current].classList.add('active');
-  }
-
-  // Scroll-driven on desktop
-  function onScroll(){
-    const rect = wrap.getBoundingClientRect();
-    const total = wrap.offsetHeight - innerHeight;
-    const scrolled = Math.max(0, -rect.top);
-    const progress = Math.min(scrolled / total, 1);
-    const idx = Math.min(Math.floor(progress * N), N-1);
-    setActive(idx);
-  }
-  addEventListener('scroll', onScroll, {passive:true});
-
-  // Dot clicks
-  dots.forEach(function(d){
-    d.addEventListener('click', function(){
-      const idx = +d.dataset.idx;
-      const wRect = wrap.getBoundingClientRect();
-      const total = wrap.offsetHeight - innerHeight;
-      const targetScroll = window.scrollY + wRect.top + (idx/N)*total;
-      window.scrollTo({top:targetScroll, behavior:'smooth'});
-    });
-  });
-})();
-
-// ── PRODUCT CARD EXPAND ───────────────────────────────────
-(function(){
-  const grid = document.querySelector('.products-grid');
-
-  function closeAll(){
-    document.querySelectorAll('.prod-card').forEach(function(c){
-      c.querySelector('.prod-expand').classList.remove('open');
-      c.querySelector('.expand-arrow').classList.remove('open');
-      c.classList.remove('is-open');
-    });
-    grid.classList.remove('has-open');
-  }
-
-  document.querySelectorAll('.prod-expand-btn').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.stopPropagation(); // never bubble to parent card
-      const card = btn.closest('.prod-card');
-      const expand = card.querySelector('.prod-expand');
-      const arrow = btn.querySelector('.expand-arrow');
-      const isOpen = expand.classList.contains('open');
-
-      closeAll(); // accordion: close everything first
-
-      if(!isOpen){
-        expand.classList.add('open');
-        arrow.classList.add('open');
-        card.classList.add('is-open');
-        grid.classList.add('has-open');
-        // smooth scroll so the opened card stays visible
-        setTimeout(function(){
-          card.scrollIntoView({behavior:'smooth', block:'nearest'});
-        }, 80);
-      }
-    });
-  });
-})();
-
-// ── SMOOTH ANCHOR SCROLL ──────────────────────────────────
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click', function(e){
-    const id = a.getAttribute('href');
-    if(id==='#') return;
-    const target = document.querySelector(id);
-    if(target){
-      e.preventDefault();
-      const y = target.getBoundingClientRect().top + scrollY - 72;
-      window.scrollTo({top:y, behavior:'smooth'});
-    }
-  });
-});
+// Barra superior: línea inferior al bajar y menú en celular
+const nav=document.getElementById("nav"),tg=document.getElementById("navToggle"),links=document.getElementById("navLinks");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>8),{passive:true});
+tg.addEventListener("click",()=>{const o=links.classList.toggle("open");tg.setAttribute("aria-expanded",o);tg.setAttribute("aria-label",o?"Cerrar menú":"Abrir menú");});
+links.addEventListener("click",e=>{if(e.target.closest("a")){links.classList.remove("open");tg.setAttribute("aria-expanded","false");}});
+// La versión anterior registraba un service worker que dejaba la página en caché: se elimina
+if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister())).catch(()=>{});
 </script>
 </body>
 </html>

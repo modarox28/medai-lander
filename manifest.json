@@ -1,23 +1,13 @@
 {
-  "name": "MedAI - Triage de Emergencias con IA",
-  "short_name": "MedAI",
-  "description": "Sistema de Triage de Emergencias con Inteligencia Artificial. Precisión clínica en menos de 180 segundos.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#00dbe7",
+  "name": "MedIA Suite",
+  "short_name": "MedIA",
+  "description": "Triage de urgencias con apoyo de IA.",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#0b1120",
+  "theme_color": "#0b1120",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
   ]
 }
