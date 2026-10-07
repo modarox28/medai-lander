@@ -187,7 +187,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 
 /* ── RELATO DE FUNCIONES (teléfono fijo) ── */
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px)}
-.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;max-width:46ch;opacity:.35;transition:opacity .5s}
+.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;max-width:46ch;opacity:.62;transition:opacity .5s}
 .step.on{opacity:1}
 .step p{margin-top:14px;color:var(--soft)}
 .step ul{list-style:none;margin-top:20px;display:grid;gap:10px}
@@ -574,7 +574,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
     <div class="nums">
       <div class="num"><b data-n="15">15<small>min</small></b><p>maximum time to see a red patient, with an alert if it's exceeded</p></div>
       <div class="num"><b data-n="7">7</b><p>clinical scores using the criteria from their original publication</p></div>
-      <div class="num"><b data-n="66">66</b><p>automated tests on every change, 7 of them using the app in a real browser</p></div>
+      <div class="num"><b data-n="80">80</b><p>automated tests on every change, 11 of them using the app in a real browser</p></div>
       <div class="num"><b data-n="6">6</b><p>languages, with terminology adapted to each country</p></div>
     </div>
   </div>
@@ -591,7 +591,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2M16 15l2 2 4-4"/></svg></div><h3>Role-based access</h3><p>Doctor, hospital admin, admin and patient. New staff accounts stay under review until an admin approves them.</p></div>
       <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>The AI key never reaches the browser</h3><p>A proxy server verifies the session on every request, checks the role and applies a daily limit per user.</p></div>
       <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Consent under Colombia's data law</h3><p>Sign-up asks for explicit consent to process health data (Law 1581 of 2012), and the privacy policy is always one tap away.</p></div>
-      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Traceability</h3><p>Sign-ins, triages, PIN resets and account changes are recorded in an audit log.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Traceability</h3><p>Each triage records who created it, who attended to it and who changed its priority and why. That log can only grow: nobody can delete it.</p></div>
     </div>
   </div>
 </section>
@@ -606,7 +606,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
         <span class="chip">HTML, CSS and JavaScript</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Cloudflare Workers + KV</span><span class="chip">DeepSeek</span><span class="chip">jsPDF</span><span class="chip">Chart.js</span><span class="chip">GitHub Actions</span><span class="chip">Playwright</span>
       </div>
       <div class="stats">
-        <div class="stat"><b>66</b><span>automated tests on every change</span></div>
+        <div class="stat"><b>80</b><span>automated tests on every change</span></div>
         <div class="stat"><b>7</b><span>scores validated against their source</span></div>
         <div class="stat"><b>4</b><span>roles enforced on the server</span></div>
       </div>
@@ -657,7 +657,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section class="case" id="caso" aria-labelledby="h-case">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-case">Case study. Five decisions that made it possible.</h2>
+      <h2 id="h-case">Case study. Six decisions that made it possible.</h2>
       <p>A clinical AI app, secure and free to run, built by one person. Here is how each hard part was solved.</p>
     </div>
     <div class="case-list">
@@ -665,7 +665,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <div class="case-row"><div class="case-n">02</div><div><span class="case-k">Challenge</span><h3>Protect health data without a custom backend</h3></div><div><span class="case-k">Decision</span><p>Role-based Firestore rules enforced on the server: patient, doctor, hospital admin and admin.</p></div><div class="case-res"><span class="case-k">Result</span><p>Even if someone tampers with the browser, they only see what their role allows, and nobody can promote themselves.</p></div></div>
       <div class="case-row"><div class="case-n">03</div><div><span class="case-k">Challenge</span><h3>Reset a patient's PIN on the free plan</h3></div><div><span class="case-k">Decision</span><p>With no Cloud Functions, the same Worker signs a token with a service account and calls the Firebase admin API.</p></div><div class="case-res"><span class="case-k">Result</span><p>Staff reset a PIN in one tap and the patient must create a new one on sign-in. Everything is audited.</p></div></div>
       <div class="case-row"><div class="case-n">04</div><div><span class="case-k">Challenge</span><h3>Type “rodri” and find “Rodríguez”</h3></div><div><span class="case-k">Decision</span><p>Firestore can't search partial text, so each record stores normalized keys: no accents, prefixes of name and ID number.</p></div><div class="case-res"><span class="case-k">Result</span><p>Instant search by name or ID, in any order, with or without separators.</p></div></div>
-      <div class="case-row"><div class="case-n">05</div><div><span class="case-k">Challenge</span><h3>Let anyone try it, and keep it from breaking</h3></div><div><span class="case-k">Decision</span><p>A demo mode with an in-memory simulated database, plus automated tests that run on GitHub on every change.</p></div><div class="case-res"><span class="case-k">Result</span><p>A free demo with no sign-up, 59 tests of the clinical calculations and 7 tests that use the app like a person would.</p></div></div>
+      <div class="case-row"><div class="case-n">05</div><div><span class="case-k">Challenge</span><h3>Let anyone try it, and keep it from breaking</h3></div><div><span class="case-k">Decision</span><p>A demo mode with an in-memory simulated database, plus automated tests that run on GitHub on every change.</p></div><div class="case-res"><span class="case-k">Result</span><p>A free demo with no sign-up, 69 tests of the clinical calculations and security, and 11 that use the app like a person would, including an accessibility check.</p></div></div>
+      <div class="case-row"><div class="case-n">06</div><div><span class="case-k">Challenge</span><h3>Never lose a triage when the internet drops</h3></div><div><span class="case-k">Decision</span><p>When offline, or if the AI doesn't respond, the app computes a provisional priority with vital-sign rules, NEWS2 and qSOFA, and stores the triage on the device with its own ID.</p></div><div class="case-res"><span class="case-k">Result</span><p>Triage keeps working through network failures and syncs automatically when the connection returns, with no duplicates.</p></div></div>
     </div>
     <p class="case-more">Want the technical details? They are in the <a href="https://github.com/modarox28/triage-ia#lo-más-interesante-técnicamente">repository README</a>.</p>
   </div>

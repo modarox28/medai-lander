@@ -187,7 +187,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 
 /* ── RELATO DE FUNCIONES (teléfono fijo) ── */
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px)}
-.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;max-width:46ch;opacity:.35;transition:opacity .5s}
+.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;max-width:46ch;opacity:.62;transition:opacity .5s}
 .step.on{opacity:1}
 .step p{margin-top:14px;color:var(--soft)}
 .step ul{list-style:none;margin-top:20px;display:grid;gap:10px}
@@ -574,7 +574,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
     <div class="nums">
       <div class="num"><b data-n="15">15<small>min</small></b><p>tiempo máximo para atender a un paciente rojo, con aviso si se supera</p></div>
       <div class="num"><b data-n="7">7</b><p>scores clínicos con los criterios de su publicación original</p></div>
-      <div class="num"><b data-n="66">66</b><p>pruebas automáticas en cada cambio, 7 de ellas usando la app en un navegador real</p></div>
+      <div class="num"><b data-n="80">80</b><p>pruebas automáticas en cada cambio, 11 de ellas usando la app en un navegador real</p></div>
       <div class="num"><b data-n="6">6</b><p>idiomas, con terminología adaptada a cada país</p></div>
     </div>
   </div>
@@ -591,7 +591,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2M16 15l2 2 4-4"/></svg></div><h3>Acceso por roles</h3><p>Médico, administrador de hospital, administrador y paciente. Las cuentas nuevas del personal quedan en revisión hasta que un administrador las aprueba.</p></div>
       <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>La clave de la IA nunca llega al navegador</h3><p>Un servidor intermedio verifica la sesión de cada consulta, revisa el rol y aplica un límite diario por usuario.</p></div>
       <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Autorización según la Ley 1581</h3><p>El registro pide autorización explícita para tratar datos de salud y la política de tratamiento está siempre a un toque.</p></div>
-      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Trazabilidad</h3><p>Inicios de sesión, triages, restablecimientos de PIN y cambios de cuentas quedan en un registro de auditoría.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Trazabilidad</h3><p>Cada triage guarda quién lo creó, quién lo atendió y quién cambió su clasificación y por qué. Ese registro solo puede crecer: nadie puede borrarlo.</p></div>
     </div>
   </div>
 </section>
@@ -606,7 +606,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
         <span class="chip">HTML, CSS y JavaScript</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Cloudflare Workers + KV</span><span class="chip">DeepSeek</span><span class="chip">jsPDF</span><span class="chip">Chart.js</span><span class="chip">GitHub Actions</span><span class="chip">Playwright</span>
       </div>
       <div class="stats">
-        <div class="stat"><b>66</b><span>pruebas automáticas en cada cambio</span></div>
+        <div class="stat"><b>80</b><span>pruebas automáticas en cada cambio</span></div>
         <div class="stat"><b>7</b><span>scores validados contra su fuente</span></div>
         <div class="stat"><b>4</b><span>roles con reglas en el servidor</span></div>
       </div>
@@ -657,7 +657,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section class="case" id="caso" aria-labelledby="h-case">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-case">Caso de estudio. Cinco decisiones que la hicieron posible.</h2>
+      <h2 id="h-case">Caso de estudio. Seis decisiones que la hicieron posible.</h2>
       <p>Una app clínica con IA, segura y gratuita de mantener, hecha por una sola persona. Así se resolvió cada parte difícil.</p>
     </div>
     <div class="case-list">
@@ -665,7 +665,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <div class="case-row"><div class="case-n">02</div><div><span class="case-k">Reto</span><h3>Proteger datos de salud sin un backend propio</h3></div><div><span class="case-k">Decisión</span><p>Reglas de Firestore por rol que se cumplen en el servidor: paciente, médico, administrador de hospital y administrador.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Aunque alguien manipule el navegador, solo ve lo que su rol permite y nadie puede subirse de rol.</p></div></div>
       <div class="case-row"><div class="case-n">03</div><div><span class="case-k">Reto</span><h3>Restablecer el PIN de un paciente en el plan gratis</h3></div><div><span class="case-k">Decisión</span><p>Sin Cloud Functions, el mismo Worker firma un token con una cuenta de servicio y llama a la API de administración de Firebase.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>El personal restablece el PIN en un toque y el paciente debe crear uno nuevo al entrar. Todo queda auditado.</p></div></div>
       <div class="case-row"><div class="case-n">04</div><div><span class="case-k">Reto</span><h3>Buscar “rodri” y encontrar “Rodríguez”</h3></div><div><span class="case-k">Decisión</span><p>Firestore no busca texto parcial, así que cada historia guarda claves normalizadas: sin tildes, por prefijos de nombre y documento.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Búsqueda instantánea por nombre o cédula, en cualquier orden y con o sin puntos.</p></div></div>
-      <div class="case-row"><div class="case-n">05</div><div><span class="case-k">Reto</span><h3>Que cualquiera pueda probarla y que no se rompa</h3></div><div><span class="case-k">Decisión</span><p>Un modo demo con una base de datos simulada en memoria, y pruebas automáticas que corren en GitHub en cada cambio.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Demo sin registro ni costo, 59 pruebas de los cálculos clínicos y 7 pruebas que usan la app como una persona.</p></div></div>
+      <div class="case-row"><div class="case-n">05</div><div><span class="case-k">Reto</span><h3>Que cualquiera pueda probarla y que no se rompa</h3></div><div><span class="case-k">Decisión</span><p>Un modo demo con una base de datos simulada en memoria, y pruebas automáticas que corren en GitHub en cada cambio.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>Demo sin registro ni costo, 69 pruebas de los cálculos clínicos y la seguridad, y 11 que usan la app como una persona, incluida una revisión de accesibilidad.</p></div></div>
+      <div class="case-row"><div class="case-n">06</div><div><span class="case-k">Reto</span><h3>Que no se pierda un triage si se cae internet</h3></div><div><span class="case-k">Decisión</span><p>Sin conexión, o si la IA no responde, la app calcula una clasificación provisional con reglas de signos vitales, NEWS2 y qSOFA, y guarda el triage en el dispositivo con un id propio.</p></div><div class="case-res"><span class="case-k">Resultado</span><p>El triage sigue en pie aunque falle la red y se envía solo al volver la conexión, sin duplicados.</p></div></div>
     </div>
     <p class="case-more">¿Quieres el detalle técnico? Está en el <a href="https://github.com/modarox28/triage-ia#lo-más-interesante-técnicamente">README del repositorio</a>.</p>
   </div>
