@@ -16,4 +16,16 @@ Para actualizar las capturas, toma pantallazos del modo demo a 390×844 (celular
 - Ambas librerías están copiadas en `assets/vendor/`; la lógica está en `assets/scroll.js`.
 - Con "reducir movimiento" activado en el sistema, la página se muestra sin animaciones.
 
-Cada vez que cambies `assets/scroll.js`, sube el número de `?v=` en la etiqueta `<script>` de `index.html`; así los navegadores no usan la copia anterior guardada en caché (GitHub Pages la guarda 10 minutos).
+Cada vez que cambies `assets/scroll.js`, sube el número de `?v=` en la etiqueta `<script>` de `index.html` y de `en/index.html`; así los navegadores no usan la copia anterior guardada en caché (GitHub Pages la guarda 10 minutos).
+
+## Versión en inglés
+
+`en/index.html` es la misma página traducida (enlaces `ES`/`EN` en la barra superior y etiquetas `hreflang` para buscadores). Los textos que genera `assets/scroll.js` (simulador, carrusel) cambian solos según `<html lang="en">`. Si editas un texto en `index.html`, cámbialo también en `en/index.html`. Los botones de demo de la versión en inglés abren la app con `?lang=en`.
+
+## Video del recorrido
+
+`assets/video/recorrido.webm` y `recorrido.mp4` (27 s, sin sonido) muestran la app en modo demo. Se reproduce solo cuando entra en pantalla, con botón de pausa; con "reducir movimiento" no arranca solo.
+
+## Contador de visitas
+
+Al final de `index.html` y `en/index.html` está el código de [GoatCounter](https://www.goatcounter.com) (gratis, sin cookies, no requiere aviso de cookies), comentado. Para activarlo: crea una cuenta, reemplaza `TU-CODIGO` por tu código y quita los `<!--` `-->` de esa línea en ambos archivos.

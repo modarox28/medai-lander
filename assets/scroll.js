@@ -23,9 +23,24 @@
     sat:v=>v<90?"critical":v<95?"warning":"normal",
     t:v=>v>40||v<35?"critical":v>38.5||v<36?"warning":"normal",
     fr:v=>v<8||v>30?"critical":v<12||v>24?"warning":"normal"};
-  const NOM={fc:"la frecuencia cardiaca",pa:"la presión sistólica",sat:"la saturación",t:"la temperatura",fr:"la frecuencia respiratoria"};
-  const TXT={normal:"Normal",warning:"Alerta",critical:"Crítico"};
-  const NIV={VERDE:["Verde","Puede esperar","Atención en máximo 120 min"],AMARILLO:["Amarillo","Urgente","Atención en máximo 30 min"],ROJO:["Rojo","Atención inmediata","Atención en máximo 15 min"]};
+  // Textos de la página según su idioma (index.html en español, en/index.html en inglés)
+  const EN=document.documentElement.lang==="en";
+  const T=EN?{
+    nom:{fc:"heart rate",pa:"systolic pressure",sat:"oxygen saturation",t:"temperature",fr:"respiratory rate"},
+    txt:{normal:"Normal",warning:"Alert",critical:"Critical"},
+    niv:{VERDE:["Green","Can wait","Seen within 120 min"],AMARILLO:["Yellow","Urgent","Seen within 30 min"],ROJO:["Red","Immediate care","Seen within 15 min"]},
+    crit:l=>`Critical value in ${l}.`,warn:l=>`Out of range: ${l}.`,ok:"All vital signs are within normal range.",y:" and ",
+    nomv:{dash:"Home screen",cola:"Waiting queue",hc:"Patient list",scores:"Clinical scores"},modo:t=>t==="light"?"in light mode":"in dark mode",
+    pausa:"Pause",play:"Play",vpausa:"Pause video",vplay:"Play video"
+  }:{
+    nom:{fc:"la frecuencia cardiaca",pa:"la presión sistólica",sat:"la saturación",t:"la temperatura",fr:"la frecuencia respiratoria"},
+    txt:{normal:"Normal",warning:"Alerta",critical:"Crítico"},
+    niv:{VERDE:["Verde","Puede esperar","Atención en máximo 120 min"],AMARILLO:["Amarillo","Urgente","Atención en máximo 30 min"],ROJO:["Rojo","Atención inmediata","Atención en máximo 15 min"]},
+    crit:l=>`Valor crítico en ${l}.`,warn:l=>`Fuera de rango: ${l}.`,ok:"Todos los signos vitales están en rango normal.",y:" y ",
+    nomv:{dash:"Pantalla de inicio",cola:"Cola de espera",hc:"Lista de pacientes",scores:"Scores clínicos"},modo:t=>t==="light"?"en modo claro":"en modo oscuro",
+    pausa:"Pausar",play:"Reproducir",vpausa:"Pausar video",vplay:"Reproducir video"
+  };
+  const NOM=T.nom,TXT=T.txt,NIV=T.niv;
   const simOut=document.getElementById("simOut");
   function sim(){
     if(!simOut)return;
@@ -44,8 +59,8 @@
     document.getElementById("simLvl").textContent=lvl;
     document.getElementById("simWhat").textContent=what;
     document.getElementById("simTime").textContent=time;
-    const lista=a=>a.map(k=>NOM[k]).join(", ").replace(/, ([^,]*)$/," y $1");
-    document.getElementById("simWhy").textContent=crit.length?`Valor crítico en ${lista(crit)}.`:warn.length?`Fuera de rango: ${lista(warn)}.`:"Todos los signos vitales están en rango normal.";
+    const lista=a=>a.map(k=>NOM[k]).join(", ").replace(/, ([^,]*)$/,T.y+"$1");
+    document.getElementById("simWhy").textContent=crit.length?T.crit(lista(crit)):warn.length?T.warn(lista(warn)):T.ok;
     // el trazo late al ritmo de la frecuencia cardiaca
     simOut.style.setProperty("--beat",(60/parseFloat(document.getElementById("v-fc").value)).toFixed(2)+"s");
   }
@@ -59,15 +74,16 @@
   // ── Míralo de cerca: pantalla y tema ──
   const view={v:"dash",t:"dark"};
   const viewA=document.getElementById("viewA"),viewB=document.getElementById("viewB");
-  const NOMV={dash:"Pantalla de inicio",cola:"Cola de espera",hc:"Lista de pacientes",scores:"Scores clínicos"};
+  const NOMV=T.nomv;
   function segPill(seg){const on=seg.querySelector("[aria-pressed=true]"),p=seg.querySelector(".seg-pill");if(on&&p){p.style.width=on.offsetWidth+"px";p.style.transform=`translateX(${on.offsetLeft-4}px)`;}}
   // Cada toque cancela el cambio anterior: solo se muestra la última elección
   let vistaTurno=0;
   function verVista(){
     if(!viewA)return;
     const turno=++vistaTurno;
-    const src=`assets/img/m-${view.v}${view.t==="light"?"-light":""}.webp`;
-    const alt=`${NOMV[view.v]} en modo ${view.t==="light"?"claro":"oscuro"}`;
+    const dir=viewA.getAttribute("src").replace(/[^/]+$/,"");   // "assets/img/" o "../assets/img/"
+    const src=`${dir}m-${view.v}${view.t==="light"?"-light":""}.webp`;
+    const alt=`${NOMV[view.v]} ${T.modo(view.t)}`;
     const pre=new Image();
     pre.onload=pre.onerror=()=>{
       if(turno!==vistaTurno)return;            // llegó una elección más nueva
@@ -107,7 +123,7 @@
     track.scrollTo({left:c.offsetLeft-(track.clientWidth-c.offsetWidth)/2,behavior:reduce?"auto":"smooth"});
     hlMark(i);setTimeout(()=>hlLock=false,700);
   }
-  function hlSet(run){hlRun=run;play.innerHTML=run?ICO_PAUSA:ICO_PLAY;play.setAttribute("aria-label",run?"Pausar":"Reproducir");hlMark(hlI);}
+  function hlSet(run){hlRun=run;play.innerHTML=run?ICO_PAUSA:ICO_PLAY;play.setAttribute("aria-label",run?T.pausa:T.play);hlMark(hlI);}
   if(track){
     hdots.forEach((d,i)=>d.addEventListener("click",()=>hlGo(i)));
     play.addEventListener("click",()=>hlSet(!hlRun));
@@ -120,6 +136,19 @@
     // Solo corre cuando el carrusel está a la vista
     new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)clearTimeout(hlTimer);else hlMark(hlI);}),{threshold:.4}).observe(track);
     hlSet(hlRun);
+  }
+
+  // ── Video: se reproduce solo cuando está a la vista (y no con "reducir movimiento") ──
+  const vid=document.getElementById("vidDemo"),vbtn=document.getElementById("vidBtn");
+  if(vid&&vbtn){
+    const ICO_P='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',ICO_S='<svg viewBox="0 0 24 24"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>';
+    let usuarioPausa=false;
+    const pintar=()=>{const on=!vid.paused;vbtn.innerHTML=on?ICO_S:ICO_P;vbtn.setAttribute("aria-label",on?T.vpausa:T.vplay);};
+    vid.addEventListener("play",pintar);vid.addEventListener("pause",pintar);
+    vbtn.addEventListener("click",()=>{if(vid.paused){usuarioPausa=false;vid.play().catch(()=>{});}else{usuarioPausa=true;vid.pause();}});
+    if(!reduce)new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting&&!usuarioPausa){vid.preload="auto";vid.play().catch(()=>{});}else if(!e.isIntersecting)vid.pause();
+    }),{threshold:.45}).observe(vid);
   }
 
   // ── Números que cuentan al aparecer ──

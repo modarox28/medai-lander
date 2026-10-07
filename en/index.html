@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MedIA Suite — Triage de urgencias con apoyo de IA</title>
-<meta name="description" content="App web para clasificar pacientes en urgencias por prioridad, llevar la cola en tiempo real y la historia clínica, con un asistente de IA como apoyo. Pruébala sin registro.">
+<title>MedIA Suite — Emergency triage with AI support</title>
+<meta name="description" content="Web app to triage emergency patients by priority, manage the live queue and medical records, with an AI assistant for support. Try it without signing up.">
 <meta name="theme-color" content="#0b1120">
-<link rel="icon" type="image/svg+xml" href="icon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="../icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../manifest.json">
 <meta property="og:type" content="website">
-<meta property="og:title" content="MedIA Suite — Triage de urgencias con apoyo de IA">
-<meta property="og:description" content="Clasificación por colores, cola en tiempo real, historia clínica y scores clínicos. Pruébala sin registro.">
+<meta property="og:title" content="MedIA Suite — Emergency triage with AI support">
+<meta property="og:description" content="Color-coded triage, live queue, medical records and clinical scores. Try it without signing up.">
 <meta property="og:image" content="https://modarox28.github.io/medai-lander/assets/img/og.png">
-<meta property="og:url" content="https://modarox28.github.io/medai-lander/">
+<meta property="og:url" content="https://modarox28.github.io/medai-lander/en/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="assets/fonts/familjen-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/familjen-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face{font-family:"Familjen Grotesk";font-weight:400;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin-400-normal.woff2) format("woff2")}
-@font-face{font-family:"Familjen Grotesk";font-weight:500;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin-500-normal.woff2) format("woff2")}
-@font-face{font-family:"Familjen Grotesk";font-weight:700;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin-700-normal.woff2) format("woff2")}
-@font-face{font-family:"JetBrains Mono";font-weight:700;font-display:swap;src:url(assets/fonts/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Familjen Grotesk";font-weight:400;font-display:swap;src:url(../assets/fonts/familjen-grotesk-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Familjen Grotesk";font-weight:500;font-display:swap;src:url(../assets/fonts/familjen-grotesk-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Familjen Grotesk";font-weight:700;font-display:swap;src:url(../assets/fonts/familjen-grotesk-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-weight:700;font-display:swap;src:url(../assets/fonts/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
 
 :root{
   --navy:#0b1120;--navy-2:#111a2e;--navy-3:#18233b;--line:#1e2d45;
@@ -338,32 +338,32 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   .hl-dot.on.run i{animation:none;transform:none}
 }
 </style>
-<link rel="canonical" href="https://modarox28.github.io/medai-lander/">
+<link rel="canonical" href="https://modarox28.github.io/medai-lander/en/">
 <link rel="alternate" hreflang="es" href="https://modarox28.github.io/medai-lander/">
 <link rel="alternate" hreflang="en" href="https://modarox28.github.io/medai-lander/en/">
 <link rel="alternate" hreflang="x-default" href="https://modarox28.github.io/medai-lander/">
 </head>
 <body>
-<a class="skip" href="#contenido">Saltar al contenido</a>
+<a class="skip" href="#contenido">Skip to content</a>
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#" aria-label="MedIA Suite, inicio">
+    <a class="brand" href="#" aria-label="MedIA Suite, home">
       <svg viewBox="0 0 100 100" aria-hidden="true"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
       <span>Med<i>IA</i> <s>Suite</s></span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
       <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-    <nav class="nav-links" id="navLinks" aria-label="Secciones">
-      <a href="#destacado">Destacado</a>
-      <a href="#prioridad">Prioridad</a>
-      <a href="#funciones">Funciones</a>
-      <a href="#vistazo">Míralo de cerca</a>
-      <a href="#seguridad">Seguridad</a>
-      <a href="#tecnologia">Tecnología</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a class="nav-lang" href="en/" hreflang="en" lang="en" aria-label="English version">EN</a>
-      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
+    <nav class="nav-links" id="navLinks" aria-label="Sections">
+      <a href="#destacado">Highlights</a>
+      <a href="#prioridad">Priority</a>
+      <a href="#funciones">Features</a>
+      <a href="#vistazo">Take a closer look</a>
+      <a href="#seguridad">Security</a>
+      <a href="#tecnologia">Technology</a>
+      <a href="#sobre-mi">About me</a>
+      <a class="nav-lang" href="../" hreflang="es" lang="es" aria-label="Versión en español">ES</a>
+      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1&amp;lang=en">Try the demo</a>
     </nav>
   </div>
 </header>
@@ -372,58 +372,58 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <!-- HERO: título grande y el equipo que sube al hacer scroll -->
 <section class="hero" aria-labelledby="h-hero">
   <div class="wrap hero-copy">
-    <h1 id="h-hero">Urgencias,<br>en orden<svg class="pulse" viewBox="0 0 100 60" aria-hidden="true"><polyline points="2,40 22,40 32,8 46,52 60,8 70,40 98,40"/></svg></h1>
-    <p class="hero-lead">Clasifica a cada paciente por prioridad, ordena la sala de espera y consulta su historia clínica. Con un asistente de IA que explica cada sugerencia.</p>
+    <h1 id="h-hero">Emergencies,<br>in order<svg class="pulse" viewBox="0 0 100 60" aria-hidden="true"><polyline points="2,40 22,40 32,8 46,52 60,8 70,40 98,40"/></svg></h1>
+    <p class="hero-lead">Sort every patient by priority, organize the waiting room and check their medical record. With an AI assistant that explains every suggestion.</p>
     <div class="hero-cta">
-      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Probar la demo</a>
-      <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6.2 0C6.6 2.8 5.6 3.1 5.6 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>Ver el código</a>
+      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1&amp;lang=en"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Try the demo</a>
+      <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6.2 0C6.6 2.8 5.6 3.1 5.6 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>View the code</a>
     </div>
-    <p class="hero-note">La demo no pide registro y usa pacientes ficticios.</p>
+    <p class="hero-note">No sign-up needed. The demo uses fictional patients.</p>
   </div>
   <div class="hero-device" id="heroDevice">
     <div class="laptop">
-      <div class="laptop-screen"><img src="assets/img/d-dash.webp" width="1800" height="1125" alt="MedIA Suite en computador: pacientes críticos en espera, cifras del día, actividad reciente y gráfico por prioridad" fetchpriority="high"></div>
+      <div class="laptop-screen"><img src="../assets/img/d-dash.webp" width="1800" height="1125" alt="MedIA Suite on desktop: critical patients waiting, today's numbers, recent activity and a priority chart" fetchpriority="high"></div>
       <div class="laptop-base"></div>
     </div>
-    <div class="phone hero-phone"><img src="assets/img/m-dash.webp" width="780" height="1688" alt="MedIA Suite en celular: pantalla de inicio"></div>
+    <div class="phone hero-phone"><img src="../assets/img/m-dash.webp" width="780" height="1688" alt="MedIA Suite on a phone: home screen"></div>
   </div>
   <div class="hero-fade" aria-hidden="true"></div>
 </section>
 
 <!-- LO MÁS DESTACADO -->
 <section class="hl" id="destacado" aria-labelledby="h-hl">
-  <div class="wrap"><div class="sec-head"><h2 id="h-hl">Lo más destacado.</h2></div></div>
-  <div class="hl-track" id="hlTrack" role="region" aria-roledescription="carrusel" aria-label="Lo más destacado de MedIA Suite" tabindex="0">
-    <article class="hl-card" style="--tone:var(--red)" aria-label="1 de 5">
-      <p class="hl-cap"><b>Prioridad por colores.</b> Rojo, amarillo o verde, con el tiempo máximo que cada paciente puede esperar.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Cola de espera ordenada por prioridad"></div>
+  <div class="wrap"><div class="sec-head"><h2 id="h-hl">The highlights.</h2></div></div>
+  <div class="hl-track" id="hlTrack" role="region" aria-roledescription="carrusel" aria-label="MedIA Suite highlights" tabindex="0">
+    <article class="hl-card" style="--tone:var(--red)" aria-label="1 of 5">
+      <p class="hl-cap"><b>Color-coded priority.</b> Red, yellow or green, with the maximum time each patient can wait.</p>
+      <div class="hl-img phone sm"><img src="../assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Waiting queue sorted by priority"></div>
     </article>
-    <article class="hl-card" style="--tone:var(--cyan)" aria-label="2 de 5">
-      <p class="hl-cap"><b>Un asistente de IA que explica.</b> Sugiere la prioridad y las primeras acciones, y muestra por qué.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de triage con la justificación de la IA"></div>
+    <article class="hl-card" style="--tone:var(--cyan)" aria-label="2 of 5">
+      <p class="hl-cap"><b>An AI assistant that explains.</b> Suggests the priority and first actions, and shows why.</p>
+      <div class="hl-img phone sm"><img src="../assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Triage detail with the AI's reasoning"></div>
     </article>
-    <article class="hl-card" style="--tone:#a855f7" aria-label="3 de 5">
-      <p class="hl-cap"><b>La historia de cada paciente.</b> Búscala por nombre o documento, aunque escribas sin tildes.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador"></div>
+    <article class="hl-card" style="--tone:#a855f7" aria-label="3 of 5">
+      <p class="hl-cap"><b>Every patient's record.</b> Find it by name or ID number, even without accents.</p>
+      <div class="hl-img phone sm"><img src="../assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Patient list with search"></div>
     </article>
-    <article class="hl-card" style="--tone:var(--green)" aria-label="4 de 5">
-      <p class="hl-cap"><b>Siete scores clínicos.</b> HEART, qSOFA, NEWS2 y más, con sus criterios publicados.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART"></div>
+    <article class="hl-card" style="--tone:var(--green)" aria-label="4 of 5">
+      <p class="hl-cap"><b>Seven clinical scores.</b> HEART, qSOFA, NEWS2 and more, with their published criteria.</p>
+      <div class="hl-img phone sm"><img src="../assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="HEART score"></div>
     </article>
-    <article class="hl-card wide" style="--tone:var(--amber)" aria-label="5 de 5">
-      <p class="hl-cap"><b>El turno en cifras.</b> Pacientes por prioridad, motivo y tipo, con reporte en PDF.</p>
-      <div class="hl-img"><img src="assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Panel de estadísticas en computador"></div>
+    <article class="hl-card wide" style="--tone:var(--amber)" aria-label="5 of 5">
+      <p class="hl-cap"><b>The shift in numbers.</b> Patients by priority, complaint and type, with a PDF report.</p>
+      <div class="hl-img"><img src="../assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Statistics dashboard on desktop"></div>
     </article>
   </div>
   <div class="hl-ctrl">
-    <div class="hl-dots" role="tablist" aria-label="Elegir tarjeta">
+    <div class="hl-dots" role="tablist" aria-label="Choose a card">
       <button class="hl-dot on" role="tab" aria-label="Prioridad por colores" aria-selected="true"><i></i></button>
-      <button class="hl-dot" role="tab" aria-label="Asistente de IA" aria-selected="false"><i></i></button>
-      <button class="hl-dot" role="tab" aria-label="Historia clínica" aria-selected="false"><i></i></button>
-      <button class="hl-dot" role="tab" aria-label="Scores clínicos" aria-selected="false"><i></i></button>
-      <button class="hl-dot" role="tab" aria-label="Estadísticas" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="AI assistant" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Medical record" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Clinical scores" aria-selected="false"><i></i></button>
+      <button class="hl-dot" role="tab" aria-label="Statistics" aria-selected="false"><i></i></button>
     </div>
-    <button class="hl-play" id="hlPlay" aria-label="Pausar"><svg viewBox="0 0 24 24"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+    <button class="hl-play" id="hlPlay" aria-label="Pause"><svg viewBox="0 0 24 24"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
   </div>
 </section>
 
@@ -431,18 +431,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section class="demo-vid" id="recorrido" aria-labelledby="h-vid">
   <div class="wrap demo-vid-grid">
     <div>
-      <h2 id="h-vid">Mírala funcionando.</h2>
-      <p class="demo-vid-lead">Un recorrido de 27 segundos por la demo: la cola de espera, el detalle de un triage con la explicación de la IA, la búsqueda de un paciente, el modo claro y el cambio de idioma.</p>
+      <h2 id="h-vid">See it in action.</h2>
+      <p class="demo-vid-lead">A 27-second walkthrough of the demo: the waiting queue, a triage with the AI's explanation, a patient search, light mode and switching languages. The app is shown in Spanish; it's available in six languages.</p>
       <div class="hero-cta" style="justify-content:flex-start">
-        <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
+        <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1&amp;lang=en">Try the demo</a>
       </div>
     </div>
     <div class="demo-vid-phone phone">
-      <video id="vidDemo" muted loop playsinline preload="none" poster="assets/video/recorrido-poster.webp" aria-label="Recorrido por la app MedIA Suite en un celular">
-        <source src="assets/video/recorrido.webm" type="video/webm">
-        <source src="assets/video/recorrido.mp4" type="video/mp4">
+      <video id="vidDemo" muted loop playsinline preload="none" poster="../assets/video/recorrido-poster.webp" aria-label="Walkthrough of the MedIA Suite app on a phone">
+        <source src="../assets/video/recorrido.webm" type="video/webm">
+        <source src="../assets/video/recorrido.mp4" type="video/mp4">
       </video>
-      <button type="button" class="vid-btn" id="vidBtn" aria-label="Reproducir video"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      <button type="button" class="vid-btn" id="vidBtn" aria-label="Play video"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
     </div>
   </div>
 </section>
@@ -451,36 +451,36 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section class="sim" id="prioridad" aria-labelledby="h-sim">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-sim">Mueve los signos vitales. Mira cómo cambia la prioridad.</h2>
-      <p>La app revisa cada signo vital contra sus límites y marca al paciente según el valor más preocupante. Pruébalo.</p>
+      <h2 id="h-sim">Move the vital signs. Watch the priority change.</h2>
+      <p>The app checks each vital sign against its limits and flags the patient by the most worrying value. Try it.</p>
     </div>
     <div class="sim-grid">
       <div>
-        <div class="sim-presets" role="group" aria-label="Casos de ejemplo">
-          <button type="button" data-p="80,122,98,36.8,16" aria-pressed="true">Paciente estable</button>
-          <button type="button" data-p="104,132,93,38.9,24" aria-pressed="false">Fiebre con taquicardia</button>
-          <button type="button" data-p="118,84,89,36.6,28" aria-pressed="false">Dolor torácico</button>
+        <div class="sim-presets" role="group" aria-label="Example cases">
+          <button type="button" data-p="80,122,98,36.8,16" aria-pressed="true">Stable patient</button>
+          <button type="button" data-p="104,132,93,38.9,24" aria-pressed="false">Fever with tachycardia</button>
+          <button type="button" data-p="118,84,89,36.6,28" aria-pressed="false">Chest pain</button>
         </div>
         <div id="sim">
-          <div class="vit"><div class="vit-top"><label for="v-fc">Frecuencia cardiaca</label><output id="o-fc">80</output><small>lpm</small><span class="vit-st" id="s-fc" data-s="normal">Normal</span></div><input type="range" id="v-fc" min="30" max="180" step="1" value="80"></div>
-          <div class="vit"><div class="vit-top"><label for="v-pa">Presión sistólica</label><output id="o-pa">122</output><small>mmHg</small><span class="vit-st" id="s-pa" data-s="normal">Normal</span></div><input type="range" id="v-pa" min="60" max="220" step="1" value="122"></div>
-          <div class="vit"><div class="vit-top"><label for="v-sat">Saturación de oxígeno</label><output id="o-sat">98</output><small>%</small><span class="vit-st" id="s-sat" data-s="normal">Normal</span></div><input type="range" id="v-sat" min="75" max="100" step="1" value="98"></div>
-          <div class="vit"><div class="vit-top"><label for="v-t">Temperatura</label><output id="o-t">36.8</output><small>°C</small><span class="vit-st" id="s-t" data-s="normal">Normal</span></div><input type="range" id="v-t" min="34" max="42" step="0.1" value="36.8"></div>
-          <div class="vit"><div class="vit-top"><label for="v-fr">Frecuencia respiratoria</label><output id="o-fr">16</output><small>rpm</small><span class="vit-st" id="s-fr" data-s="normal">Normal</span></div><input type="range" id="v-fr" min="5" max="40" step="1" value="16"></div>
+          <div class="vit"><div class="vit-top"><label for="v-fc">Heart rate</label><output id="o-fc">80</output><small>bpm</small><span class="vit-st" id="s-fc" data-s="normal">Normal</span></div><input type="range" id="v-fc" min="30" max="180" step="1" value="80"></div>
+          <div class="vit"><div class="vit-top"><label for="v-pa">Systolic pressure</label><output id="o-pa">122</output><small>mmHg</small><span class="vit-st" id="s-pa" data-s="normal">Normal</span></div><input type="range" id="v-pa" min="60" max="220" step="1" value="122"></div>
+          <div class="vit"><div class="vit-top"><label for="v-sat">Oxygen saturation</label><output id="o-sat">98</output><small>%</small><span class="vit-st" id="s-sat" data-s="normal">Normal</span></div><input type="range" id="v-sat" min="75" max="100" step="1" value="98"></div>
+          <div class="vit"><div class="vit-top"><label for="v-t">Temperature</label><output id="o-t">36.8</output><small>°C</small><span class="vit-st" id="s-t" data-s="normal">Normal</span></div><input type="range" id="v-t" min="34" max="42" step="0.1" value="36.8"></div>
+          <div class="vit"><div class="vit-top"><label for="v-fr">Respiratory rate</label><output id="o-fr">16</output><small>rpm</small><span class="vit-st" id="s-fr" data-s="normal">Normal</span></div><input type="range" id="v-fr" min="5" max="40" step="1" value="16"></div>
         </div>
       </div>
       <div class="sim-out" id="simOut" data-l="VERDE" aria-live="polite">
         <div>
-          <div class="sim-lbl">Prioridad sugerida</div>
-          <div class="sim-lvl" id="simLvl">Verde</div>
-          <div class="sim-what" id="simWhat">Puede esperar</div>
-          <div class="sim-time" id="simTime">Atención en máximo 120 min</div>
+          <div class="sim-lbl">Suggested priority</div>
+          <div class="sim-lvl" id="simLvl">Green</div>
+          <div class="sim-what" id="simWhat">Can wait</div>
+          <div class="sim-time" id="simTime">Seen within 120 min</div>
         </div>
         <div class="sim-ecg" aria-hidden="true"><svg viewBox="0 0 400 70" preserveAspectRatio="none"><path d="M0 40H40l6-4 6 4h12l6-26 8 46 7-34 5 14h14l6-4 6 4H200l6-4 6 4h12l6-26 8 46 7-34 5 14h14l6-4 6 4H400"/></svg></div>
-        <p class="sim-why" id="simWhy">Todos los signos vitales están en rango normal.</p>
+        <p class="sim-why" id="simWhy">All vital signs are within normal range.</p>
       </div>
     </div>
-    <p class="sim-note">Ejemplo ilustrativo con los mismos límites que usa la app para marcar cada signo vital. La clasificación real también tiene en cuenta el motivo de consulta, el dolor, el tipo de paciente y, siempre, el criterio del profesional.</p>
+    <p class="sim-note">Illustrative example using the same limits the app uses to flag each vital sign. The real classification also considers the chief complaint, pain, patient type and, always, the clinician's judgment.</p>
   </div>
 </section>
 
@@ -488,37 +488,37 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section id="funciones" aria-labelledby="h-func">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-func">Lo que necesita un turno de urgencias, en una sola app.</h2>
+      <h2 id="h-func">Everything an emergency shift needs, in one app.</h2>
     </div>
     <div class="story">
       <div class="story-steps">
         <article class="step" data-step="0">
-          <div class="phone sm step-img"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador, edad, documento, antecedentes y alergias destacadas"></div>
-          <h3>Historia clínica a mano</h3>
-          <p>Antecedentes, alergias y medicación de cada paciente, con búsqueda por nombre o documento aunque escribas sin tildes o solo una parte.</p>
-          <ul><li>Exporta la historia o el triage a PDF</li><li>El paciente consulta la suya con su documento y un PIN</li><li>Si olvida el PIN, el personal lo restablece en persona</li></ul>
+          <div class="phone sm step-img"><img src="../assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Patient list with search, age, ID, history and highlighted allergies"></div>
+          <h3>Medical records at hand</h3>
+          <p>History, allergies and medication for every patient, searchable by name or ID number, even partially or without accents.</p>
+          <ul><li>Export the record or the triage to PDF</li><li>Patients view their own with their ID and a PIN</li><li>If they forget the PIN, staff reset it in person</li></ul>
         </article>
         <article class="step" data-step="1">
-          <div class="phone sm step-img"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART con sus criterios para marcar y el puntaje"></div>
-          <h3>Scores clínicos listos para usar</h3>
-          <p>Las escalas que se usan a diario, con los criterios publicados de cada una y el puntaje calculado mientras marcas.</p>
-          <div class="chips"><span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Índice de shock</span></div>
+          <div class="phone sm step-img"><img src="../assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="HEART score with its criteria and total"></div>
+          <h3>Clinical scores ready to use</h3>
+          <p>The scales used every day, with each one's published criteria and the score calculated as you check boxes.</p>
+          <div class="chips"><span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Shock index</span></div>
         </article>
         <article class="step" data-step="2">
-          <div class="phone sm step-img"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de un triage rojo por dolor torácico con la justificación de la IA y cuatro acciones prioritarias"></div>
-          <h3>Un asistente de IA que explica</h3>
-          <p>Sugiere la prioridad y las acciones iniciales, revisa interacciones entre medicamentos y redacta el resumen del turno. Cada sugerencia muestra su razonamiento.</p>
-          <p class="ia-note">La IA es un apoyo. La app lo recuerda en cada resultado y no reemplaza el criterio del profesional de salud.</p>
+          <div class="phone sm step-img"><img src="../assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Red triage detail for chest pain with the AI's reasoning and four priority actions"></div>
+          <h3>An AI assistant that explains</h3>
+          <p>It suggests the priority and initial actions, checks drug interactions and drafts the shift summary. Every suggestion shows its reasoning.</p>
+          <p class="ia-note">AI is a support tool. The app says so on every result, and it never replaces the clinician's judgment.</p>
         </article>
         <article class="step" data-step="3">
-          <div class="phone sm step-img"><img src="assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="Estadísticas de los últimos 7 días por prioridad, con gráfico y porcentajes"></div>
-          <h3>Estadísticas del servicio</h3>
-          <p>Cuántos pacientes llegaron hoy, en 7 o en 30 días, por prioridad, motivo y tipo de paciente. El reporte se descarga en PDF para la reunión de turno.</p>
-          <ul><li>Incidentes con múltiples víctimas (START)</li><li>Avisos prehospitalarios de llegada</li><li>Registro de auditoría de cada acción</li></ul>
+          <div class="phone sm step-img"><img src="../assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="Last 7 days statistics by priority, with chart and percentages"></div>
+          <h3>Department statistics</h3>
+          <p>How many patients arrived today, in 7 or 30 days, by priority, complaint and patient type. The report downloads as a PDF for the shift handover.</p>
+          <ul><li>Mass casualty incidents (START)</li><li>Pre-hospital arrival notices</li><li>Audit log of every action</li></ul>
         </article>
       </div>
       <div class="story-stage" aria-hidden="true">
-        <div class="phone"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
+        <div class="phone"><img src="../assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="../assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="../assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="../assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
         <div class="story-dots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div>
       </div>
     </div>
@@ -526,31 +526,31 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 </section>
 
 <!-- FRASE -->
-<section class="quote" aria-label="Principio de diseño">
+<section class="quote" aria-label="Design principle">
   <div class="wrap">
-    <p class="quote-txt" id="quoteTxt">La IA propone y explica. Quien atiende al paciente decide. Así de simple tiene que ser una herramienta para urgencias.</p>
+    <p class="quote-txt" id="quoteTxt">AI suggests and explains. Whoever treats the patient decides. That's how simple an emergency tool should be.</p>
   </div>
 </section>
 
 <!-- MÍRALO DE CERCA -->
 <section class="view" id="vistazo" aria-labelledby="h-view">
   <div class="wrap">
-    <div class="sec-head center"><h2 id="h-view">Míralo de cerca.</h2><p>De día o de noche, la misma app. Elige una pantalla y un tema.</p></div>
+    <div class="sec-head center"><h2 id="h-view">Take a closer look.</h2><p>Day or night, the same app. Pick a screen and a theme.</p></div>
     <div class="view-phone phone" id="viewPhone">
-      <img id="viewA" src="assets/img/m-dash.webp" width="780" height="1688" alt="Pantalla de inicio en modo oscuro">
-      <img id="viewB" class="out" src="assets/img/m-dash.webp" width="780" height="1688" alt="" aria-hidden="true">
+      <img id="viewA" src="../assets/img/m-dash.webp" width="780" height="1688" alt="Home screen in dark mode">
+      <img id="viewB" class="out" src="../assets/img/m-dash.webp" width="780" height="1688" alt="" aria-hidden="true">
     </div>
     <div class="view-ctrl">
-      <div class="seg" id="viewSeg" role="group" aria-label="Pantalla">
+      <div class="seg" id="viewSeg" role="group" aria-label="Screen">
         <span class="seg-pill" aria-hidden="true"></span>
-        <button type="button" data-v="dash" aria-pressed="true">Inicio</button>
-        <button type="button" data-v="cola" aria-pressed="false">Cola</button>
-        <button type="button" data-v="hc" aria-pressed="false">Pacientes</button>
+        <button type="button" data-v="dash" aria-pressed="true">Home</button>
+        <button type="button" data-v="cola" aria-pressed="false">Queue</button>
+        <button type="button" data-v="hc" aria-pressed="false">Patients</button>
         <button type="button" data-v="scores" aria-pressed="false">Scores</button>
       </div>
-      <div class="swatches" role="group" aria-label="Tema">
-        <button type="button" class="sw" data-t="dark" aria-pressed="true"><span style="background:#0b1120"></span>Oscuro</button>
-        <button type="button" class="sw" data-t="light" aria-pressed="false"><span style="background:#f0f4f8"></span>Claro</button>
+      <div class="swatches" role="group" aria-label="Theme">
+        <button type="button" class="sw" data-t="dark" aria-pressed="true"><span style="background:#0b1120"></span>Dark</button>
+        <button type="button" class="sw" data-t="light" aria-pressed="false"><span style="background:#f0f4f8"></span>Light</button>
       </div>
     </div>
   </div>
@@ -559,12 +559,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <!-- NÚMEROS -->
 <section aria-labelledby="h-nums">
   <div class="wrap">
-    <div class="sec-head"><h2 id="h-nums">Pensada para el turno real.</h2></div>
+    <div class="sec-head"><h2 id="h-nums">Built for a real shift.</h2></div>
     <div class="nums">
-      <div class="num"><b data-n="15">15<small>min</small></b><p>tiempo máximo para atender a un paciente rojo, con aviso si se supera</p></div>
-      <div class="num"><b data-n="7">7</b><p>scores clínicos con los criterios de su publicación original</p></div>
-      <div class="num"><b data-n="66">66</b><p>pruebas automáticas en cada cambio, 7 de ellas usando la app en un navegador real</p></div>
-      <div class="num"><b data-n="6">6</b><p>idiomas, con terminología adaptada a cada país</p></div>
+      <div class="num"><b data-n="15">15<small>min</small></b><p>maximum time to see a red patient, with an alert if it's exceeded</p></div>
+      <div class="num"><b data-n="7">7</b><p>clinical scores using the criteria from their original publication</p></div>
+      <div class="num"><b data-n="66">66</b><p>automated tests on every change, 7 of them using the app in a real browser</p></div>
+      <div class="num"><b data-n="6">6</b><p>languages, with terminology adapted to each country</p></div>
     </div>
   </div>
 </section>
@@ -573,14 +573,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section id="seguridad" aria-labelledby="h-seg" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-seg">Los datos de salud se tratan como lo que son.</h2>
-      <p>Cada persona ve solo lo que su rol le permite, y las reglas viven en el servidor, no en el navegador.</p>
+      <h2 id="h-seg">Health data treated as what it is.</h2>
+      <p>Each person sees only what their role allows, and the rules live on the server, not in the browser.</p>
     </div>
     <div class="sec-grid">
-      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2M16 15l2 2 4-4"/></svg></div><h3>Acceso por roles</h3><p>Médico, administrador de hospital, administrador y paciente. Las cuentas nuevas del personal quedan en revisión hasta que un administrador las aprueba.</p></div>
-      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>La clave de la IA nunca llega al navegador</h3><p>Un servidor intermedio verifica la sesión de cada consulta, revisa el rol y aplica un límite diario por usuario.</p></div>
-      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Autorización según la Ley 1581</h3><p>El registro pide autorización explícita para tratar datos de salud y la política de tratamiento está siempre a un toque.</p></div>
-      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Trazabilidad</h3><p>Inicios de sesión, triages, restablecimientos de PIN y cambios de cuentas quedan en un registro de auditoría.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2M16 15l2 2 4-4"/></svg></div><h3>Role-based access</h3><p>Doctor, hospital admin, admin and patient. New staff accounts stay under review until an admin approves them.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>The AI key never reaches the browser</h3><p>A proxy server verifies the session on every request, checks the role and applies a daily limit per user.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Consent under Colombia's data law</h3><p>Sign-up asks for explicit consent to process health data (Law 1581 of 2012), and the privacy policy is always one tap away.</p></div>
+      <div class="sec-card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Traceability</h3><p>Sign-ins, triages, PIN resets and account changes are recorded in an audit log.</p></div>
     </div>
   </div>
 </section>
@@ -589,34 +589,34 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section class="build" id="tecnologia" aria-labelledby="h-tec">
   <div class="wrap build-grid">
     <div>
-      <h2 id="h-tec">Cómo está hecho</h2>
-      <p style="margin-top:16px;color:#b9c6dc;font-size:1.1rem">Una app web progresiva sin frameworks ni paso de compilación, pensada para funcionar en el plan gratuito de cada servicio.</p>
+      <h2 id="h-tec">How it's built</h2>
+      <p style="margin-top:16px;color:#b9c6dc;font-size:1.1rem">A progressive web app with no frameworks or build step, designed to run on each service's free tier.</p>
       <div class="chips">
-        <span class="chip">HTML, CSS y JavaScript</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Cloudflare Workers + KV</span><span class="chip">DeepSeek</span><span class="chip">jsPDF</span><span class="chip">Chart.js</span><span class="chip">GitHub Actions</span><span class="chip">Playwright</span>
+        <span class="chip">HTML, CSS and JavaScript</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Cloudflare Workers + KV</span><span class="chip">DeepSeek</span><span class="chip">jsPDF</span><span class="chip">Chart.js</span><span class="chip">GitHub Actions</span><span class="chip">Playwright</span>
       </div>
       <div class="stats">
-        <div class="stat"><b>66</b><span>pruebas automáticas en cada cambio</span></div>
-        <div class="stat"><b>7</b><span>scores validados contra su fuente</span></div>
-        <div class="stat"><b>4</b><span>roles con reglas en el servidor</span></div>
+        <div class="stat"><b>66</b><span>automated tests on every change</span></div>
+        <div class="stat"><b>7</b><span>scores validated against their source</span></div>
+        <div class="stat"><b>4</b><span>roles enforced on the server</span></div>
       </div>
       <div class="hero-cta" style="margin-top:28px">
-        <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia">Leer el código en GitHub</a>
+        <a class="btn btn-sec" href="https://github.com/modarox28/triage-ia">Read the code on GitHub</a>
       </div>
     </div>
     <figure class="arch">
       <svg viewBox="0 0 560 330" role="img" aria-labelledby="arch-t arch-d">
         <title id="arch-t">Arquitectura de MedIA Suite</title>
-        <desc id="arch-d">La app en el navegador se conecta a Firebase para sesiones y datos, y a un Cloudflare Worker que verifica la sesión antes de consultar la IA de DeepSeek.</desc>
+        <desc id="arch-d">The browser app connects to Firebase for sessions and data, and to a Cloudflare Worker that verifies the session before querying the DeepSeek AI.</desc>
         <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b9ec0"/></marker></defs>
         <rect x="10" y="125" width="150" height="80" rx="16" fill="#111a2e" stroke="#00c8f0"/>
         <text x="85" y="160" text-anchor="middle" font-size="17" font-weight="700">App (PWA)</text>
-        <text x="85" y="183" text-anchor="middle" font-size="13" class="sub">celular · tablet · PC</text>
+        <text x="85" y="183" text-anchor="middle" font-size="13" class="sub">phone · tablet · PC</text>
         <rect x="290" y="20" width="260" height="90" rx="16" fill="#111a2e" stroke="#1e2d45"/>
         <text x="420" y="58" text-anchor="middle" font-size="17" font-weight="700">Firebase</text>
         <text x="420" y="81" text-anchor="middle" font-size="13" class="sub">sesiones, datos y reglas por rol</text>
         <rect x="290" y="150" width="260" height="90" rx="16" fill="#111a2e" stroke="#1e2d45"/>
         <text x="420" y="188" text-anchor="middle" font-size="17" font-weight="700">Cloudflare Worker</text>
-        <text x="420" y="211" text-anchor="middle" font-size="13" class="sub">verifica sesión, rol y cupo</text>
+        <text x="420" y="211" text-anchor="middle" font-size="13" class="sub">checks session, role and quota</text>
         <rect x="350" y="268" width="140" height="50" rx="14" fill="#111a2e" stroke="#1e2d45"/>
         <text x="420" y="299" text-anchor="middle" font-size="15" font-weight="700">IA (DeepSeek)</text>
         <path d="M160 150 C220 120 230 70 288 66" fill="none" stroke="#8b9ec0" stroke-width="1.6" marker-end="url(#ah)"/>
@@ -631,13 +631,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <section aria-labelledby="h-next">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-next">En qué estoy trabajando</h2>
-      <p>MedIA Suite es un proyecto en desarrollo. Esto todavía no está en la app.</p>
+      <h2 id="h-next">What I'm working on</h2>
+      <p>MedIA Suite is a work in progress. None of this is in the app yet.</p>
     </div>
     <div class="next-list">
-      <div class="next"><h3>Signos vitales automáticos</h3><p>Leer presión, saturación y temperatura desde monitores por Bluetooth, sin digitarlos.</p></div>
-      <div class="next"><h3>Integración con la historia del hospital</h3><p>Enviar el triage al sistema de la institución con estándares HL7 y FHIR.</p></div>
-      <div class="next"><h3>Validación clínica</h3><p>Probar la clasificación junto a profesionales de urgencias y medir su concordancia.</p></div>
+      <div class="next"><h3>Automatic vital signs</h3><p>Read blood pressure, saturation and temperature from Bluetooth monitors instead of typing them.</p></div>
+      <div class="next"><h3>Hospital record integration</h3><p>Send the triage to the hospital's system using HL7 and FHIR standards.</p></div>
+      <div class="next"><h3>Clinical validation</h3><p>Test the classification with emergency clinicians and measure agreement.</p></div>
     </div>
   </div>
 </section>
@@ -649,23 +649,23 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <div class="about-av">M</div>
       <svg class="about-pulse" viewBox="0 0 100 100"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
       <div class="about-name">Moisés</div>
-      <div class="about-role">Estudiante de Ingeniería de Sistemas</div>
+      <div class="about-role">Systems Engineering student</div>
       <div class="about-place">Universidad Autónoma del Caribe · Colombia</div>
     </div>
     <div>
-      <h2 id="h-about">Quién está detrás.</h2>
-      <p class="about-lead">Soy Moisés, estudiante de Ingeniería de Sistemas en la Universidad Autónoma del Caribe. Construí MedIA Suite de principio a fin: el diseño, la app, la seguridad del servidor y las pruebas automáticas. Busco mi primera oportunidad como desarrollador junior.</p>
-      <h3 class="about-h3">Lo que aprendí construyéndola</h3>
+      <h2 id="h-about">Who's behind it.</h2>
+      <p class="about-lead">I'm Moisés, a Systems Engineering student at Universidad Autónoma del Caribe in Colombia. I built MedIA Suite end to end: the design, the app, the server security and the automated tests. I'm looking for my first opportunity as a junior developer.</p>
+      <h3 class="about-h3">What I learned building it</h3>
       <ul class="about-list">
-        <li>Proteger datos de salud con reglas por rol que se cumplen en el servidor.</li>
-        <li>Usar una IA sin exponer la clave, con un servidor intermedio que verifica cada sesión.</li>
-        <li>Que una app se vea bien en iPhone, Android y computador, incluidos los fallos propios de cada uno.</li>
+        <li>Protecting health data with role-based rules enforced on the server.</li>
+        <li>Using AI without exposing the key, through a proxy that verifies every session.</li>
+        <li>Making an app look right on iPhone, Android and desktop, including each platform's quirks.</li>
       </ul>
-      <h3 class="about-h3">Con qué trabajo</h3>
-      <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML y CSS</span><span class="chip">Firebase</span><span class="chip">Cloudflare Workers</span><span class="chip">Git y GitHub Actions</span><span class="chip">Java y Android</span><span class="chip">MySQL</span><span class="chip">Python</span></div>
+      <h3 class="about-h3">What I work with</h3>
+      <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML and CSS</span><span class="chip">Firebase</span><span class="chip">Cloudflare Workers</span><span class="chip">Git and GitHub Actions</span><span class="chip">Java and Android</span><span class="chip">MySQL</span><span class="chip">Python</span></div>
       <div class="hero-cta" style="justify-content:flex-start;margin-top:30px">
-        <a class="btn btn-pri" href="https://github.com/modarox28">Ver mi GitHub</a>
-        <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=Hola%20Mois%C3%A9s">Escribirme</a>
+        <a class="btn btn-pri" href="https://github.com/modarox28">See my GitHub</a>
+        <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=Hi%20Mois%C3%A9s">Email me</a>
       </div>
     </div>
   </div>
@@ -674,11 +674,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <!-- CIERRE -->
 <section class="cta" aria-labelledby="h-cta">
   <div class="wrap">
-    <h2 id="h-cta">¿Trabajas en urgencias? Pruébala.</h2>
-    <p>Entra a la demo como administrador con pacientes de prueba. Una guía corta te muestra lo principal en menos de un minuto.</p>
+    <h2 id="h-cta">Work in emergency care? Try it.</h2>
+    <p>Open the demo as an admin with test patients. A short guide shows you the essentials in under a minute.</p>
     <div class="hero-cta">
-      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
-      <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=MedIA%20Suite">Escribirme</a>
+      <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1&amp;lang=en">Try the demo</a>
+      <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=MedIA%20Suite">Email me</a>
     </div>
   </div>
 </section>
@@ -687,15 +687,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
 <footer>
   <div class="wrap">
     <div>
-      <a class="brand" href="#" aria-label="MedIA Suite, volver arriba">
+      <a class="brand" href="#" aria-label="MedIA Suite, back to top">
         <svg viewBox="0 0 100 100" aria-hidden="true"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
         <span>Med<i>IA</i> <s>Suite</s></span>
       </a>
-      <p class="foot-note" style="margin-top:12px">Proyecto académico en desarrollo, hecho en Colombia por Moisés (modarox28). Es una herramienta de apoyo a la decisión clínica y no un dispositivo médico certificado.</p>
+      <p class="foot-note" style="margin-top:12px">Academic project in progress, made in Colombia by Moisés (modarox28). It's a clinical decision support tool, not a certified medical device.</p>
     </div>
     <div class="foot-links">
-      <a href="https://media-suite-6f432.web.app/">Abrir la app</a>
-      <a href="https://media-suite-6f432.web.app/privacidad.html">Política de datos</a>
+      <a href="https://media-suite-6f432.web.app/?lang=en">Open the app</a>
+      <a href="https://media-suite-6f432.web.app/privacidad.html">Privacy policy (ES)</a>
       <a href="https://github.com/modarox28/triage-ia">GitHub</a>
     </div>
   </div>
@@ -716,16 +716,16 @@ if("scrollRestoration" in history)history.scrollRestoration="manual";
 // Barra superior: línea inferior al bajar y menú en celular
 const nav=document.getElementById("nav"),tg=document.getElementById("navToggle"),links=document.getElementById("navLinks");
 addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>8),{passive:true});
-tg.addEventListener("click",()=>{const o=links.classList.toggle("open");tg.setAttribute("aria-expanded",o);tg.setAttribute("aria-label",o?"Cerrar menú":"Abrir menú");});
+tg.addEventListener("click",()=>{const o=links.classList.toggle("open");tg.setAttribute("aria-expanded",o);tg.setAttribute("aria-label",o?"Close menu":"Open menu");});
 links.addEventListener("click",e=>{if(e.target.closest("a")){links.classList.remove("open");tg.setAttribute("aria-expanded","false");}});
 // La versión anterior registraba un service worker que dejaba la página en caché: se elimina
 if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister())).catch(()=>{});
 </script>
-<link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26">
-<script src="assets/vendor/gsap.min.js?v=3.15.0" defer></script>
-<script src="assets/vendor/ScrollTrigger.min.js?v=3.15.0" defer></script>
-<script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-<script src="assets/scroll.js?v=6" defer></script>
+<link rel="stylesheet" href="../assets/vendor/lenis.css?v=1.3.26">
+<script src="../assets/vendor/gsap.min.js?v=3.15.0" defer></script>
+<script src="../assets/vendor/ScrollTrigger.min.js?v=3.15.0" defer></script>
+<script src="../assets/vendor/lenis.min.js?v=1.3.26" defer></script>
+<script src="../assets/scroll.js?v=6" defer></script>
 <!-- Contador de visitas (GoatCounter, sin cookies). Para activarlo: crea tu cuenta en goatcounter.com,
      cambia TU-CODIGO por tu código y quita los signos de comentario de la línea siguiente. -->
 <!-- <script data-goatcounter="https://TU-CODIGO.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script> -->
