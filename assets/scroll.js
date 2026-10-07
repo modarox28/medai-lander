@@ -61,13 +61,24 @@
   const viewA=document.getElementById("viewA"),viewB=document.getElementById("viewB");
   const NOMV={dash:"Pantalla de inicio",cola:"Cola de espera",hc:"Lista de pacientes",scores:"Scores clínicos"};
   function segPill(seg){const on=seg.querySelector("[aria-pressed=true]"),p=seg.querySelector(".seg-pill");if(on&&p){p.style.width=on.offsetWidth+"px";p.style.transform=`translateX(${on.offsetLeft-4}px)`;}}
+  // Cada toque cancela el cambio anterior: solo se muestra la última elección
+  let vistaTurno=0;
   function verVista(){
     if(!viewA)return;
+    const turno=++vistaTurno;
     const src=`assets/img/m-${view.v}${view.t==="light"?"-light":""}.webp`;
-    if(viewA.getAttribute("src")===src)return;
-    viewB.src=src;viewB.classList.remove("out");
-    const fin=()=>{viewA.src=src;viewA.alt=`${NOMV[view.v]} en modo ${view.t==="light"?"claro":"oscuro"}`;viewB.classList.add("out");};
-    if(viewB.complete)setTimeout(fin,460);else viewB.onload=()=>setTimeout(fin,460);
+    const alt=`${NOMV[view.v]} en modo ${view.t==="light"?"claro":"oscuro"}`;
+    const pre=new Image();
+    pre.onload=pre.onerror=()=>{
+      if(turno!==vistaTurno)return;            // llegó una elección más nueva
+      viewB.src=src;viewB.classList.remove("out");
+      setTimeout(()=>{
+        if(turno!==vistaTurno)return;
+        viewA.src=src;viewA.alt=alt;
+        requestAnimationFrame(()=>{if(turno===vistaTurno)viewB.classList.add("out");});
+      },460);
+    };
+    pre.src=src;
   }
   const vseg=document.getElementById("viewSeg");
   if(vseg){
@@ -86,12 +97,14 @@
   function hlMark(i){
     hlI=i;
     hdots.forEach((d,k)=>{d.classList.toggle("on",k===i);d.setAttribute("aria-selected",String(k===i));d.classList.remove("run","paused","static");});
+    cards.forEach((c,k)=>c.classList.toggle("on",k===i));
     const d=hdots[i];if(!d)return;void d.offsetWidth;d.classList.add(hlRun?"run":"static");
     clearTimeout(hlTimer);if(hlRun)hlTimer=setTimeout(()=>hlGo((hlI+1)%cards.length),5000);
   }
   function hlGo(i){
     if(!track)return;hlLock=true;
-    track.scrollTo({left:cards[i].offsetLeft-cards[0].offsetLeft,behavior:reduce?"auto":"smooth"});
+    const c=cards[i];
+    track.scrollTo({left:c.offsetLeft-(track.clientWidth-c.offsetWidth)/2,behavior:reduce?"auto":"smooth"});
     hlMark(i);setTimeout(()=>hlLock=false,700);
   }
   function hlSet(run){hlRun=run;play.innerHTML=run?ICO_PAUSA:ICO_PLAY;play.setAttribute("aria-label",run?"Pausar":"Reproducir");hlMark(hlI);}
@@ -99,7 +112,10 @@
     hdots.forEach((d,i)=>d.addEventListener("click",()=>hlGo(i)));
     play.addEventListener("click",()=>hlSet(!hlRun));
     let t;track.addEventListener("scroll",()=>{if(hlLock)return;clearTimeout(t);t=setTimeout(()=>{
-      const x=track.scrollLeft,w=cards[1].offsetLeft-cards[0].offsetLeft;const i=Math.round(x/w);if(i!==hlI)hlMark(Math.max(0,Math.min(cards.length-1,i)));},120);},{passive:true});
+      const mid=track.scrollLeft+track.clientWidth/2;let i=0,best=1e9;
+      cards.forEach((c,k)=>{const d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<best){best=d;i=k;}});
+      if(i!==hlI)hlMark(i);},120);},{passive:true});
+    cards.forEach((c,i)=>c.addEventListener("click",()=>{if(i!==hlI)hlGo(i);}));
     ["pointerdown","focusin"].forEach(ev=>track.addEventListener(ev,()=>{if(hlRun)hlSet(false);}));
     // Solo corre cuando el carrusel está a la vista
     new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)clearTimeout(hlTimer);else hlMark(hlI);}),{threshold:.4}).observe(track);
@@ -154,7 +170,7 @@
   gsap.from(".hero-copy > *",{y:30,opacity:0,duration:1,ease:"power3.out",stagger:.08,delay:.1});
 
   // ── Lo más destacado: las tarjetas entran desde la derecha ──
-  gsap.from(".hl-card",{x:120,opacity:0,duration:1,ease:"power3.out",stagger:.08,scrollTrigger:{trigger:".hl-track",start:"top 80%",once:true}});
+  gsap.from(".hl-card",{x:120,autoAlpha:0,duration:1,ease:"power3.out",stagger:.08,clearProps:"transform,opacity,visibility",scrollTrigger:{trigger:".hl-track",start:"top 80%",once:true}});
 
   // ── Simulador: entra el panel de resultado ──
   gsap.from(".sim-out",{y:60,opacity:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:".sim-grid",start:"top 75%",once:true}});
