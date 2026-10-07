@@ -63,14 +63,15 @@ button{font-family:inherit}
 .nav{position:sticky;top:0;z-index:50;background:rgba(11,17,32,.72);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s}
 .nav.scrolled{border-color:var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a{text-decoration:none;color:var(--mute);font-size:.95rem;font-weight:500}
+.nav-links{display:flex;align-items:center;gap:clamp(18px,2vw,28px)}
+.nav-links a{text-decoration:none;color:var(--mute);font-size:.95rem;font-weight:500;white-space:nowrap}
+.brand{white-space:nowrap}
 .nav-links a:hover{color:var(--ink)}
 .nav .btn{min-height:40px;padding:0 18px;font-size:.92rem}
 .nav-links a.btn{color:#04202a}
 .nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:var(--ink);cursor:pointer}
 .nav-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-@media(max-width:860px){
+@media(max-width:1080px){
   .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gut) 18px;background:var(--navy);border-bottom:1px solid var(--line);display:none}
   .nav-links.open{display:flex}
@@ -323,6 +324,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <a href="#destacado">Destacado</a>
       <a href="#prioridad">Prioridad</a>
       <a href="#funciones">Funciones</a>
+      <a href="#vistazo">Míralo de cerca</a>
       <a href="#seguridad">Seguridad</a>
       <a href="#tecnologia">Tecnología</a>
       <a class="btn btn-pri" href="https://media-suite-6f432.web.app/?demo=1">Probar la demo</a>
