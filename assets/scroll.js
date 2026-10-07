@@ -155,7 +155,6 @@
     if(dest===null)return;
     e.preventDefault();
     lenis.scrollTo(dest,{offset:-72,duration:1.4});
-    if(id!=="#")history.replaceState(null,"",id);
   }));
 
   const mm=gsap.matchMedia();
