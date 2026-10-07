@@ -64,11 +64,19 @@
     gsap.from(".story-stage .phone",{scale:.85,opacity:0,duration:1,ease:"power3.out",
       scrollTrigger:{trigger:".story",start:"top 75%",once:true}});
   });
+  // En celular: la sección queda fija bajo la barra y el scroll avanza los pasos
   mm.add("(max-width:900px)",()=>{
-    steps.forEach(s=>{
-      s.classList.add("on");
-      gsap.from(s.querySelector(".step-img"),{y:50,opacity:0,duration:.9,ease:"power3.out",scrollTrigger:{trigger:s,start:"top 85%",once:true}});
+    const story=document.querySelector(".story");
+    if(!story)return;
+    story.classList.add("pin-m");
+    activar(0);
+    const n=steps.length;
+    const st=ScrollTrigger.create({
+      trigger:story,start:"top 68px",end:()=>"+="+Math.round(innerHeight*.75*n),
+      pin:true,anticipatePin:1,
+      onUpdate:self=>activar(Math.min(n-1,Math.floor(self.progress*n*0.999)))
     });
+    return()=>{story.classList.remove("pin-m");st.kill();steps.forEach(s=>s.classList.remove("on"));};
   });
 
   // ── Frase: cada palabra se ilumina al pasar por ella ──
