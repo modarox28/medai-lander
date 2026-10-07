@@ -86,7 +86,8 @@ a{color:inherit}
 .hero-lead{margin-top:22px;font-size:clamp(1.05rem,1.6vw,1.22rem);color:#b9c6dc;max-width:46ch}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .hero-note{margin-top:14px;font-size:.9rem;color:var(--mute)}
-.hero-shot{justify-self:center;position:relative}
+.hero-shot{justify-self:center;position:relative;transform-origin:50% 0}
+.hero .wrap{perspective:1400px}
 .phone{width:min(330px,78vw);border-radius:46px;padding:10px;background:linear-gradient(160deg,#2a3754,#121a2c 40%,#0c1222);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -20px rgba(0,0,0,.7),0 0 120px -30px rgba(0,200,240,.35)}
 .phone img{border-radius:37px;aspect-ratio:390/844;width:100%;object-fit:cover;object-position:top}
 .phone.sm{width:min(270px,70vw);border-radius:40px;padding:8px}
@@ -124,6 +125,38 @@ h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
 .chip{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--navy-2);font-size:.92rem;color:var(--ink)}
 .desk{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
 .ia-note{margin-top:20px;padding:16px 18px;border-radius:var(--r-sm);background:rgba(0,200,240,.06);border:1px solid rgba(0,200,240,.25);color:#cfe9f2;font-size:.96rem}
+
+
+/* Funciones: relato con teléfono fijo */
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px)}
+.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;max-width:46ch;opacity:.35;transition:opacity .5s}
+.step.on{opacity:1}
+.step p{margin-top:14px;color:#b9c6dc}
+.step ul{list-style:none;margin-top:20px;display:grid;gap:10px}
+.step li{position:relative;padding-left:28px}
+.step li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:2px;background:var(--cyan);border-radius:2px}
+.step-img{display:none}
+.story-stage{position:sticky;top:calc(50vh - 330px);height:660px;display:flex;align-items:center;justify-content:center;gap:22px;align-self:start}
+.story-stage .phone{position:relative;width:300px}
+.story-stage .phone img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);opacity:0;transform:scale(1.03);transition:opacity .55s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.story-stage .phone img.on{opacity:1;transform:none}
+.story-stage .phone::before{content:"";display:block;aspect-ratio:390/844}
+.story-dots{display:flex;flex-direction:column;gap:10px}
+.story-dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:height .4s cubic-bezier(.3,1.4,.5,1),background .3s}
+.story-dots i.on{height:26px;background:var(--cyan)}
+@media(max-width:900px){
+  .story{grid-template-columns:minmax(0,1fr)}
+  .story-stage{display:none}
+  .step{min-height:0;opacity:1;padding:36px 0;border-top:1px solid var(--line);max-width:none}
+  .step:first-child{border-top:none;padding-top:0}
+  .step-img{display:block;margin:0 auto 28px}
+}
+@media(max-height:720px) and (min-width:901px){.story-stage{top:calc(50vh - 260px);height:520px}.story-stage .phone{width:240px}}
+
+/* Frase que se ilumina palabra por palabra */
+.quote{padding:clamp(80px,14vw,180px) 0}
+.quote-txt{font-size:clamp(1.9rem,4.6vw,3.6rem);line-height:1.12;letter-spacing:-.03em;font-weight:700;max-width:22ch}
+.quote-txt .w{opacity:.18;transition:opacity .15s}
 
 /* Para el turno: tema claro/oscuro */
 .duo{display:flex;gap:18px;justify-content:center;align-items:flex-start}
@@ -255,58 +288,51 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
 </section>
 
-<!-- FUNCIONES -->
+<!-- FUNCIONES: el teléfono queda fijo y cambia de pantalla mientras bajas -->
 <section id="funciones" aria-labelledby="h-func">
   <div class="wrap">
     <div class="sec-head">
       <h2 id="h-func">Lo que necesita un turno de urgencias, en una sola app.</h2>
     </div>
-
-    <article class="feat">
-      <div class="feat-txt">
-        <h3>Historia clínica a mano</h3>
-        <p>Antecedentes, alergias y medicación de cada paciente, con búsqueda por nombre o documento aunque escribas sin tildes o solo una parte.</p>
-        <ul>
-          <li>Exporta la historia o el triage a PDF</li>
-          <li>El paciente consulta la suya con su documento y un PIN</li>
-          <li>Si olvida el PIN, el personal lo restablece en persona</li>
-        </ul>
+    <div class="story">
+      <div class="story-steps">
+        <article class="step" data-step="0">
+          <div class="phone sm step-img"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador, edad, documento, antecedentes y alergias destacadas"></div>
+          <h3>Historia clínica a mano</h3>
+          <p>Antecedentes, alergias y medicación de cada paciente, con búsqueda por nombre o documento aunque escribas sin tildes o solo una parte.</p>
+          <ul><li>Exporta la historia o el triage a PDF</li><li>El paciente consulta la suya con su documento y un PIN</li><li>Si olvida el PIN, el personal lo restablece en persona</li></ul>
+        </article>
+        <article class="step" data-step="1">
+          <div class="phone sm step-img"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART con sus criterios para marcar y el puntaje"></div>
+          <h3>Scores clínicos listos para usar</h3>
+          <p>Las escalas que se usan a diario, con los criterios publicados de cada una y el puntaje calculado mientras marcas.</p>
+          <div class="chips"><span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Índice de shock</span></div>
+        </article>
+        <article class="step" data-step="2">
+          <div class="phone sm step-img"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de un triage rojo por dolor torácico con la justificación de la IA y cuatro acciones prioritarias"></div>
+          <h3>Un asistente de IA que explica</h3>
+          <p>Sugiere la prioridad y las acciones iniciales, revisa interacciones entre medicamentos y redacta el resumen del turno. Cada sugerencia muestra su razonamiento.</p>
+          <p class="ia-note">La IA es un apoyo. La app lo recuerda en cada resultado y no reemplaza el criterio del profesional de salud.</p>
+        </article>
+        <article class="step" data-step="3">
+          <div class="phone sm step-img"><img src="assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="Estadísticas de los últimos 7 días por prioridad, con gráfico y porcentajes"></div>
+          <h3>Estadísticas del servicio</h3>
+          <p>Cuántos pacientes llegaron hoy, en 7 o en 30 días, por prioridad, motivo y tipo de paciente. El reporte se descarga en PDF para la reunión de turno.</p>
+          <ul><li>Incidentes con múltiples víctimas (START)</li><li>Avisos prehospitalarios de llegada</li><li>Registro de auditoría de cada acción</li></ul>
+        </article>
       </div>
-      <div class="feat-img"><div class="phone sm"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador, edad, documento, antecedentes y alergias destacadas"></div></div>
-    </article>
-
-    <article class="feat rev">
-      <div class="feat-txt">
-        <h3>Scores clínicos listos para usar</h3>
-        <p>Las escalas que se usan a diario, con los criterios publicados de cada una y el puntaje calculado mientras marcas.</p>
-        <div class="chips">
-          <span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Índice de shock</span>
-        </div>
+      <div class="story-stage" aria-hidden="true">
+        <div class="phone"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
+        <div class="story-dots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div>
       </div>
-      <div class="feat-img"><div class="phone sm"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART con sus criterios para marcar y el puntaje"></div></div>
-    </article>
+    </div>
+  </div>
+</section>
 
-    <article class="feat">
-      <div class="feat-txt">
-        <h3>Un asistente de IA que explica</h3>
-        <p>Sugiere la prioridad y las acciones iniciales, revisa interacciones entre medicamentos y redacta el resumen del turno. Cada sugerencia muestra su razonamiento.</p>
-        <p class="ia-note">La IA es un apoyo. La app lo recuerda en cada resultado y no reemplaza el criterio del profesional de salud.</p>
-      </div>
-      <div class="feat-img"><div class="phone sm"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de un triage rojo por dolor torácico con la justificación de la IA y cuatro acciones prioritarias"></div></div>
-    </article>
-
-    <article class="feat rev">
-      <div class="feat-txt">
-        <h3>Estadísticas del servicio</h3>
-        <p>Cuántos pacientes llegaron hoy, en 7 o en 30 días, por prioridad, motivo y tipo de paciente. El reporte se descarga en PDF para la reunión de turno.</p>
-        <ul>
-          <li>Incidentes con múltiples víctimas (START)</li>
-          <li>Avisos prehospitalarios de llegada</li>
-          <li>Registro de auditoría de cada acción</li>
-        </ul>
-      </div>
-      <div class="feat-img"><img class="desk" src="assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Vista de escritorio con resumen del día, actividad reciente y gráfico de pacientes por prioridad"></div>
-    </article>
+<!-- FRASE -->
+<section class="quote" aria-label="Principio de diseño">
+  <div class="wrap">
+    <p class="quote-txt" id="quoteTxt">La IA propone y explica. Quien atiende al paciente decide. Así de simple tiene que ser una herramienta para urgencias.</p>
   </div>
 </section>
 
@@ -441,5 +467,10 @@ links.addEventListener("click",e=>{if(e.target.closest("a")){links.classList.rem
 // La versión anterior registraba un service worker que dejaba la página en caché: se elimina
 if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister())).catch(()=>{});
 </script>
+<link rel="stylesheet" href="assets/vendor/lenis.css">
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/scroll.js" defer></script>
 </body>
 </html>
