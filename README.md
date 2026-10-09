@@ -29,3 +29,7 @@ Cada vez que cambies `assets/scroll.js`, sube el número de `?v=` en la etiqueta
 ## Contador de visitas
 
 Al final de `index.html` y `en/index.html` está el código de [GoatCounter](https://www.goatcounter.com) (gratis, sin cookies, no requiere aviso de cookies), comentado. Para activarlo: crea una cuenta, reemplaza `TU-CODIGO` por tu código y quita los `<!--` `-->` de esa línea en ambos archivos.
+
+## Seguridad
+
+GitHub Pages no permite enviar cabeceras HTTP, así que la página declara su política de seguridad con etiquetas `<meta>` en `index.html` y `en/index.html`: Content-Security-Policy (solo scripts, estilos, fuentes y video propios, más GoatCounter si se activa) y Referrer-Policy. Si agregas un recurso de otro dominio, inclúyelo en la CSP de ambos archivos o el navegador lo bloqueará.
