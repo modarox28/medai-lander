@@ -28,7 +28,7 @@ Cada vez que cambies `assets/scroll.js`, sube el número de `?v=` en la etiqueta
 
 ## Contador de visitas
 
-Al final de `index.html` y `en/index.html` está el código de [GoatCounter](https://www.goatcounter.com) (gratis, sin cookies, no requiere aviso de cookies), comentado. Para activarlo: crea una cuenta, reemplaza `TU-CODIGO` por tu código y quita los `<!--` `-->` de esa línea en ambos archivos.
+[GoatCounter](https://www.goatcounter.com) (gratis, sin cookies, no requiere aviso de cookies) está activo con la cuenta `m0d4r0x`: las estadísticas se ven en https://m0d4r0x.goatcounter.com. El código está al final de `index.html` y `en/index.html`.
 
 ## Páginas legales, SEO y 404
 
