@@ -30,6 +30,14 @@ Cada vez que cambies `assets/scroll.js`, sube el número de `?v=` en la etiqueta
 
 Al final de `index.html` y `en/index.html` está el código de [GoatCounter](https://www.goatcounter.com) (gratis, sin cookies, no requiere aviso de cookies), comentado. Para activarlo: crea una cuenta, reemplaza `TU-CODIGO` por tu código y quita los `<!--` `-->` de esa línea en ambos archivos.
 
+## Páginas legales, SEO y 404
+
+- `legal.html` y `en/legal.html`: aviso legal, privacidad y cookies de esta página (no usa cookies, por eso no hay banner). Enlazadas desde el pie.
+- Datos estructurados (JSON-LD: `WebPage`, `WebApplication`, `Person`) en el `<head>` de `index.html` y `en/index.html`. Si cambias la descripción de la app, cámbiala también ahí.
+- `sitemap.xml` con las cuatro páginas y sus versiones en otro idioma. Súbelo en Google Search Console. `robots.txt` no sirve en un sitio de proyecto de GitHub Pages (solo se lee en la raíz del dominio).
+- `404.html`: página de error con la marca (usa rutas absolutas `/medai-lander/...` porque GitHub la muestra en cualquier ruta).
+- Las capturas tienen una versión reducida (`-600.webp`, `d-dash-1000.webp`) que el navegador elige con `srcset` en celular. Si cambias una captura, regenera también su versión reducida.
+
 ## Seguridad
 
 GitHub Pages no permite enviar cabeceras HTTP, así que la página declara su política de seguridad con etiquetas `<meta>` en `index.html` y `en/index.html`: Content-Security-Policy (solo scripts, estilos, fuentes y video propios, más GoatCounter si se activa) y Referrer-Policy. Si agregas un recurso de otro dominio, inclúyelo en la CSP de ambos archivos o el navegador lo bloqueará.

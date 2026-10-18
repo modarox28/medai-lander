@@ -130,10 +130,12 @@ h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
 .hl-card.wide .hl-img{aspect-ratio:1800/1125;max-width:88%}
 .hl-card.wide .hl-img img{width:100%;height:100%;object-fit:contain;border-radius:14px;border:1px solid var(--line);box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
 .hl-ctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:28px}
-.hl-dots{display:flex;gap:10px;padding:14px 20px;border-radius:999px;background:rgba(255,255,255,.06)}
-.hl-dot{position:relative;width:8px;height:8px;border-radius:4px;border:0;background:#3a4a68;cursor:pointer;overflow:hidden;transition:width .4s cubic-bezier(.3,1.2,.5,1)}
-.hl-dot.on{width:44px}
-.hl-dot.on i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.hl-dots{display:flex;gap:2px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+/* Área táctil de 24px (WCAG 2.5.8); el punto visible de 8px se dibuja con ::before */
+.hl-dot{position:relative;width:24px;height:24px;border:0;padding:0;background:none;cursor:pointer;transition:width .4s cubic-bezier(.3,1.2,.5,1)}
+.hl-dot::before{content:"";position:absolute;inset:8px;border-radius:4px;background:#3a4a68}
+.hl-dot.on{width:60px}
+.hl-dot.on i{position:absolute;inset:8px;border-radius:4px;background:var(--ink);transform-origin:left;transform:scaleX(0)}
 .hl-dot.on.run i{animation:barra 5s linear forwards}
 .hl-dot.on.paused i{animation-play-state:paused}
 .hl-dot.on.static i{transform:none}
@@ -249,7 +251,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 /* ── FRASE ── */
 .quote{padding:clamp(88px,14vw,190px) 0}
 .quote-txt{font-size:clamp(2rem,4.8vw,3.8rem);line-height:1.1;letter-spacing:-.03em;font-weight:700;max-width:22ch}
-.quote-txt .w{opacity:.16}
+.quote-txt .w{opacity:.4}
 
 /* ── NÚMEROS ── */
 .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
@@ -350,6 +352,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   .hl-dot.on.run i{animation:none;transform:none}
 }
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://modarox28.github.io/medai-lander/en/#pagina", "url": "https://modarox28.github.io/medai-lander/en/", "inLanguage": "en", "name": "MedIA Suite — AI-assisted emergency triage", "about": {"@id": "https://media-suite-6f432.web.app/#app"}, "author": {"@id": "https://modarox28.github.io/medai-lander/#autor"}}, {"@type": "WebApplication", "@id": "https://media-suite-6f432.web.app/#app", "name": "MedIA Suite", "url": "https://media-suite-6f432.web.app/", "applicationCategory": "HealthApplication", "operatingSystem": "Web (browser), installable as a PWA", "description": "AI-assisted emergency triage: priority classification, real-time queue, medical records and clinical scores. Academic project; not a certified medical device.", "screenshot": "https://modarox28.github.io/medai-lander/assets/img/og.png", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "COP"}, "author": {"@id": "https://modarox28.github.io/medai-lander/#autor"}, "sameAs": ["https://github.com/modarox28/triage-ia"]}, {"@type": "Person", "@id": "https://modarox28.github.io/medai-lander/#autor", "name": "Moisés", "alternateName": "modarox28", "url": "https://github.com/modarox28", "jobTitle": "Systems Engineering student", "address": {"@type": "PostalAddress", "addressCountry": "CO"}}]}</script>
 <link rel="canonical" href="https://modarox28.github.io/medai-lander/en/">
 <link rel="alternate" hreflang="es" href="https://modarox28.github.io/medai-lander/">
 <link rel="alternate" hreflang="en" href="https://modarox28.github.io/medai-lander/en/">
@@ -395,10 +398,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
   <div class="hero-device" id="heroDevice">
     <div class="laptop">
-      <div class="laptop-screen"><img src="../assets/img/d-dash.webp" width="1800" height="1125" alt="MedIA Suite on desktop: critical patients waiting, today's numbers, recent activity and a priority chart" fetchpriority="high"></div>
+      <div class="laptop-screen"><img src="../assets/img/d-dash.webp" srcset="../assets/img/d-dash-1000.webp 1000w, ../assets/img/d-dash.webp 1800w" sizes="(max-width: 900px) 92vw, 760px" width="1800" height="1125" alt="MedIA Suite on desktop: critical patients waiting, today's numbers, recent activity and a priority chart" fetchpriority="high"></div>
       <div class="laptop-base"></div>
     </div>
-    <div class="phone hero-phone"><img src="../assets/img/m-dash.webp" width="780" height="1688" alt="MedIA Suite on a phone: home screen"></div>
+    <div class="phone hero-phone"><img src="../assets/img/m-dash.webp" srcset="../assets/img/m-dash-600.webp 600w, ../assets/img/m-dash.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" alt="MedIA Suite on a phone: home screen"></div>
   </div>
   <div class="hero-fade" aria-hidden="true"></div>
 </section>
@@ -409,23 +412,23 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   <div class="hl-track" id="hlTrack" role="region" aria-roledescription="carrusel" aria-label="MedIA Suite highlights" tabindex="0">
     <article class="hl-card" style="--tone:var(--red)" aria-label="1 of 5">
       <p class="hl-cap"><b>Color-coded priority.</b> Red, yellow or green, with the maximum time each patient can wait.</p>
-      <div class="hl-img phone sm"><img src="../assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Waiting queue sorted by priority"></div>
+      <div class="hl-img phone sm"><img src="../assets/img/m-cola.webp" srcset="../assets/img/m-cola-600.webp 600w, ../assets/img/m-cola.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Waiting queue sorted by priority"></div>
     </article>
     <article class="hl-card" style="--tone:var(--cyan)" aria-label="2 of 5">
       <p class="hl-cap"><b>An AI assistant that explains.</b> Suggests the priority and first actions, and shows why.</p>
-      <div class="hl-img phone sm"><img src="../assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Triage detail with the AI's reasoning"></div>
+      <div class="hl-img phone sm"><img src="../assets/img/m-detalle.webp" srcset="../assets/img/m-detalle-600.webp 600w, ../assets/img/m-detalle.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Triage detail with the AI's reasoning"></div>
     </article>
     <article class="hl-card" style="--tone:#a855f7" aria-label="3 of 5">
       <p class="hl-cap"><b>Every patient's record.</b> Find it by name or ID number, even without accents.</p>
-      <div class="hl-img phone sm"><img src="../assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Patient list with search"></div>
+      <div class="hl-img phone sm"><img src="../assets/img/m-hc.webp" srcset="../assets/img/m-hc-600.webp 600w, ../assets/img/m-hc.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Patient list with search"></div>
     </article>
     <article class="hl-card" style="--tone:var(--green)" aria-label="4 of 5">
       <p class="hl-cap"><b>Seven clinical scores.</b> HEART, qSOFA, NEWS2 and more, with their published criteria.</p>
-      <div class="hl-img phone sm"><img src="../assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="HEART score"></div>
+      <div class="hl-img phone sm"><img src="../assets/img/m-scores.webp" srcset="../assets/img/m-scores-600.webp 600w, ../assets/img/m-scores.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="HEART score"></div>
     </article>
     <article class="hl-card wide" style="--tone:var(--amber)" aria-label="5 of 5">
       <p class="hl-cap"><b>The shift in numbers.</b> Patients by priority, complaint and type, with a PDF report.</p>
-      <div class="hl-img"><img src="../assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Statistics dashboard on desktop"></div>
+      <div class="hl-img"><img src="../assets/img/d-dash.webp" srcset="../assets/img/d-dash-1000.webp 1000w, ../assets/img/d-dash.webp 1800w" sizes="(max-width: 900px) 92vw, 760px" width="1800" height="1125" loading="lazy" alt="Statistics dashboard on desktop"></div>
     </article>
   </div>
   <div class="hl-ctrl">
@@ -506,32 +509,32 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
     <div class="story">
       <div class="story-steps">
         <article class="step" data-step="0">
-          <div class="phone sm step-img"><img src="../assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Patient list with search, age, ID, history and highlighted allergies"></div>
+          <div class="phone sm step-img"><img src="../assets/img/m-hc.webp" srcset="../assets/img/m-hc-600.webp 600w, ../assets/img/m-hc.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Patient list with search, age, ID, history and highlighted allergies"></div>
           <h3>Medical records at hand</h3>
           <p>History, allergies and medication for every patient, searchable by name or ID number, even partially or without accents.</p>
           <ul><li>Export the record or the triage to PDF</li><li>Patients view their own with their ID and a PIN</li><li>If they forget the PIN, staff reset it in person</li></ul>
         </article>
         <article class="step" data-step="1">
-          <div class="phone sm step-img"><img src="../assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="HEART score with its criteria and total"></div>
+          <div class="phone sm step-img"><img src="../assets/img/m-scores.webp" srcset="../assets/img/m-scores-600.webp 600w, ../assets/img/m-scores.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="HEART score with its criteria and total"></div>
           <h3>Clinical scores ready to use</h3>
           <p>The scales used every day, with each one's published criteria and the score calculated as you check boxes.</p>
           <div class="chips"><span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Shock index</span></div>
         </article>
         <article class="step" data-step="2">
-          <div class="phone sm step-img"><img src="../assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Red triage detail for chest pain with the AI's reasoning and four priority actions"></div>
+          <div class="phone sm step-img"><img src="../assets/img/m-detalle.webp" srcset="../assets/img/m-detalle-600.webp 600w, ../assets/img/m-detalle.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Red triage detail for chest pain with the AI's reasoning and four priority actions"></div>
           <h3>An AI assistant that explains</h3>
           <p>It suggests the priority and initial actions, checks drug interactions and drafts the shift summary. Every suggestion shows its reasoning.</p>
           <p class="ia-note">AI is a support tool. The app says so on every result, and it never replaces the clinician's judgment.</p>
         </article>
         <article class="step" data-step="3">
-          <div class="phone sm step-img"><img src="../assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="Last 7 days statistics by priority, with chart and percentages"></div>
+          <div class="phone sm step-img"><img src="../assets/img/m-stats.webp" srcset="../assets/img/m-stats-600.webp 600w, ../assets/img/m-stats.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Last 7 days statistics by priority, with chart and percentages"></div>
           <h3>Department statistics</h3>
           <p>How many patients arrived today, in 7 or 30 days, by priority, complaint and patient type. The report downloads as a PDF for the shift handover.</p>
           <ul><li>Mass casualty incidents (START)</li><li>Pre-hospital arrival notices</li><li>Audit log of every action</li></ul>
         </article>
       </div>
       <div class="story-stage" aria-hidden="true">
-        <div class="phone"><img src="../assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="../assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="../assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="../assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
+        <div class="phone"><img src="../assets/img/m-hc.webp" srcset="../assets/img/m-hc-600.webp 600w, ../assets/img/m-hc.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="../assets/img/m-scores.webp" srcset="../assets/img/m-scores-600.webp 600w, ../assets/img/m-scores.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="../assets/img/m-detalle.webp" srcset="../assets/img/m-detalle-600.webp 600w, ../assets/img/m-detalle.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="../assets/img/m-stats.webp" srcset="../assets/img/m-stats-600.webp 600w, ../assets/img/m-stats.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
         <div class="story-dots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div>
       </div>
     </div>
@@ -696,7 +699,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <h3 class="about-h3">What I work with</h3>
       <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML and CSS</span><span class="chip">Firebase</span><span class="chip">Cloudflare Workers</span><span class="chip">Git and GitHub Actions</span><span class="chip">Java and Android</span><span class="chip">MySQL</span><span class="chip">Python</span></div>
       <div class="hero-cta" style="justify-content:flex-start;margin-top:30px">
-        <a class="btn btn-pri" href="https://github.com/modarox28">See my GitHub</a>
+        <a class="btn btn-sec" href="https://github.com/modarox28">See my GitHub</a>
         <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=Hi%20Mois%C3%A9s">Email me</a>
       </div>
     </div>
@@ -723,11 +726,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
         <svg viewBox="0 0 100 100" aria-hidden="true"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
         <span>Med<i>IA</i> <s>Suite</s></span>
       </a>
-      <p class="foot-note" style="margin-top:12px">Academic project in progress, made in Colombia by Moisés (modarox28). It's a clinical decision support tool, not a certified medical device.</p>
+      <p class="foot-note" style="margin-top:12px">Academic project in progress, made in Colombia by Moisés (modarox28). It's a clinical decision support tool, not a certified medical device. This page uses no cookies or tracking.</p>
     </div>
     <div class="foot-links">
       <a href="https://media-suite-6f432.web.app/?lang=en">Open the app</a>
-      <a href="https://media-suite-6f432.web.app/privacidad.html">Privacy policy (ES)</a>
+      <a href="https://media-suite-6f432.web.app/privacidad.html">App data policy (ES)</a>
+      <a href="legal.html">Legal notice</a>
+      <a href="legal.html#cookies">Privacy &amp; cookies</a>
       <a href="https://github.com/modarox28/triage-ia">GitHub</a>
     </div>
   </div>

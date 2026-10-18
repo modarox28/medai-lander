@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Página no encontrada — MedIA Suite</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b1120">
+<link rel="icon" type="image/svg+xml" href="/medai-lander/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/medai-lander/favicon-32.png">
+<style>
+@font-face{font-family:"Familjen Grotesk";font-weight:400;font-display:swap;src:url(/medai-lander/assets/fonts/familjen-grotesk-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Familjen Grotesk";font-weight:700;font-display:swap;src:url(/medai-lander/assets/fonts/familjen-grotesk-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-weight:700;font-display:swap;src:url(/medai-lander/assets/fonts/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;display:grid;place-items:center;padding:24px;background:#0b1120;color:#e8eef8;font:400 1.05rem/1.6 "Familjen Grotesk",system-ui,sans-serif;text-align:center}
+main{max-width:460px}
+svg{width:120px;height:72px;margin:0 auto 18px;display:block}
+polyline{fill:none;stroke:#00c8f0;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:260;stroke-dashoffset:260;animation:trazo 1.6s ease-out forwards}
+@keyframes trazo{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){polyline{animation:none;stroke-dashoffset:0}}
+.cod{font:700 .8rem "JetBrains Mono",monospace;letter-spacing:.2em;color:#8b9ec0}
+h1{font-size:1.8rem;line-height:1.2;margin:8px 0 12px}
+p{color:#b9c6dc}
+.en{margin-top:6px;font-size:.92rem;color:#8b9ec0}
+.acc{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+a{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;font-weight:700;text-decoration:none}
+.pri{background:#00c8f0;color:#04202a}
+.sec{border:1px solid #1e2d45;color:#e8eef8}
+a:focus-visible{outline:2px solid #00c8f0;outline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+  <svg viewBox="0 0 100 60" aria-hidden="true"><polyline points="2,40 22,40 32,8 46,52 60,8 70,40 98,40"/></svg>
+  <div class="cod">ERROR 404</div>
+  <h1>Esta página no existe</h1>
+  <p>Puede que el enlace esté mal escrito o que la página se haya movido.</p>
+  <p class="en" lang="en">This page doesn't exist.</p>
+  <div class="acc">
+    <a class="pri" href="/medai-lander/">Ir al inicio</a>
+    <a class="sec" href="/medai-lander/en/" lang="en">English</a>
+  </div>
+</main>
+</body>
+</html>

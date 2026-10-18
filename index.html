@@ -130,10 +130,12 @@ h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.25;font-weight:700}
 .hl-card.wide .hl-img{aspect-ratio:1800/1125;max-width:88%}
 .hl-card.wide .hl-img img{width:100%;height:100%;object-fit:contain;border-radius:14px;border:1px solid var(--line);box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
 .hl-ctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:28px}
-.hl-dots{display:flex;gap:10px;padding:14px 20px;border-radius:999px;background:rgba(255,255,255,.06)}
-.hl-dot{position:relative;width:8px;height:8px;border-radius:4px;border:0;background:#3a4a68;cursor:pointer;overflow:hidden;transition:width .4s cubic-bezier(.3,1.2,.5,1)}
-.hl-dot.on{width:44px}
-.hl-dot.on i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.hl-dots{display:flex;gap:2px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+/* Área táctil de 24px (WCAG 2.5.8); el punto visible de 8px se dibuja con ::before */
+.hl-dot{position:relative;width:24px;height:24px;border:0;padding:0;background:none;cursor:pointer;transition:width .4s cubic-bezier(.3,1.2,.5,1)}
+.hl-dot::before{content:"";position:absolute;inset:8px;border-radius:4px;background:#3a4a68}
+.hl-dot.on{width:60px}
+.hl-dot.on i{position:absolute;inset:8px;border-radius:4px;background:var(--ink);transform-origin:left;transform:scaleX(0)}
 .hl-dot.on.run i{animation:barra 5s linear forwards}
 .hl-dot.on.paused i{animation-play-state:paused}
 .hl-dot.on.static i{transform:none}
@@ -249,7 +251,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radiu
 /* ── FRASE ── */
 .quote{padding:clamp(88px,14vw,190px) 0}
 .quote-txt{font-size:clamp(2rem,4.8vw,3.8rem);line-height:1.1;letter-spacing:-.03em;font-weight:700;max-width:22ch}
-.quote-txt .w{opacity:.16}
+.quote-txt .w{opacity:.4}
 
 /* ── NÚMEROS ── */
 .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
@@ -350,6 +352,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   .hl-dot.on.run i{animation:none;transform:none}
 }
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://modarox28.github.io/medai-lander/#pagina", "url": "https://modarox28.github.io/medai-lander/", "inLanguage": "es", "name": "MedIA Suite — Triage de urgencias con apoyo de IA", "about": {"@id": "https://media-suite-6f432.web.app/#app"}, "author": {"@id": "https://modarox28.github.io/medai-lander/#autor"}}, {"@type": "WebApplication", "@id": "https://media-suite-6f432.web.app/#app", "name": "MedIA Suite", "url": "https://media-suite-6f432.web.app/", "applicationCategory": "HealthApplication", "operatingSystem": "Web (navegador), instalable como PWA", "description": "Triage de urgencias con apoyo de IA: clasificación por prioridad, cola en tiempo real, historia clínica y scores clínicos. Proyecto académico; no es un dispositivo médico certificado.", "screenshot": "https://modarox28.github.io/medai-lander/assets/img/og.png", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "COP"}, "author": {"@id": "https://modarox28.github.io/medai-lander/#autor"}, "sameAs": ["https://github.com/modarox28/triage-ia"]}, {"@type": "Person", "@id": "https://modarox28.github.io/medai-lander/#autor", "name": "Moisés", "alternateName": "modarox28", "url": "https://github.com/modarox28", "jobTitle": "Estudiante de Ingeniería de Sistemas", "address": {"@type": "PostalAddress", "addressCountry": "CO"}}]}</script>
 <link rel="canonical" href="https://modarox28.github.io/medai-lander/">
 <link rel="alternate" hreflang="es" href="https://modarox28.github.io/medai-lander/">
 <link rel="alternate" hreflang="en" href="https://modarox28.github.io/medai-lander/en/">
@@ -395,10 +398,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   </div>
   <div class="hero-device" id="heroDevice">
     <div class="laptop">
-      <div class="laptop-screen"><img src="assets/img/d-dash.webp" width="1800" height="1125" alt="MedIA Suite en computador: pacientes críticos en espera, cifras del día, actividad reciente y gráfico por prioridad" fetchpriority="high"></div>
+      <div class="laptop-screen"><img src="assets/img/d-dash.webp" srcset="assets/img/d-dash-1000.webp 1000w, assets/img/d-dash.webp 1800w" sizes="(max-width: 900px) 92vw, 760px" width="1800" height="1125" alt="MedIA Suite en computador: pacientes críticos en espera, cifras del día, actividad reciente y gráfico por prioridad" fetchpriority="high"></div>
       <div class="laptop-base"></div>
     </div>
-    <div class="phone hero-phone"><img src="assets/img/m-dash.webp" width="780" height="1688" alt="MedIA Suite en celular: pantalla de inicio"></div>
+    <div class="phone hero-phone"><img src="assets/img/m-dash.webp" srcset="assets/img/m-dash-600.webp 600w, assets/img/m-dash.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" alt="MedIA Suite en celular: pantalla de inicio"></div>
   </div>
   <div class="hero-fade" aria-hidden="true"></div>
 </section>
@@ -409,23 +412,23 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
   <div class="hl-track" id="hlTrack" role="region" aria-roledescription="carrusel" aria-label="Lo más destacado de MedIA Suite" tabindex="0">
     <article class="hl-card" style="--tone:var(--red)" aria-label="1 de 5">
       <p class="hl-cap"><b>Prioridad por colores.</b> Rojo, amarillo o verde, con el tiempo máximo que cada paciente puede esperar.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-cola.webp" width="780" height="1688" loading="lazy" alt="Cola de espera ordenada por prioridad"></div>
+      <div class="hl-img phone sm"><img src="assets/img/m-cola.webp" srcset="assets/img/m-cola-600.webp 600w, assets/img/m-cola.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Cola de espera ordenada por prioridad"></div>
     </article>
     <article class="hl-card" style="--tone:var(--cyan)" aria-label="2 de 5">
       <p class="hl-cap"><b>Un asistente de IA que explica.</b> Sugiere la prioridad y las primeras acciones, y muestra por qué.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de triage con la justificación de la IA"></div>
+      <div class="hl-img phone sm"><img src="assets/img/m-detalle.webp" srcset="assets/img/m-detalle-600.webp 600w, assets/img/m-detalle.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Detalle de triage con la justificación de la IA"></div>
     </article>
     <article class="hl-card" style="--tone:#a855f7" aria-label="3 de 5">
       <p class="hl-cap"><b>La historia de cada paciente.</b> Búscala por nombre o documento, aunque escribas sin tildes.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador"></div>
+      <div class="hl-img phone sm"><img src="assets/img/m-hc.webp" srcset="assets/img/m-hc-600.webp 600w, assets/img/m-hc.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador"></div>
     </article>
     <article class="hl-card" style="--tone:var(--green)" aria-label="4 de 5">
       <p class="hl-cap"><b>Siete scores clínicos.</b> HEART, qSOFA, NEWS2 y más, con sus criterios publicados.</p>
-      <div class="hl-img phone sm"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART"></div>
+      <div class="hl-img phone sm"><img src="assets/img/m-scores.webp" srcset="assets/img/m-scores-600.webp 600w, assets/img/m-scores.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Score HEART"></div>
     </article>
     <article class="hl-card wide" style="--tone:var(--amber)" aria-label="5 de 5">
       <p class="hl-cap"><b>El turno en cifras.</b> Pacientes por prioridad, motivo y tipo, con reporte en PDF.</p>
-      <div class="hl-img"><img src="assets/img/d-dash.webp" width="1800" height="1125" loading="lazy" alt="Panel de estadísticas en computador"></div>
+      <div class="hl-img"><img src="assets/img/d-dash.webp" srcset="assets/img/d-dash-1000.webp 1000w, assets/img/d-dash.webp 1800w" sizes="(max-width: 900px) 92vw, 760px" width="1800" height="1125" loading="lazy" alt="Panel de estadísticas en computador"></div>
     </article>
   </div>
   <div class="hl-ctrl">
@@ -506,32 +509,32 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
     <div class="story">
       <div class="story-steps">
         <article class="step" data-step="0">
-          <div class="phone sm step-img"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador, edad, documento, antecedentes y alergias destacadas"></div>
+          <div class="phone sm step-img"><img src="assets/img/m-hc.webp" srcset="assets/img/m-hc-600.webp 600w, assets/img/m-hc.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Lista de pacientes con buscador, edad, documento, antecedentes y alergias destacadas"></div>
           <h3>Historia clínica a mano</h3>
           <p>Antecedentes, alergias y medicación de cada paciente, con búsqueda por nombre o documento aunque escribas sin tildes o solo una parte.</p>
           <ul><li>Exporta la historia o el triage a PDF</li><li>El paciente consulta la suya con su documento y un PIN</li><li>Si olvida el PIN, el personal lo restablece en persona</li></ul>
         </article>
         <article class="step" data-step="1">
-          <div class="phone sm step-img"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="Score HEART con sus criterios para marcar y el puntaje"></div>
+          <div class="phone sm step-img"><img src="assets/img/m-scores.webp" srcset="assets/img/m-scores-600.webp 600w, assets/img/m-scores.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Score HEART con sus criterios para marcar y el puntaje"></div>
           <h3>Scores clínicos listos para usar</h3>
           <p>Las escalas que se usan a diario, con los criterios publicados de cada una y el puntaje calculado mientras marcas.</p>
           <div class="chips"><span class="chip">HEART</span><span class="chip">qSOFA</span><span class="chip">NEWS2</span><span class="chip">CURB-65</span><span class="chip">Wells</span><span class="chip">Glasgow</span><span class="chip">ROSIER</span><span class="chip">Índice de shock</span></div>
         </article>
         <article class="step" data-step="2">
-          <div class="phone sm step-img"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="Detalle de un triage rojo por dolor torácico con la justificación de la IA y cuatro acciones prioritarias"></div>
+          <div class="phone sm step-img"><img src="assets/img/m-detalle.webp" srcset="assets/img/m-detalle-600.webp 600w, assets/img/m-detalle.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Detalle de un triage rojo por dolor torácico con la justificación de la IA y cuatro acciones prioritarias"></div>
           <h3>Un asistente de IA que explica</h3>
           <p>Sugiere la prioridad y las acciones iniciales, revisa interacciones entre medicamentos y redacta el resumen del turno. Cada sugerencia muestra su razonamiento.</p>
           <p class="ia-note">La IA es un apoyo. La app lo recuerda en cada resultado y no reemplaza el criterio del profesional de salud.</p>
         </article>
         <article class="step" data-step="3">
-          <div class="phone sm step-img"><img src="assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="Estadísticas de los últimos 7 días por prioridad, con gráfico y porcentajes"></div>
+          <div class="phone sm step-img"><img src="assets/img/m-stats.webp" srcset="assets/img/m-stats-600.webp 600w, assets/img/m-stats.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="Estadísticas de los últimos 7 días por prioridad, con gráfico y porcentajes"></div>
           <h3>Estadísticas del servicio</h3>
           <p>Cuántos pacientes llegaron hoy, en 7 o en 30 días, por prioridad, motivo y tipo de paciente. El reporte se descarga en PDF para la reunión de turno.</p>
           <ul><li>Incidentes con múltiples víctimas (START)</li><li>Avisos prehospitalarios de llegada</li><li>Registro de auditoría de cada acción</li></ul>
         </article>
       </div>
       <div class="story-stage" aria-hidden="true">
-        <div class="phone"><img src="assets/img/m-hc.webp" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="assets/img/m-scores.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="assets/img/m-detalle.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="assets/img/m-stats.webp" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
+        <div class="phone"><img src="assets/img/m-hc.webp" srcset="assets/img/m-hc-600.webp 600w, assets/img/m-hc.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="on" data-shot="0"><img src="assets/img/m-scores.webp" srcset="assets/img/m-scores-600.webp 600w, assets/img/m-scores.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="" data-shot="1"><img src="assets/img/m-detalle.webp" srcset="assets/img/m-detalle-600.webp 600w, assets/img/m-detalle.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="" data-shot="2"><img src="assets/img/m-stats.webp" srcset="assets/img/m-stats-600.webp 600w, assets/img/m-stats.webp 780w" sizes="(max-width: 480px) 74vw, 330px" width="780" height="1688" loading="lazy" alt="" class="" data-shot="3"></div>
         <div class="story-dots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div>
       </div>
     </div>
@@ -696,7 +699,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
       <h3 class="about-h3">Con qué trabajo</h3>
       <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML y CSS</span><span class="chip">Firebase</span><span class="chip">Cloudflare Workers</span><span class="chip">Git y GitHub Actions</span><span class="chip">Java y Android</span><span class="chip">MySQL</span><span class="chip">Python</span></div>
       <div class="hero-cta" style="justify-content:flex-start;margin-top:30px">
-        <a class="btn btn-pri" href="https://github.com/modarox28">Ver mi GitHub</a>
+        <a class="btn btn-sec" href="https://github.com/modarox28">Ver mi GitHub</a>
         <a class="btn btn-sec" href="mailto:mdq2804@gmail.com?subject=Hola%20Mois%C3%A9s">Escribirme</a>
       </div>
     </div>
@@ -723,11 +726,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
         <svg viewBox="0 0 100 100" aria-hidden="true"><polyline points="6,62 26,62 36,30 50,68 64,30 74,62 94,62"/></svg>
         <span>Med<i>IA</i> <s>Suite</s></span>
       </a>
-      <p class="foot-note" style="margin-top:12px">Proyecto académico en desarrollo, hecho en Colombia por Moisés (modarox28). Es una herramienta de apoyo a la decisión clínica y no un dispositivo médico certificado.</p>
+      <p class="foot-note" style="margin-top:12px">Proyecto académico en desarrollo, hecho en Colombia por Moisés (modarox28). Es una herramienta de apoyo a la decisión clínica y no un dispositivo médico certificado. Esta página no usa cookies ni rastreo.</p>
     </div>
     <div class="foot-links">
       <a href="https://media-suite-6f432.web.app/">Abrir la app</a>
-      <a href="https://media-suite-6f432.web.app/privacidad.html">Política de datos</a>
+      <a href="https://media-suite-6f432.web.app/privacidad.html">Política de datos de la app</a>
+      <a href="legal.html">Aviso legal</a>
+      <a href="legal.html#cookies">Privacidad y cookies</a>
       <a href="https://github.com/modarox28/triage-ia">GitHub</a>
     </div>
   </div>
